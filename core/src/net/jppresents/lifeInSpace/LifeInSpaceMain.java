@@ -41,7 +41,6 @@ public class LifeInSpaceMain extends ApplicationAdapter implements InputProcesso
 
   OrthogonalTiledMapRenderer mapRenderer;
   private Batch lightBufferBatch;
-  private OrthographicCamera lightCamera;
 
   @Override
   public void dispose() {
@@ -56,9 +55,6 @@ public class LifeInSpaceMain extends ApplicationAdapter implements InputProcesso
   public void create() {
     camera = new OrthographicCamera();
     lightBufferCamera = new OrthographicCamera(1280, 720);
-    lightCamera = new OrthographicCamera(1280, 720);
-    lightCamera.translate(1280/2, 720/2);
-    lightCamera.update();
     viewport = new ExtendViewport(1280, 720, camera);
     camera.translate(1280/2, 720/2);
     batch = new SpriteBatch();
@@ -141,7 +137,7 @@ public class LifeInSpaceMain extends ApplicationAdapter implements InputProcesso
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 // start rendering the lights to our spriteBatch
-    lightBatch.setProjectionMatrix(lightCamera.combined);
+    lightBatch.setProjectionMatrix(camera.combined);
     lightBatch.begin();
 
     //Scale
@@ -150,7 +146,8 @@ public class LifeInSpaceMain extends ApplicationAdapter implements InputProcesso
 
 
     lightBatch.setColor(1, 1, 1, 1);
-    lightBatch.draw(light, lightX - camera.position.x + camera.viewportWidth/2 - 128/2, lightY - camera.position.y + camera.viewportHeight/2 - 128/2, 128, 128, 0, 0, 128, 128, false, false);
+
+    lightBatch.draw(light, touchPoint.x - 128/2, touchPoint.y - 128/2, 128, 128, 0, 0, 128, 128, false, false);
 
 
     lightBatch.setColor(1, 0, 0, 1);
