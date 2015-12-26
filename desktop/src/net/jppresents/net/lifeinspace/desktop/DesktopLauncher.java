@@ -14,7 +14,7 @@ public class DesktopLauncher {
       config.width = 1280;
       config.height = 720;
     }
-    //config.resizable = false;
+    config.title = "Life in space - and how to get rid of it";
 		new LwjglApplication(new LifeInSpaceMain(), config);
 	}
 }
