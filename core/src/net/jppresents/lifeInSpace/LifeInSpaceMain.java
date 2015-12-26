@@ -2,12 +2,17 @@ package net.jppresents.lifeInSpace;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -26,26 +31,43 @@ public class LifeInSpaceMain extends ApplicationAdapter implements InputProcesso
 
 
   private Viewport viewport;
-  private Camera camera;
+  private OrthographicCamera camera;
+  private OrthographicCamera lightBufferCamera;
   private Vector3 touchPoint = new Vector3();
 
 
   float lightX, lightY;
-
   FrameBuffer lightBuffer;
-  TextureRegion lightBufferRegion;
 
+  OrthogonalTiledMapRenderer mapRenderer;
+  private Batch lightBufferBatch;
+  private OrthographicCamera lightCamera;
+
+  @Override
+  public void dispose() {
+    map.dispose();
+    light.dispose();
+  }
+
+  TiledMap map;
+  TmxMapLoader mapLoader;
 
   @Override
   public void create() {
     camera = new OrthographicCamera();
+    lightBufferCamera = new OrthographicCamera(1280, 720);
+    lightCamera = new OrthographicCamera(1280, 720);
+    lightCamera.translate(1280/2, 720/2);
+    lightCamera.update();
     viewport = new ExtendViewport(1280, 720, camera);
+    camera.translate(1280/2, 720/2);
     batch = new SpriteBatch();
     lightBatch = new SpriteBatch();
+    lightBufferBatch = new SpriteBatch();
 
     img = new Texture("badlogic.jpg");
 
-    light = new Texture("light.png");
+    light = new Texture("light_org.png");
 
     FileHandle scmlHandle = Gdx.files.internal("guy/guy.scml");
     SCMLReader reader = new SCMLReader(scmlHandle.read());
@@ -61,33 +83,48 @@ public class LifeInSpaceMain extends ApplicationAdapter implements InputProcesso
 
     Gdx.input.setInputProcessor(this);
 
-    lightBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, 1280, 720, false);
 
-    lightBuffer.getColorBufferTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
-
-    lightBufferRegion = new TextureRegion(lightBuffer.getColorBufferTexture(), 0, 0, 1280, 720);
-
-    lightBufferRegion.flip(false, false);
+    mapLoader = new TmxMapLoader();
+    map =  mapLoader.load("world/world.tmx");
+    mapRenderer = new OrthogonalTiledMapRenderer(map, 1);
 
   }
 
   @Override
   public void resize(int width, int height) {
-    viewport.update(width, height, true);
-    batch.setProjectionMatrix(camera.combined);
-    lightBatch.setProjectionMatrix(camera.combined);
+    viewport.update(width, height, false);
+    if (lightBuffer != null)
+      lightBuffer.dispose();
+    camera.update();
+    lightBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, width, height, false);
+    lightBuffer.getColorBufferTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+    lightBufferCamera.viewportHeight = height;
+    lightBufferCamera.viewportWidth = width;
+    lightBufferCamera.position.set(width/2, height/2, 0);
+    lightBufferCamera.update();
   }
 
   @Override
   public void render() {
-    Gdx.gl.glClearColor(1, 1, 1, 1);
-    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+//    Gdx.gl.glClearColor(1, 1, 1, 1);
+//    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+    TiledMapTileLayer layer = (TiledMapTileLayer)map.getLayers().get(0);
+
+    camera.update();
+
+    mapRenderer.setView(camera);
+    mapRenderer.render();
 
     player.update();
+
+
+    batch.setProjectionMatrix(camera.combined);
     batch.begin();
     batch.draw(img, 200, 200);
     drawer.draw(player);
     batch.end();
+
 
 
 // start rendering to the lightBuffer
@@ -100,36 +137,34 @@ public class LifeInSpaceMain extends ApplicationAdapter implements InputProcesso
 // set the ambient color values, this is the "global" light of your scene
 // imagine it being the sun.  Usually the alpha value is just 1, and you change the darkness/brightness with the Red, Green and Blue values for best effect
 
-    Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
+    Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 1);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 // start rendering the lights to our spriteBatch
+    lightBatch.setProjectionMatrix(lightCamera.combined);
     lightBatch.begin();
 
+    //Scale
+    float scale = lightBuffer.getWidth() / 1280f;
+//    System.out.println(scale);
 
-// set the color of your light (red,green,blue,alpha values)
-    lightBatch.setColor(1, 0.5f, 0.5f, 1);
 
-// tx and ty contain the center of the light source
-    float tx = lightX;
-    float ty = lightY;
+    lightBatch.setColor(1, 1, 1, 1);
+    lightBatch.draw(light, lightX - camera.position.x + camera.viewportWidth/2 - 128/2, lightY - camera.position.y + camera.viewportHeight/2 - 128/2, 128, 128, 0, 0, 128, 128, false, false);
 
-// tw will be the size of the light source based on the "distance"
-// (the light image is 128x128)
-// and 96 is the "distance"
-// Experiment with this value between based on your game resolution
-// my lights are 8 up to 128 in distance
-    float tw = (128 / 100f) * 256;
 
-// make sure the center is still the center based on the "distance"
-    tx -= (tw / 2);
-    ty -= (tw / 2);
+    lightBatch.setColor(1, 0, 0, 1);
+    lightBatch.draw(light, 0, 0, 128, 128, 0, 0, 128, 128, false, false);
 
-// and render the sprite
-    lightBatch.draw(light, tx, ty, tw, tw, 0, 0, 128, 128, false, true);
+    lightBatch.setColor(0, 1, 0, 1);
+    lightBatch.draw(light, 1280-128, 720-128, 128 , 128, 0, 0, 128, 128, false, false);
+//
+//    lightBatch.setColor(0, 0, 1, 1);
+//    lightBatch.draw(light, lightBuffer.getWidth() - 128 * scale, 0, 128* scale, 128* scale, 0, 0, 128, 128, false, false);
+//
+//    lightBatch.setColor(0, 1, 1, 1);
+//    lightBatch.draw(light, 0, lightBuffer.getHeight() - 128 * scale, 128* scale, 128* scale, 0, 0, 128, 128, false, false);
 
-    //static light
-    lightBatch.draw(light, 100, 100, 256, 256, 0, 0, 128, 128, false, true);
 
     lightBatch.end();
     lightBuffer.end();
@@ -137,15 +172,28 @@ public class LifeInSpaceMain extends ApplicationAdapter implements InputProcesso
 
 // now we render the lightBuffer to the default "frame buffer"
 // with the right blending !
-
-    lightBatch.setColor(1, 1, 1, 1);
-    lightBatch.begin();
-    lightBatch.setBlendFunction(GL20.GL_DST_COLOR, GL20.GL_ZERO);
-    lightBatch.draw(lightBufferRegion, 0, 0, 1280, 720);
-    lightBatch.end();
+    lightBufferBatch.setProjectionMatrix(lightBufferCamera.combined);
+    lightBufferBatch.setColor(1, 1, 1, 1);
+    lightBufferBatch.setBlendFunction(GL20.GL_DST_COLOR, GL20.GL_ZERO);
+    lightBufferBatch.begin();
+    lightBufferBatch.draw(lightBuffer.getColorBufferTexture(), 0, 0, lightBuffer.getWidth(), lightBuffer.getHeight(), 0, 0, lightBuffer.getWidth(), lightBuffer.getHeight(), false, true);
+    lightBufferBatch.end();
 
 // post light-rendering
 // you might want to render your statusbar stuff here
+
+    if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+      camera.translate(-64, 0);
+    }
+    if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+      camera.translate(64, 0);
+    }
+    if(Gdx.input.isKeyPressed(Input.Keys.UP)){
+      camera.translate(0, 64);
+    }
+    if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+      camera.translate(0, -64);
+    }
 
 
   }
@@ -169,8 +217,10 @@ public class LifeInSpaceMain extends ApplicationAdapter implements InputProcesso
   @Override
   public boolean touchDown(int screenX, int screenY, int pointer, int button) {
     camera.unproject(touchPoint.set(screenX, screenY, 0));
-    lightX = touchPoint.x;
-    lightY = 720 - touchPoint.y;
+    player.setPosition(touchPoint.x, touchPoint.y);
+//    viewport.project(touchPoint);
+//    lightX = touchPoint.x;
+//    lightY = touchPoint.y;
     return true;
   }
 
@@ -182,8 +232,9 @@ public class LifeInSpaceMain extends ApplicationAdapter implements InputProcesso
   @Override
   public boolean touchDragged(int screenX, int screenY, int pointer) {
     camera.unproject(touchPoint.set(screenX, screenY, 0));
+    player.setPosition(touchPoint.x, touchPoint.y);
     lightX = touchPoint.x;
-    lightY = 720 - touchPoint.y;
+    lightY = touchPoint.y;
     return true;
   }
 
