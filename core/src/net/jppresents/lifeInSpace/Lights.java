@@ -17,6 +17,7 @@ public class Lights implements Disposable{
   private FrameBuffer lightBuffer;
   private Batch lightBufferBatch;
   private List<Light> lights = new ArrayList<Light>(10);
+  private Color ambientColor;
 
 
   public Lights() {
@@ -24,11 +25,9 @@ public class Lights implements Disposable{
     lightBufferBatch = new SpriteBatch();
     lightBatch = new SpriteBatch();
     lightTexture = new Texture("light_org.png");
-
-// setup the right blending
     lightBatch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE);
     lightBatch.enableBlending();
-
+    ambientColor = new Color(0.3f, 0.3f, 0.3f, 1);
   }
 
   @Override
@@ -50,34 +49,18 @@ public class Lights implements Disposable{
     lightBuffer.getColorBufferTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
   }
 
-
   public void render(Camera camera) {
-// start rendering to the lightBuffer
     lightBuffer.begin();
-
-// set the ambient color values, this is the "global" lightTexture of your scene
-// imagine it being the sun.  Usually the alpha value is just 1, and you change the darkness/brightness with the Red, Green and Blue values for best effect
-
-    Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 1);
+    Gdx.gl.glClearColor(ambientColor.r, ambientColor.g, ambientColor.b, ambientColor.a);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-// start rendering the lights to our spriteBatch
     lightBatch.setProjectionMatrix(camera.combined);
     lightBatch.begin();
-
-    //Scale
-    float scale = lightBuffer.getWidth() / 1280f;
-//    System.out.println(scale);
-
     for (Light light: lights) {
       lightBatch.setColor(light.getColor());
       lightBatch.draw(lightTexture, light.getX() - light.getSize()/2, light.getY() - light.getSize()/2, light.getSize(), light.getSize(), 0, 0, 128, 128, false, false);
     }
-
-
     lightBatch.end();
     lightBuffer.end();
-
     lightBufferBatch.setProjectionMatrix(lightBufferCamera.combined);
     lightBufferBatch.setColor(1, 1, 1, 1);
     lightBufferBatch.setBlendFunction(GL20.GL_DST_COLOR, GL20.GL_ZERO);
@@ -92,5 +75,9 @@ public class Lights implements Disposable{
 
   public void removeLight(Light light) {
     lights.remove(light);
+  }
+
+  public void setAmbientColor(float r, float g, float b, float a) {
+    this.ambientColor.set(r, g, b, a);
   }
 }

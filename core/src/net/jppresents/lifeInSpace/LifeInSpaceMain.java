@@ -57,9 +57,10 @@ public class LifeInSpaceMain extends ApplicationAdapter implements InputProcesso
     img = new Texture("badlogic.jpg");
 
     lights = new Lights();
+    lights.setAmbientColor(0.5f, 0.3f, 0.3f, 1);
 
     testLight = new Light(100, 100, 600, lights);
-    testLight.setColor(1, 0, 0, 1);
+    testLight.setColor(1, 1, 1, 1);
 
     FileHandle scmlHandle = Gdx.files.internal("guy/guy.scml");
     SCMLReader reader = new SCMLReader(scmlHandle.read());
