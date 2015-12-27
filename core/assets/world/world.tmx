@@ -11,34 +11,98 @@
   <tile id="1" terrain="0,1,0,1"/>
   <tile id="2" terrain="0,1,1,1"/>
   <tile id="3" terrain="0,1,0,0"/>
-  <tile id="4" terrain="2,2,2,0"/>
-  <tile id="5" terrain="2,0,2,0"/>
-  <tile id="6" terrain="0,0,2,2"/>
-  <tile id="7" terrain="0,0,0,2"/>
-  <tile id="8" terrain="2,2,2,2"/>
+  <tile id="4" terrain="2,2,2,0">
+   <properties>
+    <property name="b" value=""/>
+   </properties>
+  </tile>
+  <tile id="5" terrain="2,0,2,0">
+   <properties>
+    <property name="b" value=""/>
+   </properties>
+  </tile>
+  <tile id="6" terrain="0,0,2,2">
+   <properties>
+    <property name="b" value=""/>
+   </properties>
+  </tile>
+  <tile id="7" terrain="0,0,0,2">
+   <properties>
+    <property name="b" value=""/>
+   </properties>
+  </tile>
+  <tile id="8" terrain="2,2,2,2">
+   <properties>
+    <property name="b" value=""/>
+   </properties>
+  </tile>
   <tile id="15" terrain="1,1,1,1"/>
   <tile id="16" terrain="1,1,0,1"/>
   <tile id="17" terrain="1,0,1,1"/>
   <tile id="18" terrain="0,0,1,0"/>
   <tile id="19" terrain="1,0,0,0"/>
-  <tile id="20" terrain="2,2,0,0"/>
-  <tile id="21" terrain="0,2,0,2"/>
-  <tile id="22" terrain="0,2,2,2"/>
-  <tile id="23" terrain="2,0,0,0"/>
-  <tile id="24" terrain="2,2,2,2"/>
+  <tile id="20" terrain="2,2,0,0">
+   <properties>
+    <property name="b" value=""/>
+   </properties>
+  </tile>
+  <tile id="21" terrain="0,2,0,2">
+   <properties>
+    <property name="b" value=""/>
+   </properties>
+  </tile>
+  <tile id="22" terrain="0,2,2,2">
+   <properties>
+    <property name="b" value=""/>
+   </properties>
+  </tile>
+  <tile id="23" terrain="2,0,0,0">
+   <properties>
+    <property name="b" value=""/>
+   </properties>
+  </tile>
+  <tile id="24" terrain="2,2,2,2">
+   <properties>
+    <property name="b" value=""/>
+   </properties>
+  </tile>
   <tile id="30" terrain="0,0,0,0"/>
   <tile id="31" terrain="1,1,1,0"/>
   <tile id="32" terrain="1,0,1,0"/>
   <tile id="33" terrain="0,0,1,1"/>
   <tile id="34" terrain="0,0,0,1"/>
-  <tile id="35" terrain="2,2,2,2"/>
-  <tile id="36" terrain="2,2,0,2"/>
-  <tile id="37" terrain="2,0,2,2"/>
-  <tile id="38" terrain="0,0,2,0"/>
-  <tile id="39" terrain="0,2,0,0"/>
-  <tile id="40" terrain="2,2,2,2"/>
+  <tile id="35" terrain="2,2,2,2">
+   <properties>
+    <property name="b" value=""/>
+   </properties>
+  </tile>
+  <tile id="36" terrain="2,2,0,2">
+   <properties>
+    <property name="b" value=""/>
+   </properties>
+  </tile>
+  <tile id="37" terrain="2,0,2,2">
+   <properties>
+    <property name="b" value=""/>
+   </properties>
+  </tile>
+  <tile id="38" terrain="0,0,2,0">
+   <properties>
+    <property name="b" value=""/>
+   </properties>
+  </tile>
+  <tile id="39" terrain="0,2,0,0">
+   <properties>
+    <property name="b" value=""/>
+   </properties>
+  </tile>
+  <tile id="40" terrain="2,2,2,2">
+   <properties>
+    <property name="b" value=""/>
+   </properties>
+  </tile>
  </tileset>
- <layer name="Kachelebene 1" width="60" height="60">
+ <layer name="world" width="60" height="60">
   <data encoding="csv">
 36,36,36,36,36,36,36,36,36,36,36,5,21,21,21,21,21,37,36,36,36,36,9,41,9,41,41,36,36,9,41,25,36,36,41,25,25,9,25,41,36,25,25,41,41,25,9,25,41,9,41,25,41,9,9,9,9,25,25,9,
 36,36,5,21,21,21,21,21,21,21,21,24,31,31,31,31,31,40,21,21,21,21,37,25,9,25,36,25,36,41,25,36,36,36,25,41,9,36,5,21,21,21,21,21,21,21,21,21,21,21,37,41,36,36,36,36,9,41,9,41,

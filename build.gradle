@@ -44,6 +44,7 @@ import com.badlogic.gdx.tools.texturepacker.TexturePacker
 task texturePacker << {
 	logger.info "Calling TexturePacker: "+texturePacker
 	TexturePacker.process("art/guy", "core/assets", "guy/guy")
+	TexturePacker.process("art/alien", "core/assets", "alien/alien")
 }	
 
 

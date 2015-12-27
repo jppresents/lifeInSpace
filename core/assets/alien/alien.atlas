@@ -1,0 +1,41 @@
+
+alien.png
+size: 256,64
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+alien_body
+  rotate: false
+  xy: 64, 19
+  size: 60, 43
+  orig: 60, 43
+  offset: 0, 0
+  index: -1
+alien_eyeball
+  rotate: false
+  xy: 2, 2
+  size: 5, 5
+  orig: 5, 5
+  offset: 0, 0
+  index: -1
+alien_head
+  rotate: false
+  xy: 2, 9
+  size: 60, 53
+  orig: 60, 53
+  offset: 0, 0
+  index: -1
+alien_leg
+  rotate: false
+  xy: 126, 35
+  size: 14, 27
+  orig: 14, 27
+  offset: 0, 0
+  index: -1
+deadEyeball
+  rotate: false
+  xy: 126, 23
+  size: 13, 10
+  orig: 13, 10
+  offset: 0, 0
+  index: -1

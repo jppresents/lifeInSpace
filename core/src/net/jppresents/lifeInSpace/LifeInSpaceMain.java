@@ -2,48 +2,35 @@ package net.jppresents.lifeInSpace;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.brashmonkey.spriter.*;
 
 public class LifeInSpaceMain extends ApplicationAdapter implements InputProcessor {
-  SpriteBatch batch;
-  Texture img;
+  private World world;
 
-  public static LibGdxAtlasLoader loader;
-  public static LibGdxDrawer drawer;
+  private SpriterDataManager spriterDataManager;
 
-  private Player player;
-
+  private SpriteBatch batch;
   private Viewport viewport;
   private OrthographicCamera camera;
 
   private Vector3 touchPoint = new Vector3();
 
-  private OrthogonalTiledMapRenderer mapRenderer;
   private Lights lights;
   private Light testLight;
 
+  private AnimatedGameObject guy, alien;
+
   @Override
   public void dispose() {
-    map.dispose();
-    mapRenderer.dispose();
-    loader.dispose();
+    spriterDataManager.dispose();
     lights.dispose();
+    world.dispose();
   }
-
-  TiledMap map;
-  TmxMapLoader mapLoader;
 
   @Override
   public void create() {
@@ -53,34 +40,23 @@ public class LifeInSpaceMain extends ApplicationAdapter implements InputProcesso
     camera.translate(1280/2, 720/2);
     batch = new SpriteBatch();
 
-
-    img = new Texture("badlogic.jpg");
-
     lights = new Lights();
     lights.setAmbientColor(0.5f, 0.3f, 0.3f, 1);
+
+    world = new World();
 
     testLight = new Light(100, 100, 600, lights);
     testLight.setColor(1, 1, 1, 1);
 
-    FileHandle scmlHandle = Gdx.files.internal("guy/guy.scml");
-    SCMLReader reader = new SCMLReader(scmlHandle.read());
-    Data data = reader.getData();
+    spriterDataManager = new SpriterDataManager(batch);
+    spriterDataManager.load("guy");
+    spriterDataManager.load("alien");
 
-    loader = new LibGdxAtlasLoader(data, Gdx.files.internal("guy/guy.atlas"));
-    loader.load(scmlHandle.file());
-    drawer = new LibGdxDrawer(loader, batch, null);
-
-    player = new Player(data.getEntity("guy"));
-    player.setPosition(100, 100);
-    player.setAnimation("front_idle_gun_flip");
+    guy = new AnimatedGameObject(spriterDataManager, "guy");
+    alien = new AnimatedGameObject(spriterDataManager, "guy");
+    alien.setPosition(500, 500);
 
     Gdx.input.setInputProcessor(this);
-
-
-    mapLoader = new TmxMapLoader();
-    map =  mapLoader.load("world/world.tmx");
-    mapRenderer = new OrthogonalTiledMapRenderer(map, 1);
-
   }
 
   @Override
@@ -92,42 +68,30 @@ public class LifeInSpaceMain extends ApplicationAdapter implements InputProcesso
 
   @Override
   public void render() {
-    Gdx.gl.glClearColor(1, 1, 1, 1);
-    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    //update animations
+    guy.update();
+    alien.update();
 
-    TiledMapTileLayer layer = (TiledMapTileLayer)map.getLayers().get(0);
+    testLight.setPosition(guy.getX(), guy.getY());
 
+    //Center Cam on player
+    guy.centerCamera(camera);
+
+    world.restrictCamera(camera);
     camera.update();
 
-    mapRenderer.setView(camera);
-    mapRenderer.render();
+    //render the world
+    world.render(camera);
 
-    player.update();
-
-
+    //render the objects
     batch.setProjectionMatrix(camera.combined);
     batch.begin();
-    batch.draw(img, 200, 200);
-    drawer.draw(player);
+    guy.draw();
+    alien.draw();
     batch.end();
 
-
+    //render the lights on top
     lights.render(camera);
-
-    if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-      camera.translate(-64, 0);
-    }
-    if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-      camera.translate(64, 0);
-    }
-    if(Gdx.input.isKeyPressed(Input.Keys.UP)){
-      camera.translate(0, 64);
-    }
-    if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-      camera.translate(0, -64);
-    }
-
-
   }
 
 
@@ -149,8 +113,9 @@ public class LifeInSpaceMain extends ApplicationAdapter implements InputProcesso
   @Override
   public boolean touchDown(int screenX, int screenY, int pointer, int button) {
     camera.unproject(touchPoint.set(screenX, screenY, 0));
-    player.setPosition(touchPoint.x, touchPoint.y);
-    testLight.setPosition(touchPoint.x, touchPoint.y);
+    if (!world.isBlocking(touchPoint.x, touchPoint.y)) {
+      guy.setTarget(touchPoint.x, touchPoint.y);
+    }
     return true;
   }
 
@@ -161,10 +126,7 @@ public class LifeInSpaceMain extends ApplicationAdapter implements InputProcesso
 
   @Override
   public boolean touchDragged(int screenX, int screenY, int pointer) {
-    camera.unproject(touchPoint.set(screenX, screenY, 0));
-    player.setPosition(touchPoint.x, touchPoint.y);
-    testLight.setPosition(touchPoint.x, touchPoint.y);
-    return true;
+    return false;
   }
 
   @Override
