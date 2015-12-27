@@ -8,13 +8,17 @@ public class Light {
   private boolean on;
   private Color color;
   private float size;
+  int offsetX;
+  int offsetY;
 
-  public Light(float x, float y, float size, Lights owner) {
+  public Light(float x, float y, int offsetX, int offsetY, float size, Lights owner) {
     this.x = x;
     this.y = y;
     this.size = size;
     this.owner = owner;
     this.color = new Color(1, 1, 1 ,1);
+    this.offsetX = offsetX;
+    this.offsetY = offsetY;
     this.setOn(true);
   }
 
@@ -66,7 +70,7 @@ public class Light {
   }
 
   public void setPosition(float x, float y) {
-    this.x = x;
-    this.y = y;
+    this.x = x + offsetX;
+    this.y = y + offsetY;
   }
 }

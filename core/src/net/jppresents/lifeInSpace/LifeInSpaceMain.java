@@ -1,15 +1,15 @@
 package net.jppresents.lifeInSpace;
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-public class LifeInSpaceMain extends ApplicationAdapter implements InputProcessor {
+import java.util.ArrayList;
+import java.util.List;
+
+public class LifeInSpaceMain extends ApplicationAdapter {
   private World world;
 
   private SpriterDataManager spriterDataManager;
@@ -18,19 +18,12 @@ public class LifeInSpaceMain extends ApplicationAdapter implements InputProcesso
   private Viewport viewport;
   private OrthographicCamera camera;
 
-  private Vector3 touchPoint = new Vector3();
-
   private Lights lights;
-  private Light testLight;
 
-  private AnimatedGameObject guy, alien;
+  private List<AnimatedGameObject> gameObjects = new ArrayList<AnimatedGameObject>(10);
 
-  @Override
-  public void dispose() {
-    spriterDataManager.dispose();
-    lights.dispose();
-    world.dispose();
-  }
+  private Input input;
+  private GameLogic gameLogic;
 
   @Override
   public void create() {
@@ -45,18 +38,13 @@ public class LifeInSpaceMain extends ApplicationAdapter implements InputProcesso
 
     world = new World();
 
-    testLight = new Light(100, 100, 600, lights);
-    testLight.setColor(1, 1, 1, 1);
-
     spriterDataManager = new SpriterDataManager(batch);
     spriterDataManager.load("guy");
     spriterDataManager.load("alien");
 
-    guy = new AnimatedGameObject(spriterDataManager, "guy");
-    alien = new AnimatedGameObject(spriterDataManager, "guy");
-    alien.setPosition(500, 500);
+    gameLogic = new GameLogic(lights, world, gameObjects, spriterDataManager);
 
-    Gdx.input.setInputProcessor(this);
+    input = new Input(true, camera, gameLogic);
   }
 
   @Override
@@ -66,76 +54,42 @@ public class LifeInSpaceMain extends ApplicationAdapter implements InputProcesso
     lights.resize(width, height);
   }
 
+
   @Override
   public void render() {
-    //update animations
-    guy.update();
-    alien.update();
 
-    testLight.setPosition(guy.getX(), guy.getY());
+    //update gameObjects
+    for (AnimatedGameObject obj: gameObjects) {
+      obj.update();
+    }
 
-    //Center Cam on player
-    guy.centerCamera(camera);
+    gameObjects.sort(AnimatedGameObject.getYSortComparator());
 
-    world.restrictCamera(camera);
+    gameLogic.controlCamera(camera);
+
     camera.update();
 
     //render the world
     world.render(camera);
 
-    //render the objects
+    //render the gameObjects
     batch.setProjectionMatrix(camera.combined);
     batch.begin();
-    guy.draw();
-    alien.draw();
+    for (AnimatedGameObject obj: gameObjects) {
+      obj.draw();
+    }
     batch.end();
 
     //render the lights on top
     lights.render(camera);
   }
 
-
   @Override
-  public boolean keyDown(int keycode) {
-    return false;
+  public void dispose() {
+    spriterDataManager.dispose();
+    lights.dispose();
+    world.dispose();
   }
 
-  @Override
-  public boolean keyUp(int keycode) {
-    return false;
-  }
 
-  @Override
-  public boolean keyTyped(char character) {
-    return false;
-  }
-
-  @Override
-  public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-    camera.unproject(touchPoint.set(screenX, screenY, 0));
-    if (!world.isBlocking(touchPoint.x, touchPoint.y)) {
-      guy.setTarget(touchPoint.x, touchPoint.y);
-    }
-    return true;
-  }
-
-  @Override
-  public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-    return false;
-  }
-
-  @Override
-  public boolean touchDragged(int screenX, int screenY, int pointer) {
-    return false;
-  }
-
-  @Override
-  public boolean mouseMoved(int screenX, int screenY) {
-    return false;
-  }
-
-  @Override
-  public boolean scrolled(int amount) {
-    return false;
-  }
 }
