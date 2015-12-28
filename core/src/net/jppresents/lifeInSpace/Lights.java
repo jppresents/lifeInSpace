@@ -24,7 +24,7 @@ public class Lights implements Disposable{
     lightBufferCamera = new OrthographicCamera(1280, 720);
     lightBufferBatch = new SpriteBatch();
     lightBatch = new SpriteBatch();
-    lightTexture = new Texture("light_org.png");
+    lightTexture = new Texture("light.png");
     lightBatch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE);
     lightBatch.enableBlending();
     ambientColor = new Color(0.3f, 0.3f, 0.3f, 1);
@@ -55,9 +55,15 @@ public class Lights implements Disposable{
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     lightBatch.setProjectionMatrix(camera.combined);
     lightBatch.begin();
-    for (Light light: lights) {
-      lightBatch.setColor(light.getColor());
-      lightBatch.draw(lightTexture, light.getX() - light.getSize()/2, light.getY() - light.getSize()/2, light.getSize(), light.getSize(), 0, 0, 128, 128, false, false);
+    for (int i = lights.size() - 1; i >= 0; i--) {
+      Light light = lights.get(i);
+      if (light.isOn()) {
+        light.update();
+        lightBatch.setColor(light.getColor());
+        lightBatch.draw(lightTexture, light.getX() - light.getSize() / 2, light.getY() - light.getSize() / 2, light.getSize(), light.getSize(), 0, 0, 128, 128, false, false);
+      } else {
+        lights.remove(i);
+      }
     }
     lightBatch.end();
     lightBuffer.end();

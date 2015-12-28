@@ -10,6 +10,7 @@ public class Light {
   private float size;
   int offsetX;
   int offsetY;
+  private float fade = 0;
 
   public Light(float x, float y, int offsetX, int offsetY, float size, Lights owner) {
     this.x = x;
@@ -22,13 +23,11 @@ public class Light {
     this.setOn(true);
   }
 
-  private void setOn(boolean value) {
+  public void setOn(boolean value) {
     if (value != on) {
       on = value;
       if (on) {
         owner.addLight(this);
-      } else {
-        owner.removeLight(this);
       }
     }
   }
@@ -72,5 +71,18 @@ public class Light {
   public void setPosition(float x, float y) {
     this.x = x + offsetX;
     this.y = y + offsetY;
+  }
+
+  public void setFade(float fade) {
+    this.fade = fade;
+  }
+
+  public void update() {
+    if (this.fade != 0) {
+      this.color.a *= (1-fade);
+      if (this.color.a < 0.01) {
+        setOn(false);
+      }
+    }
   }
 }

@@ -277,4 +277,7 @@ public class World implements Disposable {
 
   }
 
+  public boolean isWorldBlocking(float x, float y) {
+    return isTileBlocking((int) x / getTileSize(), (int) y / getTileSize());
+  }
 }

@@ -56,7 +56,97 @@
                 </key>
             </timeline>
         </animation>
-        <animation id="1" name="front_die" length="400" interval="100" looping="false">
+        <animation id="1" name="front_hurt" length="400" interval="100">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="0" z_index="1"/>
+                    <object_ref id="2" timeline="2" key="0" z_index="2"/>
+                    <object_ref id="3" timeline="3" key="0" z_index="3"/>
+                    <object_ref id="4" timeline="4" key="0" z_index="4"/>
+                    <object_ref id="5" timeline="5" key="0" z_index="5"/>
+                    <object_ref id="6" timeline="6" key="0" z_index="6"/>
+                </key>
+                <key id="1" time="100">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="0" z_index="1"/>
+                    <object_ref id="2" timeline="2" key="0" z_index="2"/>
+                    <object_ref id="3" timeline="3" key="0" z_index="3"/>
+                    <object_ref id="4" timeline="4" key="0" z_index="4"/>
+                    <object_ref id="5" timeline="5" key="0" z_index="5"/>
+                    <object_ref id="6" timeline="6" key="1" z_index="6"/>
+                </key>
+                <key id="2" time="200">
+                    <object_ref id="0" timeline="0" key="1" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="1" z_index="1"/>
+                    <object_ref id="2" timeline="2" key="0" z_index="2"/>
+                    <object_ref id="3" timeline="3" key="0" z_index="3"/>
+                    <object_ref id="4" timeline="4" key="0" z_index="4"/>
+                    <object_ref id="5" timeline="5" key="0" z_index="5"/>
+                    <object_ref id="6" timeline="6" key="2" z_index="6"/>
+                </key>
+                <key id="3" time="300">
+                    <object_ref id="0" timeline="0" key="1" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="1" z_index="1"/>
+                    <object_ref id="2" timeline="2" key="0" z_index="2"/>
+                    <object_ref id="3" timeline="3" key="0" z_index="3"/>
+                    <object_ref id="4" timeline="4" key="0" z_index="4"/>
+                    <object_ref id="5" timeline="5" key="0" z_index="5"/>
+                    <object_ref id="6" timeline="6" key="3" z_index="6"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="alien_body">
+                <key id="0" spin="0">
+                    <object folder="0" file="1" x="-29.144385" y="56.149733" angle="0"/>
+                </key>
+                <key id="1" time="200" spin="0">
+                    <object folder="0" file="1" x="-29.144385" y="52.149733" angle="0"/>
+                </key>
+            </timeline>
+            <timeline id="1" name="alien_head">
+                <key id="0" spin="0">
+                    <object folder="0" file="2" x="-29.144385" y="88.502674" angle="0"/>
+                </key>
+                <key id="1" time="200" spin="0">
+                    <object folder="0" file="2" x="-28.144385" y="78.502674" angle="0"/>
+                </key>
+            </timeline>
+            <timeline id="2" name="alien_leg_000">
+                <key id="0" spin="0">
+                    <object folder="0" file="0" x="-8.02139" y="21.657754" angle="0"/>
+                </key>
+            </timeline>
+            <timeline id="3" name="alien_leg_001">
+                <key id="0" spin="0">
+                    <object folder="0" file="0" x="-19.251337" y="23.262032" angle="341.24135"/>
+                </key>
+            </timeline>
+            <timeline id="4" name="alien_leg_002">
+                <key id="0" spin="0">
+                    <object folder="0" file="0" x="5.614973" y="21.390374" angle="10.885527"/>
+                </key>
+            </timeline>
+            <timeline id="5" name="alien_leg_003">
+                <key id="0" spin="0">
+                    <object folder="0" file="0" x="18.983957" y="22.994652" angle="19.179008"/>
+                </key>
+            </timeline>
+            <timeline id="6" name="alien_eyeball">
+                <key id="0" spin="0">
+                    <object folder="0" file="3" x="-2.941176" y="62.834225" angle="0"/>
+                </key>
+                <key id="1" time="100" spin="0">
+                    <object folder="0" file="3" x="-10.941176" y="60.834225" angle="0"/>
+                </key>
+                <key id="2" time="200" spin="0">
+                    <object folder="0" file="3" x="-0.941176" y="58.834225" angle="0"/>
+                </key>
+                <key id="3" time="300" spin="0">
+                    <object folder="0" file="3" x="4.058824" y="60.834225" angle="0"/>
+                </key>
+            </timeline>
+        </animation>
+        <animation id="2" name="front_die" length="400" interval="100" looping="false">
             <mainline>
                 <key id="0">
                     <object_ref id="0" timeline="0" key="0" z_index="0"/>
@@ -134,7 +224,7 @@
                 </key>
             </timeline>
         </animation>
-        <animation id="2" name="front_walk" length="800" interval="100">
+        <animation id="3" name="front_walk" length="800" interval="100">
             <mainline>
                 <key id="0">
                     <object_ref id="0" timeline="0" key="0" z_index="0"/>
@@ -212,7 +302,7 @@
                 </key>
             </timeline>
         </animation>
-        <animation id="3" name="front_idle" length="1600" interval="100">
+        <animation id="4" name="front_idle" length="1600" interval="100">
             <mainline>
                 <key id="0">
                     <object_ref id="0" timeline="0" key="0" z_index="0"/>

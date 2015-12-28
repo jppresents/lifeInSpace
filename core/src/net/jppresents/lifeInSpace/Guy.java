@@ -1,50 +1,90 @@
 package net.jppresents.lifeInSpace;
 
-import com.badlogic.gdx.math.Vector2;
 import com.brashmonkey.spriter.Animation;
 import com.brashmonkey.spriter.Drawer;
 import com.brashmonkey.spriter.Entity;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class Guy extends AnimatedGameObject {
 
   private int idleAnimationCount = 0;
+  private boolean wasWalking = true;
+  private boolean faceRight = false;
 
   public Guy(Entity entity, Drawer drawer, int tileSize) {
     super(entity, drawer, tileSize);
+    spriterPlayer.characterMaps = new Entity.CharacterMap[1];
+    spriterPlayer.characterMaps[0] = spriterPlayer.getEntity().getCharacterMap("gun_small");
   }
 
   @Override
   protected void updateAnimation() {
-    if (spriterPlayer.flippedX() == -1) {
+
+    if (!faceRight && spriterPlayer.flippedX() == -1) {
       spriterPlayer.flipX();
+    }
+
+    if (faceRight && spriterPlayer.flippedX() != -1) {
+      spriterPlayer.flipX();
+    }
+
+
+    if (getMovement() != Movement.NONE) {
+      wasWalking = true;
     }
 
     switch(getMovement()) {
       case NONE:
-        if (!spriterPlayer.getAnimation().name.equals("front_idle_gun_flip")) {
+        if (wasWalking) {
           spriterPlayer.setAnimation("front_idle");
+          wasWalking = false;
+          faceRight = false;
         }
         break;
       case LEFT:
         spriterPlayer.setAnimation("side_walk");
+        faceRight = false;
         break;
       case RIGHT:
         spriterPlayer.setAnimation("side_walk");
-        if (spriterPlayer.flippedX() != -1) {
-          spriterPlayer.flipX();
-        }
+        faceRight = true;
         break;
       case UP:
         spriterPlayer.setAnimation("back_walk");
+        faceRight = false;
         break;
       case DOWN:
         spriterPlayer.setAnimation("front_walk");
+        faceRight = false;
         break;
     }
   }
+
+  public void activateShootAnimation(float targetX, float targetY) {
+    float distX = Math.abs(worldPosition.x - targetX);
+    float distY = Math.abs(worldPosition.y - targetY);
+    if (distX > distY) {
+      faceRight = targetX > worldPosition.x;
+      spriterPlayer.setAnimation("side_fire");
+    } else {
+      if (targetY > worldPosition.y) {
+        spriterPlayer.setAnimation("back_fire");
+        faceRight = false;
+      } else {
+        spriterPlayer.setAnimation("front_fire");
+        faceRight = false;
+      }
+    }
+  }
+
+  public float getGunX() {
+    return spriterPlayer.getObject("gun_big").position.x;
+  }
+
+  public float getGunY() {
+    return spriterPlayer.getObject("gun_big").position.y;
+  }
+
 
   @Override
   public void animationFinished(Animation animation) {
@@ -52,6 +92,11 @@ public class Guy extends AnimatedGameObject {
     if (animation.name.equals("front_idle_gun_flip")) {
       spriterPlayer.setAnimation("front_idle");
       idleAnimationCount = 0;
+    }
+
+    if (animation.name.equals("front_fire") || animation.name.equals("back_fire") || animation.name.equals("side_fire")  ) {
+      spriterPlayer.setAnimation("front_idle");
+      faceRight = false;
     }
 
     if (animation.name.equals("front_idle")) {

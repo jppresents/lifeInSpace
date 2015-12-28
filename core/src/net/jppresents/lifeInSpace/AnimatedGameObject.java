@@ -11,18 +11,30 @@ import java.util.Comparator;
 import java.util.List;
 
 public class AnimatedGameObject implements SetPosition, Player.PlayerListener, SetPath{
+  protected enum Movement {NONE, LEFT, RIGHT, UP, DOWN;}
+  protected Player spriterPlayer;
 
+  private Drawer drawer;
+  protected Vector3 worldPosition = new Vector3();
+  private Vector3 tilePosition = new Vector3();
+  private List<Vector2> path = new ArrayList<Vector2>(20);
+  private int pathLength = 0;
+  private int currentPathTarget = 0;
+  private List<Light> attachedLights = new ArrayList<Light>(1);
+  private Movement movement = Movement.NONE;
+  private int tileSize = 0;
+  private int health = 100;
 
-  @Override
-  public List<Vector2> getPath() {
-    return path;
+  public int getHealth() {
+    return health;
   }
 
-  @Override
-  public void setPathLength(int pathLength) {
-    this.pathLength = pathLength;
-    currentPathTarget = 0;
+  private static YSortComparator ySortComparator = new YSortComparator();
+
+  public static YSortComparator getYSortComparator() {
+    return ySortComparator;
   }
+
 
   public boolean isIdle() {
     return pathLength == 0 || currentPathTarget == pathLength;
@@ -34,33 +46,40 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
     }
   }
 
-  protected enum Movement {NONE, LEFT, RIGHT, UP, DOWN}
+  public void hit(int dmg) {
+    health -= dmg;
+    if (health <= 0) {
+      health = 0;
+      die();
+    } else {
+      hurt();
+    }
+  }
 
-  protected Player spriterPlayer;
-  private Drawer drawer;
-  private Vector3 worldPosition = new Vector3();
-  private Vector3 tilePosition = new Vector3();
-  private List<Vector2> path = new ArrayList<Vector2>(20);
-  private int pathLength = 0;
-  private int currentPathTarget = 0;
-  private List<Light> attachedLights = new ArrayList<Light>(1);
-  private Movement movement = Movement.NONE;
+  protected void die() {
 
-  private int tileSize = 0;
+  }
 
-  private static YSortComparator ySortComparator = new YSortComparator();
+  protected void hurt() {
 
-  public static YSortComparator getYSortComparator() {
-    return ySortComparator;
   }
 
   public void attachLight(Light light) {
     attachedLights.add(light);
   }
 
+  public void fadeAllLights(float percent) {
+    for (Light light: attachedLights) {
+      light.setFade(percent);
+    }
+  }
+
   private static class YSortComparator implements Comparator<AnimatedGameObject> {
     @Override
     public int compare(AnimatedGameObject o1, AnimatedGameObject o2) {
+      if (o2.getY() == o1.getY()) {
+        return o1.getHealth() - o2.getHealth();
+      }
       return Math.round(o2.getY() - o1.getY());
     }
   }
@@ -171,5 +190,16 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
 
   @Override
   public void mainlineKeyChanged(Mainline.Key prevKey, Mainline.Key newKey) {
+  }
+
+  @Override
+  public List<Vector2> getPath() {
+    return path;
+  }
+
+  @Override
+  public void setPathLength(int pathLength) {
+    this.pathLength = pathLength;
+    currentPathTarget = 0;
   }
 }

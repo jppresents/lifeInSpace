@@ -32,3 +32,10 @@ selector
   orig: 72, 72
   offset: 0, 0
   index: -1
+shot
+  rotate: false
+  xy: 76, 74
+  size: 32, 11
+  orig: 32, 11
+  offset: 0, 0
+  index: -1

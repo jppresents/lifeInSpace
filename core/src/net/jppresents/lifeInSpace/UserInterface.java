@@ -1,12 +1,9 @@
 package net.jppresents.lifeInSpace;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.utils.Disposable;
 
-public class UserInterface implements Disposable{
-  private final TextureAtlas sprites;
+public class UserInterface {
   private final TextureAtlas.AtlasRegion marker;
   private final TextureAtlas.AtlasRegion markerError;
   private final TextureAtlas.AtlasRegion selector;
@@ -19,18 +16,12 @@ public class UserInterface implements Disposable{
   private int selectorX, selectorY;
 
   public UserInterface() {
-    sprites = new TextureAtlas("sprites.atlas");
-    marker = sprites.findRegion("marker");
-    markerError = sprites.findRegion("markerError");
-    markerTarget = sprites.findRegion("markerTarget");
-    selector = sprites.findRegion("selector");
+    marker = LifeInSpaceMain.assets.getSprites().findRegion("marker");
+    markerError = LifeInSpaceMain.assets.getSprites().findRegion("markerError");
+    markerTarget = LifeInSpaceMain.assets.getSprites().findRegion("markerTarget");
+    selector = LifeInSpaceMain.assets.getSprites().findRegion("selector");
     selectorX = -1;
     selectorY = -1;
-  }
-
-  @Override
-  public void dispose() {
-    sprites.dispose();
   }
 
   public void render(SpriteBatch batch) {

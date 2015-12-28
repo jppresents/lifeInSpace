@@ -9,7 +9,9 @@ import java.util.List;
 public class GameLogic {
 
 
-  private enum State {PLAYERINPUT, PLAYERMOVING, ENEMYMOVING}
+  private final Combat combat;
+
+  private enum State {PLAYERINPUT, PLAYERMOVING, ENEMYMOVING, COMBAT}
 
   private final UserInterface ui;
   private Lights lights;
@@ -24,14 +26,15 @@ public class GameLogic {
 
 
   private Guy guy;
-  private List<AnimatedGameObject> monsters = new ArrayList<AnimatedGameObject>(20);
+  private List<Enemy> enemies = new ArrayList<Enemy>(20);
 
-  public GameLogic(Lights lights, World world, List<AnimatedGameObject> gameObjects, SpriterDataManager spriterDataManager, UserInterface ui) {
+  public GameLogic(Lights lights, World world, List<AnimatedGameObject> gameObjects, SpriterDataManager spriterDataManager, UserInterface ui, Combat combat) {
     this.ui = ui;
     this.lights = lights;
     this.world = world;
     this.gameObjects = gameObjects;
     this.spriterDataManager = spriterDataManager;
+    this.combat = combat;
 
     guy = new Guy(spriterDataManager.getEntity("guy"), spriterDataManager.getDrawer("guy"), world.getTileSize());
     Light light = new Light(0, 0, 0, 40, 512, lights);
@@ -40,12 +43,12 @@ public class GameLogic {
     gameObjects.add(guy);
 
     for (int i = 0; i < world.getCount("Monster", "1"); i++) {
-      AnimatedGameObject monster = new AnimatedGameObject(spriterDataManager.getEntity("alien"), spriterDataManager.getDrawer("alien"), world.getTileSize());
-      gameObjects.add(monster);
-      monsters.add(monster);
+      Enemy enemy = new Enemy(spriterDataManager.getEntity("alien"), spriterDataManager.getDrawer("alien"), world.getTileSize());
+      gameObjects.add(enemy);
+      enemies.add(enemy);
       light = new Light(0, 0, 0, 40, 300, lights);
-      light.setColor(0.1f, 0.3f, 0.3f, 1);
-      monster.attachLight(light);
+      light.setColor(0.2f, 0.5f, 0.5f, 1);
+      enemy.attachLight(light);
     }
     reset();
   }
@@ -56,11 +59,19 @@ public class GameLogic {
         state = State.PLAYERINPUT;
       }
     }
+
+    if (state == State.COMBAT) {
+      if (!combat.isActive()) {
+        state = State.PLAYERINPUT;
+      }
+    }
+
+    combat.update(world, enemies);
   }
 
   public void reset() {
     world.resetPosition(guy, "Start");
-    world.resetPositions(monsters, "Monster", "1");
+    world.resetPositions(enemies, "Monster", "1");
   }
 
 
@@ -70,8 +81,16 @@ public class GameLogic {
   }
 
   public void touchDown(float x, float y) {
+    mouseMoved(x, y);
     if (state == State.PLAYERINPUT) {
-      if (!world.isTileBlocking((int) target.x, (int) target.y)) {
+      AnimatedGameObject enemy = getActiveEnemy((int) target.x, (int) target.y);
+
+      if (enemy != null) {
+        combat.shoot(guy.getGunX(), guy.getGunY(), enemy.getX(), enemy.getY() + world.getTileSize()/2);
+        state = State.COMBAT;
+        ui.hideSelector();
+        guy.activateShootAnimation(enemy.getX(), enemy.getY());
+      } else if (!world.isTileBlocking((int) target.x, (int) target.y)) {
         world.calcPath(guy, guy.getTilePosition(), target);
         state = State.PLAYERMOVING;
         ui.hideSelector();
@@ -93,9 +112,9 @@ public class GameLogic {
   }
 
   private AnimatedGameObject getActiveEnemy(int x, int y) {
-    for (AnimatedGameObject obj: monsters) {
+    for (AnimatedGameObject obj: enemies) {
       Vector3 pos = obj.getTilePosition();
-      if (pos.x == x && pos.y == y) {
+      if (pos.x == x && pos.y == y && obj.getHealth() > 0) {
         return obj;
       }
     }
