@@ -24,6 +24,7 @@ public class LifeInSpaceMain extends ApplicationAdapter {
 
   private Input input;
   private GameLogic gameLogic;
+  private UserInterface ui;
 
   @Override
   public void create() {
@@ -42,7 +43,11 @@ public class LifeInSpaceMain extends ApplicationAdapter {
     spriterDataManager.load("guy");
     spriterDataManager.load("alien");
 
-    gameLogic = new GameLogic(lights, world, gameObjects, spriterDataManager);
+    ui = new UserInterface();
+
+    gameLogic = new GameLogic(lights, world, gameObjects, spriterDataManager, ui);
+
+
 
     input = new Input(true, camera, gameLogic);
   }
@@ -65,6 +70,7 @@ public class LifeInSpaceMain extends ApplicationAdapter {
 
     gameObjects.sort(AnimatedGameObject.getYSortComparator());
 
+    gameLogic.update();
     gameLogic.controlCamera(camera);
 
     camera.update();
@@ -82,6 +88,11 @@ public class LifeInSpaceMain extends ApplicationAdapter {
 
     //render the lights on top
     lights.render(camera);
+
+    //ui on top (no lighting)
+    batch.begin();
+    ui.render(batch);
+    batch.end();
   }
 
   @Override
@@ -89,6 +100,7 @@ public class LifeInSpaceMain extends ApplicationAdapter {
     spriterDataManager.dispose();
     lights.dispose();
     world.dispose();
+    ui.dispose();
   }
 
 

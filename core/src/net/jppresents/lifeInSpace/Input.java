@@ -25,7 +25,9 @@ public class Input implements InputProcessor {
 
   @Override
   public boolean mouseMoved(int screenX, int screenY) {
-    return false;
+    camera.unproject(touchPoint.set(screenX, screenY, 0));
+    gameLogic.mouseMoved(touchPoint.x, touchPoint.y);
+    return true;
   }
 
   @Override

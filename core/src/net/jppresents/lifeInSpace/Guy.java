@@ -1,15 +1,19 @@
 package net.jppresents.lifeInSpace;
 
+import com.badlogic.gdx.math.Vector2;
 import com.brashmonkey.spriter.Animation;
 import com.brashmonkey.spriter.Drawer;
 import com.brashmonkey.spriter.Entity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Guy extends AnimatedGameObject {
 
   private int idleAnimationCount = 0;
 
-  public Guy(Entity entity, Drawer drawer) {
-    super(entity, drawer);
+  public Guy(Entity entity, Drawer drawer, int tileSize) {
+    super(entity, drawer, tileSize);
   }
 
   @Override
@@ -59,4 +63,5 @@ public class Guy extends AnimatedGameObject {
       spriterPlayer.setAnimation("front_idle_gun_flip");
     }
   }
+
 }
