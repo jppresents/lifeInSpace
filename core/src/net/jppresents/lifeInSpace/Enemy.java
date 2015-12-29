@@ -5,8 +5,17 @@ import com.brashmonkey.spriter.Drawer;
 import com.brashmonkey.spriter.Entity;
 
 public class Enemy extends AnimatedGameObject {
+
+  private Light light;
+  private boolean aggro = false;
+  private float aggroRange = 6;
+  private float deAggroRange = 8;
+
   public Enemy(Entity entity, Drawer drawer, int tileSize) {
     super(entity, drawer, tileSize);
+    light = new Light(0, 0, 0, 40, 300, LifeInSpaceMain.lights);
+    light.setColor(0.2f, 0.5f, 0.5f, 1);
+    attachLight(light);
   }
 
   @Override
@@ -23,11 +32,6 @@ public class Enemy extends AnimatedGameObject {
   }
 
   @Override
-  protected void updateAnimation() {
-
-  }
-
-  @Override
   public void animationFinished(Animation animation) {
     if (animation.name.equals("front_hurt")) {
       spriterPlayer.setAnimation("front_idle");
@@ -37,6 +41,34 @@ public class Enemy extends AnimatedGameObject {
       spriterPlayer.speed = 0;
       spriterPlayer.setTime(animation.length - 1);
     }
-
   }
+
+  public void planTurn(World world, Guy guy) {
+    if (getHealth() <= 0)
+      return;
+
+    if (isAggro()) {
+      world.calcPath(this, this.getTilePosition(), guy.getTilePosition());
+    }
+  }
+
+  public boolean updateAggro(AnimatedGameObject obj) {
+    if (aggro) {
+      if (obj.calcDistance(this) >= deAggroRange) {
+        aggro = false;
+        light.setColor(0.2f, 0.5f, 0.5f, 1);
+      }
+    } else {
+      if (obj.calcDistance(this) <= aggroRange) {
+        aggro = true;
+        light.setColor(0.5f, 0.2f, 0.2f, 1);
+      }
+    }
+    return aggro;
+  }
+
+  public boolean isAggro() {
+    return aggro;
+  }
+
 }

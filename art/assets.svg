@@ -484,9 +484,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="7.9195959"
-     inkscape:cx="268.69218"
-     inkscape:cy="182.8353"
+     inkscape:zoom="2.8"
+     inkscape:cx="214.96209"
+     inkscape:cy="1201.4514"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -552,6 +552,13 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1">
+    <rect
+       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:0.30838324;fill-rule:nonzero;stroke:none;stroke-width:2.56381798;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       id="rect6325"
+       width="1280"
+       height="720"
+       x="-16.915979"
+       y="-300.62466" />
     <g
        id="side"
        inkscape:label="#g6237"
@@ -959,13 +966,6 @@
          id="circle6301"
          style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:#666666;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
     </g>
-    <rect
-       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#000000;fill-opacity:0.30838324;fill-rule:nonzero;stroke:none;stroke-width:2.56381798;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
-       id="rect6325"
-       width="1280"
-       height="720"
-       x="-16.915979"
-       y="-300.62466" />
     <path
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:#666666;stroke-width:2.08310175;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
        d="m 394.11038,310.99403 c 0.5919,13.39764 11.00582,17.94381 23.32096,18.24224 12.71946,0.30824 23.68689,-5.66928 23.59301,-19.07967 -0.0972,-13.88468 -11.06957,-21.20411 -23.79224,-21.31511 -12.44112,-0.10855 -23.72399,8.5204 -23.12173,22.15254 z"
@@ -2513,6 +2513,163 @@
          id="path4539"
          inkscape:connector-curvature="0"
          sodipodi:nodetypes="ccccc" />
+    </g>
+    <g
+       id="hpBar"
+       inkscape:label="#g4579">
+      <g
+         transform="translate(1.0714286,5.3571429)"
+         inkscape:label="#g4584"
+         id="healthbar">
+        <rect
+           ry="15.000001"
+           rx="15"
+           y="-286.92352"
+           x="36.785713"
+           height="39.285713"
+           width="400"
+           id="rect4539"
+           style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#550000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:20;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+        <rect
+           style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#800000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:20;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+           id="rect4537"
+           width="392.85715"
+           height="32.857143"
+           x="40.35714"
+           y="-283.70923"
+           rx="15"
+           ry="15" />
+      </g>
+      <text
+         sodipodi:linespacing="125%"
+         id="text4566"
+         y="-248.05075"
+         x="49.915894"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:40px;line-height:125%;font-family:Aharoni;-inkscape-font-specification:'Aharoni Bold';letter-spacing:0px;word-spacing:0px;fill:#550000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           y="-248.05075"
+           x="49.915894"
+           id="tspan4568"
+           sodipodi:role="line">HP</tspan></text>
+    </g>
+    <g
+       id="hpBarFill"
+       transform="translate(-2.5,47.857143)"
+       inkscape:label="#g4586">
+      <g
+         id="g4588"
+         inkscape:label="#g4584"
+         transform="translate(1.0714286,5.3571429)">
+        <rect
+           style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:20;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+           id="rect4590"
+           width="400"
+           height="39.285713"
+           x="36.785713"
+           y="-286.92352"
+           rx="15"
+           ry="15.000001" />
+        <rect
+           ry="15"
+           rx="15"
+           y="-283.70923"
+           x="40.35714"
+           height="32.857143"
+           width="392.85715"
+           id="rect4592"
+           style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#ff0000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:20;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+      </g>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:40px;line-height:125%;font-family:Aharoni;-inkscape-font-specification:'Aharoni Bold';letter-spacing:0px;word-spacing:0px;fill:#ff8080;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="49.915894"
+         y="-248.05075"
+         id="text4594"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan4596"
+           x="49.915894"
+           y="-248.05075">HP</tspan></text>
+    </g>
+    <g
+       inkscape:label="#g4579"
+       id="apBar"
+       transform="translate(1.0101525,111.11678)">
+      <g
+         id="g4600"
+         inkscape:label="#g4584"
+         transform="translate(1.0714286,5.3571429)">
+        <rect
+           style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#552200;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:20;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+           id="rect4602"
+           width="400"
+           height="39.285713"
+           x="36.785713"
+           y="-286.92352"
+           rx="15"
+           ry="15.000001" />
+        <rect
+           ry="15"
+           rx="15"
+           y="-283.70923"
+           x="40.35714"
+           height="32.857143"
+           width="392.85715"
+           id="rect4604"
+           style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#aa4400;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:20;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+      </g>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:40px;line-height:125%;font-family:Aharoni;-inkscape-font-specification:'Aharoni Bold';letter-spacing:0px;word-spacing:0px;fill:#803300;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
+         x="49.915894"
+         y="-248.05075"
+         id="text4606"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan4608"
+           x="49.915894"
+           y="-248.05075">AP</tspan></text>
+    </g>
+    <g
+       inkscape:label="#g4586"
+       transform="translate(-1.4898475,158.97392)"
+       id="abBarFill"
+       style="fill:#ff7f2a">
+      <g
+         transform="translate(1.0714286,5.3571429)"
+         inkscape:label="#g4584"
+         id="g4612"
+         style="fill:#ff7f2a">
+        <rect
+           ry="15.000001"
+           rx="15"
+           y="-286.92352"
+           x="36.785713"
+           height="39.285713"
+           width="400"
+           id="rect4614"
+           style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:20;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
+        <rect
+           style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#ff9955;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:20;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+           id="rect4616"
+           width="392.85715"
+           height="32.857143"
+           x="40.35714"
+           y="-283.70923"
+           rx="15"
+           ry="15" />
+      </g>
+      <text
+         sodipodi:linespacing="125%"
+         id="text4618"
+         y="-248.05075"
+         x="49.915894"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:40px;line-height:125%;font-family:Aharoni;-inkscape-font-specification:'Aharoni Bold';letter-spacing:0px;word-spacing:0px;fill:#ffb380;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           y="-248.05075"
+           x="49.915894"
+           id="tspan4620"
+           sodipodi:role="line">AP</tspan></text>
     </g>
   </g>
 </svg>

@@ -11,6 +11,25 @@ import java.util.Comparator;
 import java.util.List;
 
 public class AnimatedGameObject implements SetPosition, Player.PlayerListener, SetPath{
+  private int actionPoints = 3;
+  private int maxActionPoints = 3;
+
+  public int getActionPoints() {
+    return actionPoints;
+  }
+
+  public void resetActionPoints() {
+    actionPoints = maxActionPoints;
+  }
+
+  public void decActionPoints(int value) {
+    actionPoints -= value;
+  }
+
+  public float calcDistance(AnimatedGameObject object) {
+    return (float)Math.sqrt( Math.pow(getTilePosition().x - object.getTilePosition().x, 2) + Math.pow(getTilePosition().y - object.getTilePosition().y, 2));
+  }
+
   protected enum Movement {NONE, LEFT, RIGHT, UP, DOWN;}
   protected Player spriterPlayer;
 
@@ -116,6 +135,10 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
       if (Math.abs(worldPosition.x - toWorld(target.x)) <= 10 && Math.abs(worldPosition.y - toWorld(target.y)) <= 10) {
         worldPosition.x = toWorld(target.x);
         worldPosition.y = toWorld(target.y);
+        actionPoints--;
+        if (actionPoints == 0) {
+          cancelMove();
+        }
         currentPathTarget++;
         if (currentPathTarget == pathLength) {
           this.movement = Movement.NONE;

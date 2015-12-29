@@ -19,11 +19,11 @@ public class Combat {
     private int visibleTick = 22;
     private int damage = 50;
 
-    public Shot(Lights lights) {
+    public Shot() {
       sprite = new Sprite(LifeInSpaceMain.assets.getSprites().findRegion("shot"));
       sprite.setCenter(sprite.getWidth()/2, sprite.getHeight()/2);
       sprite.setColor(1, 0.3f, 0.3f, 1);
-      light = new Light(0, 0, (int)sprite.getWidth()/2, (int)sprite.getHeight()/2, 150, lights);
+      light = new Light(0, 0, (int)sprite.getWidth()/2, (int)sprite.getHeight()/2, 150, LifeInSpaceMain.lights);
       light.setColor(0.9f, 0.4f, 0.4f, 1.0f);
       light.setOn(false);
     }
@@ -71,12 +71,11 @@ public class Combat {
   }
   private List<Shot> shots = new ArrayList<Shot>(10);
 
-  private Lights lights;
   private boolean active = false;
 
   private int tick;
-  public Combat(Lights lights) {
-    this.lights = lights;
+
+  public Combat() {
   }
 
   private Shot getShot() {
@@ -84,7 +83,7 @@ public class Combat {
       if (!shot.active)
         return shot;
     }
-    Shot shot = new Shot(lights);
+    Shot shot = new Shot();
     shots.add(shot);
     return shot;
   }

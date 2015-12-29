@@ -15,6 +15,10 @@ public class Guy extends AnimatedGameObject {
     super(entity, drawer, tileSize);
     spriterPlayer.characterMaps = new Entity.CharacterMap[1];
     spriterPlayer.characterMaps[0] = spriterPlayer.getEntity().getCharacterMap("gun_small");
+
+    Light light = new Light(0, 0, 0, 40, 512, LifeInSpaceMain.lights);
+    light.setColor(0.8f, 0.6f, 0.6f, 1);
+    attachLight(light);
   }
 
   @Override

@@ -18,7 +18,7 @@ public class LifeInSpaceMain extends ApplicationAdapter {
   private Viewport viewport;
   private OrthographicCamera camera;
 
-  private Lights lights;
+  public static Lights lights;
 
   public static Assets assets;
 
@@ -50,11 +50,9 @@ public class LifeInSpaceMain extends ApplicationAdapter {
     spriterDataManager.load("alien");
 
     ui = new UserInterface();
-    combat = new Combat(lights);
+    combat = new Combat();
 
-    gameLogic = new GameLogic(lights, world, gameObjects, spriterDataManager, ui, combat);
-
-
+    gameLogic = new GameLogic(world, gameObjects, spriterDataManager, ui, combat);
 
     input = new Input(true, camera, gameLogic);
   }

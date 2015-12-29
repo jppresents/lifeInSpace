@@ -11,10 +11,9 @@ public class GameLogic {
 
   private final Combat combat;
 
-  private enum State {PLAYERINPUT, PLAYERMOVING, ENEMYMOVING, COMBAT}
+  private enum State {PLAYERINPUT, PLAYERMOVING, ENEMYTURN, COMBAT}
 
   private final UserInterface ui;
-  private Lights lights;
   private World world;
   private List<AnimatedGameObject> gameObjects;
   private SpriterDataManager spriterDataManager;
@@ -23,37 +22,60 @@ public class GameLogic {
   private Vector3 target = new Vector3(-1, -1, 0);
 
   private State state = State.PLAYERINPUT;
+  private int nextActiveEnemyIndex;
+  private Enemy activeEnemy;
+  private boolean playerInCombat = false;
 
 
   private Guy guy;
   private List<Enemy> enemies = new ArrayList<Enemy>(20);
 
-  public GameLogic(Lights lights, World world, List<AnimatedGameObject> gameObjects, SpriterDataManager spriterDataManager, UserInterface ui, Combat combat) {
+  public GameLogic(World world, List<AnimatedGameObject> gameObjects, SpriterDataManager spriterDataManager, UserInterface ui, Combat combat) {
     this.ui = ui;
-    this.lights = lights;
     this.world = world;
     this.gameObjects = gameObjects;
     this.spriterDataManager = spriterDataManager;
     this.combat = combat;
 
     guy = new Guy(spriterDataManager.getEntity("guy"), spriterDataManager.getDrawer("guy"), world.getTileSize());
-    Light light = new Light(0, 0, 0, 40, 512, lights);
-    light.setColor(0.8f, 0.6f, 0.6f, 1);
-    guy.attachLight(light);
     gameObjects.add(guy);
 
     for (int i = 0; i < world.getCount("Monster", "1"); i++) {
       Enemy enemy = new Enemy(spriterDataManager.getEntity("alien"), spriterDataManager.getDrawer("alien"), world.getTileSize());
       gameObjects.add(enemy);
       enemies.add(enemy);
-      light = new Light(0, 0, 0, 40, 300, lights);
-      light.setColor(0.2f, 0.5f, 0.5f, 1);
-      enemy.attachLight(light);
     }
     reset();
   }
 
   public void update() {
+    for (Enemy enemy: enemies) {
+      enemy.updateAggro(guy);
+    }
+
+    if (!playerInCombat) {
+      guy.resetActionPoints();
+      //aggro
+      for (Enemy enemy: enemies) {
+        if (enemy.getHealth() > 0 && enemy.isAggro()) {
+          guy.cancelMove();
+          playerInCombat = true;
+          break;
+        }
+      }
+    } else {
+      boolean anyAggro = false;
+      for (Enemy enemy: enemies) {
+        if (enemy.getHealth() > 0 && enemy.isAggro()) {
+          anyAggro = true;
+          break;
+        }
+      }
+      if (!anyAggro) {
+        playerInCombat = false;
+      }
+    }
+
     if (state == State.PLAYERMOVING) {
       if (guy.isIdle()) {
         state = State.PLAYERINPUT;
@@ -63,6 +85,29 @@ public class GameLogic {
     if (state == State.COMBAT) {
       if (!combat.isActive()) {
         state = State.PLAYERINPUT;
+      }
+    }
+
+    if (state == State.PLAYERINPUT && guy.getActionPoints() == 0) {
+      state = State.ENEMYTURN;
+      nextActiveEnemyIndex = 0;
+    }
+
+    if (state == State.ENEMYTURN) {
+      if (activeEnemy == null) {
+        if (nextActiveEnemyIndex >= enemies.size()) {
+          state = State.PLAYERINPUT;
+          guy.resetActionPoints();
+        } else {
+          activeEnemy = enemies.get(nextActiveEnemyIndex);
+          activeEnemy.resetActionPoints();
+          activeEnemy.planTurn(world, guy);
+          nextActiveEnemyIndex++;
+        }
+      } else {
+        if (activeEnemy.isIdle()) {
+          activeEnemy = null; //next enemies turn
+        }
       }
     }
 
@@ -86,6 +131,7 @@ public class GameLogic {
       AnimatedGameObject enemy = getActiveEnemy((int) target.x, (int) target.y);
 
       if (enemy != null) {
+        guy.decActionPoints(1);
         combat.shoot(guy.getGunX(), guy.getGunY(), enemy.getX(), enemy.getY() + world.getTileSize()/2);
         state = State.COMBAT;
         ui.hideSelector();

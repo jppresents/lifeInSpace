@@ -1,40 +1,68 @@
 
 sprites.png
-size: 128,128
+size: 1024,128
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+abBarFill
+  rotate: false
+  xy: 2, 84
+  size: 400, 39
+  orig: 400, 39
+  offset: 0, 0
+  index: -1
+apBar
+  rotate: false
+  xy: 2, 43
+  size: 400, 39
+  orig: 400, 39
+  offset: 0, 0
+  index: -1
+hpBar
+  rotate: false
+  xy: 404, 84
+  size: 400, 39
+  orig: 400, 39
+  offset: 0, 0
+  index: -1
+hpBarFill
+  rotate: false
+  xy: 2, 2
+  size: 400, 39
+  orig: 400, 39
+  offset: 0, 0
+  index: -1
 marker
   rotate: false
-  xy: 46, 21
+  xy: 478, 15
   size: 23, 23
   orig: 23, 23
   offset: 0, 0
   index: -1
 markerError
   rotate: false
-  xy: 76, 87
+  xy: 806, 92
   size: 31, 31
   orig: 31, 31
   offset: 0, 0
   index: -1
 markerTarget
   rotate: false
-  xy: 2, 2
+  xy: 478, 40
   size: 42, 42
   orig: 42, 42
   offset: 0, 0
   index: -1
 selector
   rotate: false
-  xy: 2, 46
+  xy: 404, 10
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 shot
   rotate: false
-  xy: 76, 74
+  xy: 522, 71
   size: 32, 11
   orig: 32, 11
   offset: 0, 0
