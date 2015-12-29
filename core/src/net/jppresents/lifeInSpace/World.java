@@ -53,7 +53,7 @@ public class World implements Disposable {
     for (MapObject object: objLayer.getObjects()) {
       if (object.getName().equals(name)) {
         getTileCoords(((RectangleMapObject)object).getRectangle().getX(), ((RectangleMapObject)object).getRectangle().getY(), temp);
-        guy.setPosition(temp.x * getTileSize(), temp.y * getTileSize());
+        guy.setPosition(temp.x * LifeInSpaceMain.tileSize, temp.y * LifeInSpaceMain.tileSize);
       }
     }
   }
@@ -74,7 +74,7 @@ public class World implements Disposable {
       if (object.getName().equals(name) && object.getProperties().get("type").equals(typ)) {
         SetPosition guy = (SetPosition)guys.get(i);
         getTileCoords(((RectangleMapObject)object).getRectangle().getX(), ((RectangleMapObject)object).getRectangle().getY(), temp);
-        guy.setPosition(temp.x * getTileSize(), temp.y * getTileSize());
+        guy.setPosition(temp.x * LifeInSpaceMain.tileSize, temp.y * LifeInSpaceMain.tileSize);
         i++;
       }
     }
@@ -277,7 +277,4 @@ public class World implements Disposable {
 
   }
 
-  public boolean isWorldBlocking(float x, float y) {
-    return isTileBlocking((int) x / getTileSize(), (int) y / getTileSize());
-  }
 }

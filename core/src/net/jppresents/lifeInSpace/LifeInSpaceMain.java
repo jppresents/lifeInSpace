@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LifeInSpaceMain extends ApplicationAdapter {
+  public static int tileSize = 0;
   private World world;
 
   private SpriterDataManager spriterDataManager;
@@ -42,6 +43,7 @@ public class LifeInSpaceMain extends ApplicationAdapter {
     lights.setAmbientColor(0.5f, 0.3f, 0.3f, 1);
 
     world = new World();
+    tileSize = world.getTileSize();
 
     assets = new Assets();
 

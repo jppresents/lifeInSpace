@@ -81,15 +81,6 @@ public class Guy extends AnimatedGameObject {
     }
   }
 
-  public float getGunX() {
-    return spriterPlayer.getObject("gun_big").position.x;
-  }
-
-  public float getGunY() {
-    return spriterPlayer.getObject("gun_big").position.y;
-  }
-
-
   @Override
   public void animationFinished(Animation animation) {
 

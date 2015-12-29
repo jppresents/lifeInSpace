@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +22,22 @@ public class Combat {
 
     public Shot() {
       sprite = new Sprite(LifeInSpaceMain.assets.getSprites().findRegion("shot"));
-      sprite.setCenter(sprite.getWidth()/2, sprite.getHeight()/2);
       sprite.setColor(1, 0.3f, 0.3f, 1);
       light = new Light(0, 0, (int)sprite.getWidth()/2, (int)sprite.getHeight()/2, 150, LifeInSpaceMain.lights);
       light.setColor(0.9f, 0.4f, 0.4f, 1.0f);
       light.setOn(false);
+    }
+
+    public int getTileX() {
+      return (int) (sprite.getX() + sprite.getWidth()/2)/LifeInSpaceMain.tileSize;
+    }
+
+    public int getTileY() {
+      return (int) (sprite.getY() + sprite.getHeight()/2)/LifeInSpaceMain.tileSize;
+    }
+
+    public void setPos(float x, float y) {
+      sprite.setPosition(x - sprite.getWidth()/2, y - sprite.getHeight()/2);
     }
 
 
@@ -53,7 +65,7 @@ public class Combat {
       }
 
       if (active) {
-        Enemy enemy = findTarget(enemies, (int)sprite.getX()/world.getTileSize(), (int)sprite.getY()/world.getTileSize());
+        Enemy enemy = findTarget(enemies, getTileX(), getTileY());
         if (enemy != null) {
           enemy.hit(damage);
           active = false;
@@ -61,7 +73,7 @@ public class Combat {
         }
       }
 
-      if (world.isWorldBlocking(sprite.getX(), sprite.getY())) {
+      if (world.isTileBlocking(getTileX(), getTileY())) {
         active = false;
         light.setOn(false);
         LifeInSpaceMain.assets.playSound(Assets.SoundEffect.FIZZLE);
@@ -89,11 +101,11 @@ public class Combat {
   }
 
 
-  public void shoot(float fromX, float fromY, float toX, float toY) {
+  public void shoot(Vector3 tilePosFrom, Vector3 tilePosTo) {
     Shot shot = getShot();
     shot.active = true;
-    shot.sprite.setPosition(fromX, fromY);
-    shot.velocity.set(toX - fromX, toY - fromY);
+    shot.setPos(tilePosFrom.x * LifeInSpaceMain.tileSize + LifeInSpaceMain.tileSize/2, tilePosFrom.y * LifeInSpaceMain.tileSize + LifeInSpaceMain.tileSize/2);
+    shot.velocity.set(tilePosTo.x - tilePosFrom.x, tilePosTo.y - tilePosFrom.y);
     shot.velocity.nor().scl(22);
     shot.sprite.setRotation(MathUtils.atan2(shot.velocity.y, shot.velocity.x) * MathUtils.radDeg + 180);
     active = true;

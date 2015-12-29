@@ -37,11 +37,11 @@ public class GameLogic {
     this.spriterDataManager = spriterDataManager;
     this.combat = combat;
 
-    guy = new Guy(spriterDataManager.getEntity("guy"), spriterDataManager.getDrawer("guy"), world.getTileSize());
+    guy = new Guy(spriterDataManager.getEntity("guy"), spriterDataManager.getDrawer("guy"), LifeInSpaceMain.tileSize);
     gameObjects.add(guy);
 
     for (int i = 0; i < world.getCount("Monster", "1"); i++) {
-      Enemy enemy = new Enemy(spriterDataManager.getEntity("alien"), spriterDataManager.getDrawer("alien"), world.getTileSize());
+      Enemy enemy = new Enemy(spriterDataManager.getEntity("alien"), spriterDataManager.getDrawer("alien"), LifeInSpaceMain.tileSize);
       gameObjects.add(enemy);
       enemies.add(enemy);
     }
@@ -132,7 +132,7 @@ public class GameLogic {
 
       if (enemy != null) {
         guy.decActionPoints(1);
-        combat.shoot(guy.getGunX(), guy.getGunY(), enemy.getX(), enemy.getY() + world.getTileSize()/2);
+        combat.shoot(guy.getTilePosition(), enemy.getTilePosition());
         state = State.COMBAT;
         ui.hideSelector();
         guy.activateShootAnimation(enemy.getX(), enemy.getY());
@@ -151,7 +151,7 @@ public class GameLogic {
       world.getTileCoords(x, y, temp);
       target.x = (int) temp.x;
       target.y = (int) temp.y;
-      ui.setSelectorPos((int) temp.x * world.getTileSize() + world.getTileSize()/2, (int) temp.y * world.getTileSize() + world.getTileSize()/2);
+      ui.setSelectorPos((int) temp.x * LifeInSpaceMain.tileSize + LifeInSpaceMain.tileSize/2, (int) temp.y * LifeInSpaceMain.tileSize + LifeInSpaceMain.tileSize/2);
       ui.setError(world.isTileBlocking((int)target.x, (int)target.y));
       ui.setTarget(getActiveEnemy((int) target.x, (int) target.y) != null);
     }
