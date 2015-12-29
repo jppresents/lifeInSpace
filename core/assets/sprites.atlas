@@ -11,6 +11,13 @@ abBarFill
   orig: 400, 39
   offset: 0, 0
   index: -1
+apBarFill
+  rotate: false
+  xy: 2, 84
+  size: 400, 39
+  orig: 400, 39
+  offset: 0, 0
+  index: -1
 apBar
   rotate: false
   xy: 2, 43

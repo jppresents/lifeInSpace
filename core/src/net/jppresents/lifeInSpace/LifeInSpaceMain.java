@@ -98,7 +98,7 @@ public class LifeInSpaceMain extends ApplicationAdapter {
 
     //ui on top (no lighting)
     batch.begin();
-    ui.render(batch);
+    ui.render(batch, camera);
     batch.end();
   }
 

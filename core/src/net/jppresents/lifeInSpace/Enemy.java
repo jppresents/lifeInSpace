@@ -12,12 +12,14 @@ public class Enemy extends AnimatedGameObject {
   private boolean aggro = false;
   private float aggroRange = 6;
   private float deAggroRange = 9;
+  private boolean wasWalking;
 
   public Enemy(Entity entity, Drawer drawer, int tileSize) {
     super(entity, drawer, tileSize);
     light = new Light(0, 0, 0, 40, 300, LifeInSpaceMain.lights);
     light.setColor(0.2f, 0.5f, 0.5f, 1);
     attachLight(light);
+    setCombat(true);
   }
 
   @Override
@@ -67,6 +69,30 @@ public class Enemy extends AnimatedGameObject {
       }
     }
     return aggro;
+  }
+
+
+  @Override
+  protected void updateAnimation() {
+    if (getHealth() > 0) {
+
+      if (getMovement() != Movement.NONE) {
+        wasWalking = true;
+      }
+
+      switch (getMovement()) {
+        case NONE:
+          if (wasWalking) {
+            spriterPlayer.setAnimation("front_idle");
+            wasWalking = false;
+          }
+          break;
+        default:
+          spriterPlayer.setAnimation("front_walk");
+          break;
+      }
+    }
+
   }
 
   public boolean isAggro() {

@@ -24,8 +24,6 @@ public class GameLogic {
   private State state = State.PLAYERINPUT;
   private int nextActiveEnemyIndex;
   private Enemy activeEnemy;
-  private boolean playerInCombat = false;
-
 
   private Guy guy;
   private List<Enemy> enemies = new ArrayList<Enemy>(20);
@@ -53,13 +51,12 @@ public class GameLogic {
       enemy.updateAggro(guy);
     }
 
-    if (!playerInCombat) {
-      guy.resetActionPoints();
+    if (!guy.inCombat()) {
       //aggro
       for (Enemy enemy : enemies) {
         if (enemy.getHealth() > 0 && enemy.isAggro()) {
           guy.cancelMove();
-          playerInCombat = true;
+          guy.setCombat(true);
           break;
         }
       }
@@ -72,7 +69,7 @@ public class GameLogic {
         }
       }
       if (!anyAggro) {
-        playerInCombat = false;
+        guy.setCombat(false);
       }
     }
 
@@ -88,7 +85,7 @@ public class GameLogic {
       }
     }
 
-    if (state == State.PLAYERINPUT && guy.getActionPoints() == 0) {
+    if (state == State.PLAYERINPUT && guy.getActionPoints() <= 0) {
       state = State.ENEMYTURN;
       nextActiveEnemyIndex = 0;
     }
@@ -112,6 +109,8 @@ public class GameLogic {
     }
 
     combat.update(world, enemies);
+    ui.setActionPoints(guy.getActionPoints());
+    ui.showActionBar(guy.inCombat());
   }
 
   public void reset() {

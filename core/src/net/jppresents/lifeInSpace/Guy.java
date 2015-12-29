@@ -22,6 +22,11 @@ public class Guy extends AnimatedGameObject {
   }
 
   @Override
+  public void update() {
+    super.update();
+  }
+
+  @Override
   protected void updateAnimation() {
 
     if (!faceRight && spriterPlayer.flippedX() == -1) {
@@ -64,6 +69,7 @@ public class Guy extends AnimatedGameObject {
   }
 
   public void activateShootAnimation(float targetX, float targetY) {
+    spriterPlayer.setAnimation("front_idle"); //forces the shooting animation to start over if one is currently running
     float distX = Math.abs(worldPosition.x - targetX);
     float distY = Math.abs(worldPosition.y - targetY);
     if (distX > distY) {
@@ -102,5 +108,4 @@ public class Guy extends AnimatedGameObject {
       spriterPlayer.setAnimation("front_idle_gun_flip");
     }
   }
-
 }

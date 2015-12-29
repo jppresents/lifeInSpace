@@ -13,6 +13,8 @@ import java.util.List;
 public class AnimatedGameObject implements SetPosition, Player.PlayerListener, SetPath{
   private int actionPoints = 3;
   private int maxActionPoints = 3;
+  private boolean combat;
+  private boolean currentMovecostsActinPoints;
 
   public int getActionPoints() {
     return actionPoints;
@@ -63,6 +65,7 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
     if (currentPathTarget < pathLength - 1) {
       pathLength = currentPathTarget + 1;
     }
+    currentMovecostsActinPoints = combat;
   }
 
   public void hit(int dmg) {
@@ -115,16 +118,6 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
 
   protected void updateAnimation() {
     //override
-    if (getHealth() > 0) {
-      switch (getMovement()) {
-        case NONE:
-          spriterPlayer.setAnimation("front_idle");
-          break;
-        default:
-          spriterPlayer.setAnimation("front_walk");
-          break;
-      }
-    }
   }
 
   private float toWorld(float pos) {
@@ -132,6 +125,10 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
   }
 
   public void update() {
+    if (!combat) {
+      resetActionPoints();
+    }
+
     for (Light light: attachedLights) {
       light.setPosition(worldPosition.x + tileSize/2, worldPosition.y);
     }
@@ -145,11 +142,19 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
       if (Math.abs(worldPosition.x - toWorld(target.x)) <= 10 && Math.abs(worldPosition.y - toWorld(target.y)) <= 10) {
         worldPosition.x = toWorld(target.x);
         worldPosition.y = toWorld(target.y);
-        actionPoints--;
-        if (actionPoints == 0) {
+        currentPathTarget++;
+
+        if (currentMovecostsActinPoints) {
+          if (combat) {
+            actionPoints--;
+          }
+        } else {
+          currentMovecostsActinPoints = true;
+        }
+        if (actionPoints <= 0) {
           cancelMove();
         }
-        currentPathTarget++;
+
         if (currentPathTarget == pathLength) {
           this.movement = Movement.NONE;
         }
@@ -234,5 +239,13 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
   public void setPathLength(int pathLength) {
     this.pathLength = pathLength;
     currentPathTarget = 0;
+  }
+
+  public void setCombat(boolean combat) {
+    this.combat = combat;
+  }
+
+  public boolean inCombat() {
+    return combat;
   }
 }
