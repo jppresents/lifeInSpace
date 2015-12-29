@@ -36,7 +36,7 @@ public class LifeInSpaceMain extends ApplicationAdapter {
     camera = new OrthographicCamera();
 
     viewport = new ExtendViewport(1280, 720, camera);
-    camera.translate(1280/2, 720/2);
+    camera.translate(1280 / 2, 720 / 2);
     batch = new SpriteBatch();
 
     lights = new Lights();
@@ -71,7 +71,7 @@ public class LifeInSpaceMain extends ApplicationAdapter {
   public void render() {
 
     //update gameObjects
-    for (AnimatedGameObject obj: gameObjects) {
+    for (AnimatedGameObject obj : gameObjects) {
       obj.update();
     }
     gameObjects.sort(AnimatedGameObject.getYSortComparator());
@@ -87,7 +87,7 @@ public class LifeInSpaceMain extends ApplicationAdapter {
     //render the gameObjects
     batch.setProjectionMatrix(camera.combined);
     batch.begin();
-    for (AnimatedGameObject obj: gameObjects) {
+    for (AnimatedGameObject obj : gameObjects) {
       obj.draw();
     }
     combat.render(batch);

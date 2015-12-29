@@ -32,7 +32,6 @@ public class Guy extends AnimatedGameObject {
       spriterPlayer.flipX();
     }
 
-
     if (getMovement() != Movement.NONE) {
       wasWalking = true;
     }

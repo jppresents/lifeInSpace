@@ -23,26 +23,26 @@ public class Combat {
     public Shot() {
       sprite = new Sprite(LifeInSpaceMain.assets.getSprites().findRegion("shot"));
       sprite.setColor(1, 0.3f, 0.3f, 1);
-      light = new Light(0, 0, (int)sprite.getWidth()/2, (int)sprite.getHeight()/2, 150, LifeInSpaceMain.lights);
+      light = new Light(0, 0, (int) sprite.getWidth() / 2, (int) sprite.getHeight() / 2, 150, LifeInSpaceMain.lights);
       light.setColor(0.9f, 0.4f, 0.4f, 1.0f);
       light.setOn(false);
     }
 
     public int getTileX() {
-      return (int) (sprite.getX() + sprite.getWidth()/2)/LifeInSpaceMain.tileSize;
+      return (int) (sprite.getX() + sprite.getWidth() / 2) / LifeInSpaceMain.tileSize;
     }
 
     public int getTileY() {
-      return (int) (sprite.getY() + sprite.getHeight()/2)/LifeInSpaceMain.tileSize;
+      return (int) (sprite.getY() + sprite.getHeight() / 2) / LifeInSpaceMain.tileSize;
     }
 
     public void setPos(float x, float y) {
-      sprite.setPosition(x - sprite.getWidth()/2, y - sprite.getHeight()/2);
+      sprite.setPosition(x - sprite.getWidth() / 2, y - sprite.getHeight() / 2);
     }
 
 
     private Enemy findTarget(List<Enemy> enemies, int x, int y) {
-      for (Enemy enemy: enemies) {
+      for (Enemy enemy : enemies) {
         if (enemy.getTilePosition().x == x && enemy.getTilePosition().y == y && enemy.getHealth() > 0) {
           return enemy;
         }
@@ -81,6 +81,7 @@ public class Combat {
 
     }
   }
+
   private List<Shot> shots = new ArrayList<Shot>(10);
 
   private boolean active = false;
@@ -91,7 +92,7 @@ public class Combat {
   }
 
   private Shot getShot() {
-    for (Shot shot: shots) {
+    for (Shot shot : shots) {
       if (!shot.active)
         return shot;
     }
@@ -104,7 +105,7 @@ public class Combat {
   public void shoot(Vector3 tilePosFrom, Vector3 tilePosTo) {
     Shot shot = getShot();
     shot.active = true;
-    shot.setPos(tilePosFrom.x * LifeInSpaceMain.tileSize + LifeInSpaceMain.tileSize/2, tilePosFrom.y * LifeInSpaceMain.tileSize + LifeInSpaceMain.tileSize/2);
+    shot.setPos(tilePosFrom.x * LifeInSpaceMain.tileSize + LifeInSpaceMain.tileSize / 2, tilePosFrom.y * LifeInSpaceMain.tileSize + LifeInSpaceMain.tileSize / 2);
     shot.velocity.set(tilePosTo.x - tilePosFrom.x, tilePosTo.y - tilePosFrom.y);
     shot.velocity.nor().scl(22);
     shot.sprite.setRotation(MathUtils.atan2(shot.velocity.y, shot.velocity.x) * MathUtils.radDeg + 180);
@@ -115,7 +116,7 @@ public class Combat {
   public void update(World world, List<Enemy> enemies) {
     tick++;
     boolean any = false;
-    for (Shot shot: shots){
+    for (Shot shot : shots) {
       if (shot.active) {
         if (tick == shot.startTick) {
           LifeInSpaceMain.assets.playSound(Assets.SoundEffect.BLASTER);
@@ -132,9 +133,9 @@ public class Combat {
   }
 
   public void render(Batch batch) {
-    for (Shot shot: shots) {
+    for (Shot shot : shots) {
       if (shot.active && tick > shot.visibleTick) {
-          shot.sprite.draw(batch);
+        shot.sprite.draw(batch);
       }
     }
   }

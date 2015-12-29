@@ -115,6 +115,16 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
 
   protected void updateAnimation() {
     //override
+    if (getHealth() > 0) {
+      switch (getMovement()) {
+        case NONE:
+          spriterPlayer.setAnimation("front_idle");
+          break;
+        default:
+          spriterPlayer.setAnimation("front_walk");
+          break;
+      }
+    }
   }
 
   private float toWorld(float pos) {

@@ -33,14 +33,14 @@ public class World implements Disposable {
 
   private void load(String mapName) {
     map = mapLoader.load("world/" + mapName + ".tmx");
-    mainLayer = (TiledMapTileLayer)(map.getLayers().get("world"));
+    mainLayer = (TiledMapTileLayer) (map.getLayers().get("world"));
     objLayer = map.getLayers().get("objects");
     mapRenderer = new OrthogonalTiledMapRenderer(map, 1);
     pathMap = new int[mainLayer.getHeight()][];
     for (int y = 0; y < mainLayer.getHeight(); y++) {
       pathMap[y] = new int[mainLayer.getWidth()];
-      for (int x = 0; x < pathMap[y].length; x++ ) {
-        if (isTileBlocking(x,y)) {
+      for (int x = 0; x < pathMap[y].length; x++) {
+        if (isTileBlocking(x, y)) {
           pathMap[y][x] = Integer.MIN_VALUE;
         } else {
           pathMap[y][x] = 0;
@@ -50,9 +50,9 @@ public class World implements Disposable {
   }
 
   public void resetPosition(SetPosition guy, String name) {
-    for (MapObject object: objLayer.getObjects()) {
+    for (MapObject object : objLayer.getObjects()) {
       if (object.getName().equals(name)) {
-        getTileCoords(((RectangleMapObject)object).getRectangle().getX(), ((RectangleMapObject)object).getRectangle().getY(), temp);
+        getTileCoords(((RectangleMapObject) object).getRectangle().getX(), ((RectangleMapObject) object).getRectangle().getY(), temp);
         guy.setPosition(temp.x * LifeInSpaceMain.tileSize, temp.y * LifeInSpaceMain.tileSize);
       }
     }
@@ -60,7 +60,7 @@ public class World implements Disposable {
 
   public int getCount(String name, String typ) {
     int i = 0;
-    for (MapObject object: objLayer.getObjects()) {
+    for (MapObject object : objLayer.getObjects()) {
       if (object.getName().equals(name) && object.getProperties().get("type").equals(typ)) {
         i++;
       }
@@ -70,10 +70,10 @@ public class World implements Disposable {
 
   public void resetPositions(List guys, String name, String typ) {
     int i = 0;
-    for (MapObject object: objLayer.getObjects()) {
+    for (MapObject object : objLayer.getObjects()) {
       if (object.getName().equals(name) && object.getProperties().get("type").equals(typ)) {
-        SetPosition guy = (SetPosition)guys.get(i);
-        getTileCoords(((RectangleMapObject)object).getRectangle().getX(), ((RectangleMapObject)object).getRectangle().getY(), temp);
+        SetPosition guy = (SetPosition) guys.get(i);
+        getTileCoords(((RectangleMapObject) object).getRectangle().getX(), ((RectangleMapObject) object).getRectangle().getY(), temp);
         guy.setPosition(temp.x * LifeInSpaceMain.tileSize, temp.y * LifeInSpaceMain.tileSize);
         i++;
       }
@@ -94,7 +94,7 @@ public class World implements Disposable {
   }
 
   public int getTileSize() {
-    return (int)mainLayer.getTileWidth();
+    return (int) mainLayer.getTileWidth();
   }
 
   @Override
@@ -109,17 +109,17 @@ public class World implements Disposable {
   }
 
   public void restrictCamera(OrthographicCamera camera) {
-    if (camera.position.x < camera.viewportWidth/2) {
-      camera.position.x = camera.viewportWidth/2;
+    if (camera.position.x < camera.viewportWidth / 2) {
+      camera.position.x = camera.viewportWidth / 2;
     }
-    if (camera.position.y < camera.viewportHeight/2) {
-      camera.position.y = camera.viewportHeight/2;
+    if (camera.position.y < camera.viewportHeight / 2) {
+      camera.position.y = camera.viewportHeight / 2;
     }
-    if (camera.position.x > mainLayer.getWidth() * mainLayer.getTileWidth() - camera.viewportWidth/2) {
-      camera.position.x = mainLayer.getWidth() * mainLayer.getTileWidth() - camera.viewportWidth/2;
+    if (camera.position.x > mainLayer.getWidth() * mainLayer.getTileWidth() - camera.viewportWidth / 2) {
+      camera.position.x = mainLayer.getWidth() * mainLayer.getTileWidth() - camera.viewportWidth / 2;
     }
-    if (camera.position.y > mainLayer.getHeight() * mainLayer.getTileHeight() - camera.viewportHeight/2) {
-      camera.position.y = mainLayer.getHeight() * mainLayer.getTileHeight() - camera.viewportHeight/2;
+    if (camera.position.y > mainLayer.getHeight() * mainLayer.getTileHeight() - camera.viewportHeight / 2) {
+      camera.position.y = mainLayer.getHeight() * mainLayer.getTileHeight() - camera.viewportHeight / 2;
     }
   }
 
@@ -131,12 +131,15 @@ public class World implements Disposable {
     return Integer.MAX_VALUE;
   }
 
-  public boolean calcPath(SetPath guy, Vector3 start, Vector3 target) {
-    clearPathMap();
-    int startX = (int)start.x;
-    int startY = (int)start.y;
-    int targetX = (int)target.x;
-    int targetY = (int)target.y;
+  public boolean calcPath(SetPath guy, Vector3 start, Vector3 target, int stopDistance, List<Enemy> enemies) {
+    int startX = (int) start.x;
+    int startY = (int) start.y;
+    int targetX = (int) target.x;
+    int targetY = (int) target.y;
+
+    clearPathMap(enemies);
+    pathMap[startY][startX] = 0;
+
     if (pathMap[targetY][targetX] != Integer.MIN_VALUE) {
       pathMap[targetY][targetX] = 1;
       while (pathMap[startY][startX] == 0) {
@@ -153,7 +156,7 @@ public class World implements Disposable {
 
       int lastDir = -1; // 0 right, 1 left, 2 up, 3 down
 
-      while (x != targetX || y != targetY) {
+      while (calcDistance(x, y, targetX, targetY) > stopDistance) {
         int curVal = getPathMapValue(x, y);
         oldX = x;
         oldY = y;
@@ -163,23 +166,23 @@ public class World implements Disposable {
         boolean up = false;
         boolean down = false;
 
-        if (getPathMapValue(x + 1, y) < curVal && getPathMapValue(x + 1, y) != Integer.MIN_VALUE && getPathMapValue(x + 1, y) != 0 ) {
+        if (getPathMapValue(x + 1, y) < curVal && getPathMapValue(x + 1, y) > 0) {
           right = true;
         }
-        if (getPathMapValue(x - 1, y) < curVal && getPathMapValue(x - 1, y) != Integer.MIN_VALUE && getPathMapValue(x - 1, y) != 0 ) {
+        if (getPathMapValue(x - 1, y) < curVal && getPathMapValue(x - 1, y) > 0) {
           left = true;
         }
-        if (getPathMapValue(x, y + 1) < curVal && getPathMapValue(x, y + 1) != Integer.MIN_VALUE && getPathMapValue(x, y + 1) != 0 ) {
+        if (getPathMapValue(x, y + 1) < curVal && getPathMapValue(x, y + 1) > 0) {
           up = true;
         }
-        if (getPathMapValue(x, y - 1) < curVal && getPathMapValue(x, y - 1) != Integer.MIN_VALUE && getPathMapValue(x, y - 1) != 0 ) {
+        if (getPathMapValue(x, y - 1) < curVal && getPathMapValue(x, y - 1) > 0) {
           down = true;
         }
 
-        if (right && ((!up && !down) || lastDir != 0) ) {
+        if (right && ((!up && !down) || lastDir != 0)) {
           lastDir = 0;
           x++;
-        } else if (left && ((!up && !down) || lastDir != 1) ) {
+        } else if (left && ((!up && !down) || lastDir != 1)) {
           lastDir = 1;
           x--;
         } else if (up) {
@@ -202,6 +205,10 @@ public class World implements Disposable {
     return false;
   }
 
+  private int calcDistance(int x, int y, int targetX, int targetY) {
+    return Math.abs((x - targetX)) + Math.abs((y - targetY));
+  }
+
   private void addPathValue(SetPath guy, int x, int y, int step) {
     while (guy.getPath().size() < step + 1) {
       guy.getPath().add(new Vector2());
@@ -210,12 +217,17 @@ public class World implements Disposable {
     guy.getPath().get(step).y = y;
   }
 
-  private void clearPathMap() {
+  private void clearPathMap(List<Enemy> enemies) {
     for (int y = 0; y < pathMap.length; y++) {
-      for (int x = 0; x < pathMap[y].length; x++ ) {
+      for (int x = 0; x < pathMap[y].length; x++) {
         if (pathMap[y][x] != Integer.MIN_VALUE) {
           pathMap[y][x] = 0;
         }
+      }
+    }
+    for (Enemy enemy : enemies) {
+      if (enemy.getHealth() > 0) {
+        pathMap[(int) enemy.getTilePosition().y][(int) enemy.getTilePosition().x] = Integer.MIN_VALUE + 1;
       }
     }
   }
@@ -223,7 +235,7 @@ public class World implements Disposable {
   private boolean floodPathMap() {
     boolean flooded = false;
     for (int y = 0; y < pathMap.length; y++) {
-      for (int x = 0; x < pathMap[y].length; x++ ) {
+      for (int x = 0; x < pathMap[y].length; x++) {
 
         int value = getPathMapValue(x + 1, y);
         if (value > 0 && value != Integer.MAX_VALUE && (pathMap[y][x] == 0 || pathMap[y][x] > value + 1)) {
@@ -249,7 +261,7 @@ public class World implements Disposable {
     }
     for (int y = 0; y < pathMap.length; y++) {
       for (int x = 0; x < pathMap[y].length; x++) {
-        if (pathMap[y][x] != Integer.MIN_VALUE) {
+        if (pathMap[y][x] != Integer.MIN_VALUE && pathMap[y][x] != Integer.MIN_VALUE + 1) {
           pathMap[y][x] = Math.abs(pathMap[y][x]);
         }
       }
@@ -265,6 +277,8 @@ public class World implements Disposable {
       for (int x = 0; x < pathMap[y].length; x++) {
         if (pathMap[y][x] == Integer.MIN_VALUE) {
           str = str + "   ";
+        } else if (pathMap[y][x] == Integer.MIN_VALUE + 1) {
+          str = str + " x ";
         } else {
           NumberFormat nf = NumberFormat.getIntegerInstance();
           nf.setMinimumIntegerDigits(2);

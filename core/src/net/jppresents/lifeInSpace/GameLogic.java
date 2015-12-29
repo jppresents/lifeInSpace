@@ -49,14 +49,14 @@ public class GameLogic {
   }
 
   public void update() {
-    for (Enemy enemy: enemies) {
+    for (Enemy enemy : enemies) {
       enemy.updateAggro(guy);
     }
 
     if (!playerInCombat) {
       guy.resetActionPoints();
       //aggro
-      for (Enemy enemy: enemies) {
+      for (Enemy enemy : enemies) {
         if (enemy.getHealth() > 0 && enemy.isAggro()) {
           guy.cancelMove();
           playerInCombat = true;
@@ -65,7 +65,7 @@ public class GameLogic {
       }
     } else {
       boolean anyAggro = false;
-      for (Enemy enemy: enemies) {
+      for (Enemy enemy : enemies) {
         if (enemy.getHealth() > 0 && enemy.isAggro()) {
           anyAggro = true;
           break;
@@ -101,7 +101,7 @@ public class GameLogic {
         } else {
           activeEnemy = enemies.get(nextActiveEnemyIndex);
           activeEnemy.resetActionPoints();
-          activeEnemy.planTurn(world, guy);
+          activeEnemy.planTurn(world, guy, enemies);
           nextActiveEnemyIndex++;
         }
       } else {
@@ -137,11 +137,11 @@ public class GameLogic {
         ui.hideSelector();
         guy.activateShootAnimation(enemy.getX(), enemy.getY());
       } else if (!world.isTileBlocking((int) target.x, (int) target.y)) {
-        world.calcPath(guy, guy.getTilePosition(), target);
+        world.calcPath(guy, guy.getTilePosition(), target, 0, enemies);
         state = State.PLAYERMOVING;
         ui.hideSelector();
       }
-    } else if (state == State.PLAYERMOVING){
+    } else if (state == State.PLAYERMOVING) {
       guy.cancelMove();
     }
   }
@@ -151,14 +151,14 @@ public class GameLogic {
       world.getTileCoords(x, y, temp);
       target.x = (int) temp.x;
       target.y = (int) temp.y;
-      ui.setSelectorPos((int) temp.x * LifeInSpaceMain.tileSize + LifeInSpaceMain.tileSize/2, (int) temp.y * LifeInSpaceMain.tileSize + LifeInSpaceMain.tileSize/2);
-      ui.setError(world.isTileBlocking((int)target.x, (int)target.y));
+      ui.setSelectorPos((int) temp.x * LifeInSpaceMain.tileSize + LifeInSpaceMain.tileSize / 2, (int) temp.y * LifeInSpaceMain.tileSize + LifeInSpaceMain.tileSize / 2);
+      ui.setError(world.isTileBlocking((int) target.x, (int) target.y));
       ui.setTarget(getActiveEnemy((int) target.x, (int) target.y) != null);
     }
   }
 
   private AnimatedGameObject getActiveEnemy(int x, int y) {
-    for (AnimatedGameObject obj: enemies) {
+    for (AnimatedGameObject obj : enemies) {
       Vector3 pos = obj.getTilePosition();
       if (pos.x == x && pos.y == y && obj.getHealth() > 0) {
         return obj;

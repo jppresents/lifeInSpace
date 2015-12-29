@@ -4,12 +4,14 @@ import com.brashmonkey.spriter.Animation;
 import com.brashmonkey.spriter.Drawer;
 import com.brashmonkey.spriter.Entity;
 
+import java.util.List;
+
 public class Enemy extends AnimatedGameObject {
 
   private Light light;
   private boolean aggro = false;
   private float aggroRange = 6;
-  private float deAggroRange = 8;
+  private float deAggroRange = 9;
 
   public Enemy(Entity entity, Drawer drawer, int tileSize) {
     super(entity, drawer, tileSize);
@@ -43,12 +45,12 @@ public class Enemy extends AnimatedGameObject {
     }
   }
 
-  public void planTurn(World world, Guy guy) {
+  public void planTurn(World world, Guy guy, List<Enemy> enemies) {
     if (getHealth() <= 0)
       return;
 
     if (isAggro()) {
-      world.calcPath(this, this.getTilePosition(), guy.getTilePosition());
+      world.calcPath(this, this.getTilePosition(), guy.getTilePosition(), 1, enemies);
     }
   }
 
