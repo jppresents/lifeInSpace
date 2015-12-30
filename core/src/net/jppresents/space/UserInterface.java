@@ -1,9 +1,8 @@
-package net.jppresents.lifeInSpace;
+package net.jppresents.space;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.sun.javaws.progress.Progress;
 
 public class UserInterface {
   private final TextureAtlas.AtlasRegion marker;
@@ -22,16 +21,16 @@ public class UserInterface {
   private int currentActionBarY = 0;
 
   public UserInterface() {
-    marker = LifeInSpaceMain.assets.getSprites().findRegion("marker");
-    markerError = LifeInSpaceMain.assets.getSprites().findRegion("markerError");
-    markerTarget = LifeInSpaceMain.assets.getSprites().findRegion("markerTarget");
-    selector = LifeInSpaceMain.assets.getSprites().findRegion("selector");
+    marker = brokenMain.assets.getSprites().findRegion("marker");
+    markerError = brokenMain.assets.getSprites().findRegion("markerError");
+    markerTarget = brokenMain.assets.getSprites().findRegion("markerTarget");
+    selector = brokenMain.assets.getSprites().findRegion("selector");
     selectorX = -1;
     selectorY = -1;
-    healthBar = new ProgressBar(10, 670, 100, 100, LifeInSpaceMain.assets.getSprites().findRegion("hpBar"), LifeInSpaceMain.assets.getSprites().findRegion("hpBarFill"));
-    actionBarY = -LifeInSpaceMain.assets.getSprites().findRegion("apBar").getRegionHeight();
+    healthBar = new ProgressBar(10, 670, 100, 100, brokenMain.assets.getSprites().findRegion("hpBar"), brokenMain.assets.getSprites().findRegion("hpBarFill"));
+    actionBarY = -brokenMain.assets.getSprites().findRegion("apBar").getRegionHeight();
     currentActionBarY = actionBarY;
-    actionBar = new ProgressBar(850, currentActionBarY, 3, 3, LifeInSpaceMain.assets.getSprites().findRegion("apBar"), LifeInSpaceMain.assets.getSprites().findRegion("apBarFill"));
+    actionBar = new ProgressBar(850, currentActionBarY, 3, 3, brokenMain.assets.getSprites().findRegion("apBar"), brokenMain.assets.getSprites().findRegion("apBarFill"));
   }
 
   public void render(SpriteBatch batch, Camera camera) {
@@ -92,7 +91,7 @@ public class UserInterface {
     if (show) {
       actionBarY = 10;
     } else {
-      actionBarY = -LifeInSpaceMain.assets.getSprites().findRegion("apBar").getRegionHeight();
+      actionBarY = -brokenMain.assets.getSprites().findRegion("apBar").getRegionHeight();
     }
   }
 }

@@ -1,4 +1,4 @@
-package net.jppresents.lifeInSpace;
+package net.jppresents.space;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector3;
@@ -35,11 +35,11 @@ public class GameLogic {
     this.spriterDataManager = spriterDataManager;
     this.combat = combat;
 
-    guy = new Guy(spriterDataManager.getEntity("guy"), spriterDataManager.getDrawer("guy"), LifeInSpaceMain.tileSize);
+    guy = new Guy(spriterDataManager.getEntity("guy"), spriterDataManager.getDrawer("guy"), brokenMain.tileSize);
     gameObjects.add(guy);
 
     for (int i = 0; i < world.getCount("Monster", "1"); i++) {
-      Enemy enemy = new Enemy(spriterDataManager.getEntity("alien"), spriterDataManager.getDrawer("alien"), LifeInSpaceMain.tileSize);
+      Enemy enemy = new Enemy(spriterDataManager.getEntity("alien"), spriterDataManager.getDrawer("alien"), brokenMain.tileSize);
       gameObjects.add(enemy);
       enemies.add(enemy);
     }
@@ -150,7 +150,7 @@ public class GameLogic {
       world.getTileCoords(x, y, temp);
       target.x = (int) temp.x;
       target.y = (int) temp.y;
-      ui.setSelectorPos((int) temp.x * LifeInSpaceMain.tileSize + LifeInSpaceMain.tileSize / 2, (int) temp.y * LifeInSpaceMain.tileSize + LifeInSpaceMain.tileSize / 2);
+      ui.setSelectorPos((int) temp.x * brokenMain.tileSize + brokenMain.tileSize / 2, (int) temp.y * brokenMain.tileSize + brokenMain.tileSize / 2);
       ui.setError(world.isTileBlocking((int) target.x, (int) target.y));
       ui.setTarget(getActiveEnemy((int) target.x, (int) target.y) != null);
     }

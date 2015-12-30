@@ -1,4 +1,4 @@
-package net.jppresents.lifeInSpace;
+package net.jppresents.space;
 
 import com.badlogic.gdx.math.Vector2;
 

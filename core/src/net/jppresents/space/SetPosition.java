@@ -1,4 +1,4 @@
-package net.jppresents.lifeInSpace;
+package net.jppresents.space;
 
 /**
  * Created by JP on 27.12.2015.

@@ -1,4 +1,4 @@
-package net.jppresents.lifeInSpace;
+package net.jppresents.space;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.MapLayer;
@@ -53,7 +53,7 @@ public class World implements Disposable {
     for (MapObject object : objLayer.getObjects()) {
       if (object.getName().equals(name)) {
         getTileCoords(((RectangleMapObject) object).getRectangle().getX(), ((RectangleMapObject) object).getRectangle().getY(), temp);
-        guy.setPosition(temp.x * LifeInSpaceMain.tileSize, temp.y * LifeInSpaceMain.tileSize);
+        guy.setPosition(temp.x * brokenMain.tileSize, temp.y * brokenMain.tileSize);
       }
     }
   }
@@ -74,7 +74,7 @@ public class World implements Disposable {
       if (object.getName().equals(name) && object.getProperties().get("type").equals(typ)) {
         SetPosition guy = (SetPosition) guys.get(i);
         getTileCoords(((RectangleMapObject) object).getRectangle().getX(), ((RectangleMapObject) object).getRectangle().getY(), temp);
-        guy.setPosition(temp.x * LifeInSpaceMain.tileSize, temp.y * LifeInSpaceMain.tileSize);
+        guy.setPosition(temp.x * brokenMain.tileSize, temp.y * brokenMain.tileSize);
         i++;
       }
     }
