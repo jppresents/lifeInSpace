@@ -53,7 +53,7 @@ public class World implements Disposable {
     for (MapObject object : objLayer.getObjects()) {
       if (object.getName().equals(name)) {
         getTileCoords(((RectangleMapObject) object).getRectangle().getX(), ((RectangleMapObject) object).getRectangle().getY(), temp);
-        guy.setPosition(temp.x * brokenMain.tileSize, temp.y * brokenMain.tileSize);
+        guy.setPosition(temp.x * SpaceMain.tileSize, temp.y * SpaceMain.tileSize);
       }
     }
   }
@@ -74,7 +74,7 @@ public class World implements Disposable {
       if (object.getName().equals(name) && object.getProperties().get("type").equals(typ)) {
         SetPosition guy = (SetPosition) guys.get(i);
         getTileCoords(((RectangleMapObject) object).getRectangle().getX(), ((RectangleMapObject) object).getRectangle().getY(), temp);
-        guy.setPosition(temp.x * brokenMain.tileSize, temp.y * brokenMain.tileSize);
+        guy.setPosition(temp.x * SpaceMain.tileSize, temp.y * SpaceMain.tileSize);
         i++;
       }
     }

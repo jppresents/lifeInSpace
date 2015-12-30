@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import java.util.ArrayList;
 import java.util.List;
 
-public class brokenMain extends ApplicationAdapter {
+public class SpaceMain extends ApplicationAdapter {
   public static int tileSize = 0;
   private World world;
 

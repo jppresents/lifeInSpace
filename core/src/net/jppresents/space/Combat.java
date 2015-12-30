@@ -21,19 +21,19 @@ public class Combat {
     private int damage = 50;
 
     public Shot() {
-      sprite = new Sprite(brokenMain.assets.getSprites().findRegion("shot"));
+      sprite = new Sprite(SpaceMain.assets.getSprites().findRegion("shot"));
       sprite.setColor(1, 0.3f, 0.3f, 1);
-      light = new Light(0, 0, (int) sprite.getWidth() / 2, (int) sprite.getHeight() / 2, 150, brokenMain.lights);
+      light = new Light(0, 0, (int) sprite.getWidth() / 2, (int) sprite.getHeight() / 2, 150, SpaceMain.lights);
       light.setColor(0.9f, 0.4f, 0.4f, 1.0f);
       light.setOn(false);
     }
 
     public int getTileX() {
-      return (int) (sprite.getX() + sprite.getWidth() / 2) / brokenMain.tileSize;
+      return (int) (sprite.getX() + sprite.getWidth() / 2) / SpaceMain.tileSize;
     }
 
     public int getTileY() {
-      return (int) (sprite.getY() + sprite.getHeight() / 2) / brokenMain.tileSize;
+      return (int) (sprite.getY() + sprite.getHeight() / 2) / SpaceMain.tileSize;
     }
 
     public void setPos(float x, float y) {
@@ -76,7 +76,7 @@ public class Combat {
       if (world.isTileBlocking(getTileX(), getTileY())) {
         active = false;
         light.setOn(false);
-        brokenMain.assets.playSound(Assets.SoundEffect.FIZZLE);
+        SpaceMain.assets.playSound(Assets.SoundEffect.FIZZLE);
       }
 
     }
@@ -105,7 +105,7 @@ public class Combat {
   public void shoot(Vector3 tilePosFrom, Vector3 tilePosTo) {
     Shot shot = getShot();
     shot.active = true;
-    shot.setPos(tilePosFrom.x * brokenMain.tileSize + brokenMain.tileSize / 2, tilePosFrom.y * brokenMain.tileSize + brokenMain.tileSize / 2);
+    shot.setPos(tilePosFrom.x * SpaceMain.tileSize + SpaceMain.tileSize / 2, tilePosFrom.y * SpaceMain.tileSize + SpaceMain.tileSize / 2);
     shot.velocity.set(tilePosTo.x - tilePosFrom.x, tilePosTo.y - tilePosFrom.y);
     shot.velocity.nor().scl(22);
     shot.sprite.setRotation(MathUtils.atan2(shot.velocity.y, shot.velocity.x) * MathUtils.radDeg + 180);
@@ -119,7 +119,7 @@ public class Combat {
     for (Shot shot : shots) {
       if (shot.active) {
         if (tick == shot.startTick) {
-          brokenMain.assets.playSound(Assets.SoundEffect.BLASTER);
+          SpaceMain.assets.playSound(Assets.SoundEffect.BLASTER);
         }
         if (tick > shot.startTick) {
           shot.update(tick, world, enemies);

@@ -16,7 +16,7 @@ public class Enemy extends AnimatedGameObject {
 
   public Enemy(Entity entity, Drawer drawer, int tileSize) {
     super(entity, drawer, tileSize);
-    light = new Light(0, 0, 0, 40, 300, brokenMain.lights);
+    light = new Light(0, 0, 0, 40, 300, SpaceMain.lights);
     light.setColor(0.2f, 0.5f, 0.5f, 1);
     attachLight(light);
     setCombat(true);
@@ -24,13 +24,13 @@ public class Enemy extends AnimatedGameObject {
 
   @Override
   protected void hurt() {
-    brokenMain.assets.playSound(Assets.SoundEffect.ALIEN_HURT);
+    SpaceMain.assets.playSound(Assets.SoundEffect.ALIEN_HURT);
     spriterPlayer.setAnimation("front_hurt");
   }
 
   @Override
   protected void die() {
-    brokenMain.assets.playSound(Assets.SoundEffect.ALIEN_DIE);
+    SpaceMain.assets.playSound(Assets.SoundEffect.ALIEN_DIE);
     spriterPlayer.setAnimation("front_die");
     fadeAllLights(0.1f);
   }
