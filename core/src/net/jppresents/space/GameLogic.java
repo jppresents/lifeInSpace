@@ -37,25 +37,19 @@ public class GameLogic {
 
     guy = new Guy(spriterDataManager.getEntity("guy"), spriterDataManager.getDrawer("guy"), SpaceMain.tileSize);
     gameObjects.add(guy);
-
-    for (int i = 0; i < world.getCount("Monster", "1"); i++) {
-      Enemy enemy = new Enemy(spriterDataManager.getEntity("alien"), spriterDataManager.getDrawer("alien"), SpaceMain.tileSize);
-      gameObjects.add(enemy);
-      enemies.add(enemy);
-    }
     reset();
   }
 
-  public void update() {
+  public void update(int tick) {
     for (Enemy enemy : enemies) {
-      enemy.updateAggro(guy);
+      enemy.updateEnemy(guy, tick);
     }
 
     if (!guy.inCombat()) {
       //aggro
       for (Enemy enemy : enemies) {
         if (enemy.getHealth() > 0 && enemy.isAggro()) {
-          guy.cancelMove();
+          guy.cancelMove(false);
           guy.setCombat(true);
           break;
         }
@@ -74,7 +68,7 @@ public class GameLogic {
     }
 
     if (state == State.PLAYERMOVING) {
-      if (guy.isIdle()) {
+      if (guy.isIdle(tick)) {
         state = State.PLAYERINPUT;
       }
     }
@@ -102,7 +96,7 @@ public class GameLogic {
           nextActiveEnemyIndex++;
         }
       } else {
-        if (activeEnemy.isIdle()) {
+        if (activeEnemy.isIdle(tick)) {
           activeEnemy = null; //next enemies turn
         }
       }
@@ -110,12 +104,18 @@ public class GameLogic {
 
     combat.update(world, enemies);
     ui.setActionPoints(guy.getActionPoints());
+    ui.setMaxActionPoints(guy.getMaxActionPoints());
+    ui.setHealthPoints(guy.getHealth());
+    ui.setMaxHealthPoints(guy.getMaxHealth());
     ui.showActionBar(guy.inCombat());
   }
 
   public void reset() {
-    world.resetPosition(guy, "Start");
-    world.resetPositions(enemies, "Monster", "1");
+    gameObjects.clear();
+    gameObjects.add(guy);
+    world.applyPlayerPosition(guy, "Start");
+    world.loadEnemies(enemies, spriterDataManager);
+    gameObjects.addAll(enemies);
   }
 
 
@@ -127,11 +127,22 @@ public class GameLogic {
   public void touchDown(float x, float y) {
     mouseMoved(x, y);
     if (state == State.PLAYERINPUT) {
+
+      if (guy.getHealth() <= 0) {
+        return;
+      }
+
+      if (guy.getTilePosition().x == target.x && guy.getTilePosition().y == target.y) {
+        guy.decActionPoints(guy.getActionPoints());
+        ui.hideSelector();
+        return;
+      }
+
       AnimatedGameObject enemy = getActiveEnemy((int) target.x, (int) target.y);
 
       if (enemy != null) {
         guy.decActionPoints(1);
-        combat.shoot(guy.getTilePosition(), enemy.getTilePosition());
+        combat.shoot(guy.getTilePosition(), enemy.getTilePosition(), guy.getDamage());
         state = State.COMBAT;
         ui.hideSelector();
         guy.activateShootAnimation(enemy.getX(), enemy.getY());
@@ -141,7 +152,7 @@ public class GameLogic {
         ui.hideSelector();
       }
     } else if (state == State.PLAYERMOVING) {
-      guy.cancelMove();
+      guy.cancelMove(false);
     }
   }
 
@@ -153,6 +164,7 @@ public class GameLogic {
       ui.setSelectorPos((int) temp.x * SpaceMain.tileSize + SpaceMain.tileSize / 2, (int) temp.y * SpaceMain.tileSize + SpaceMain.tileSize / 2);
       ui.setError(world.isTileBlocking((int) target.x, (int) target.y));
       ui.setTarget(getActiveEnemy((int) target.x, (int) target.y) != null);
+      ui.setSkip(guy.inCombat() && guy.getTilePosition().x == target.x && guy.getTilePosition().y == target.y);
     }
   }
 

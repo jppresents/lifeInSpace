@@ -13,6 +13,8 @@ public class Enemy extends AnimatedGameObject {
   private float aggroRange = 6;
   private float deAggroRange = 9;
   private boolean wasWalking;
+  boolean attackedThisTurn = false;
+  private int level;
 
   public Enemy(Entity entity, Drawer drawer, int tileSize) {
     super(entity, drawer, tileSize);
@@ -20,6 +22,7 @@ public class Enemy extends AnimatedGameObject {
     light.setColor(0.2f, 0.5f, 0.5f, 1);
     attachLight(light);
     setCombat(true);
+    spriterPlayer.characterMaps = new Entity.CharacterMap[2];
   }
 
   @Override
@@ -50,25 +53,34 @@ public class Enemy extends AnimatedGameObject {
   public void planTurn(World world, Guy guy, List<Enemy> enemies) {
     if (getHealth() <= 0)
       return;
-
+    attackedThisTurn = false;
     if (isAggro()) {
       world.calcPath(this, this.getTilePosition(), guy.getTilePosition(), 1, enemies);
     }
   }
 
-  public boolean updateAggro(AnimatedGameObject obj) {
+  public void updateEnemy(AnimatedGameObject guy, int tick) {
     if (aggro) {
-      if (obj.calcDistance(this) >= deAggroRange) {
+      float distance = guy.calcDistance(this);
+
+      if (distance >= deAggroRange && getHealth() == getMaxHealth()) {
         aggro = false;
         light.setColor(0.2f, 0.5f, 0.5f, 1);
       }
+
+      if (getHealth() > 0 && getActionPoints() > 0 && isIdle(tick) && distance < 2 && !attackedThisTurn) {
+        guy.hit(getDamage());
+        setIdleIn(600, tick);
+        attackedThisTurn = true;
+      }
+
     } else {
-      if (obj.calcDistance(this) <= aggroRange) {
+      if (guy.calcDistance(this) <= aggroRange || getHealth() < getMaxHealth()) {
         aggro = true;
         light.setColor(0.5f, 0.2f, 0.2f, 1);
       }
     }
-    return aggro;
+    return;
   }
 
 
@@ -97,6 +109,26 @@ public class Enemy extends AnimatedGameObject {
 
   public boolean isAggro() {
     return aggro;
+  }
+
+  public void setLevel(int level) {
+    this.level = level;
+    setMaxHealth(level * 2);
+    setHealth(level * 2);
+    setDamage(level * 2);
+    if (level == 2) {
+      spriterPlayer.characterMaps[0] = spriterPlayer.getEntity().getCharacterMap("SpikeLeg");
+    }
+    if (level == 3) {
+      spriterPlayer.characterMaps[0] = spriterPlayer.getEntity().getCharacterMap("SpikeHead");
+    }
+    if (level == 4) {
+      spriterPlayer.characterMaps[0] = spriterPlayer.getEntity().getCharacterMap("SpikeHead");
+      spriterPlayer.characterMaps[1] = spriterPlayer.getEntity().getCharacterMap("SpikeLeg");
+    }
+    if (level ==5) {
+      spriterPlayer.characterMaps[0] = spriterPlayer.getEntity().getCharacterMap("EyeHead");
+    }
   }
 
 }

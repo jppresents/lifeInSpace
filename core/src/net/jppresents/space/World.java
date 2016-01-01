@@ -49,33 +49,11 @@ public class World implements Disposable {
     }
   }
 
-  public void resetPosition(SetPosition guy, String name) {
+  public void applyPlayerPosition(SetPosition guy, String name) {
     for (MapObject object : objLayer.getObjects()) {
       if (object.getName().equals(name)) {
         getTileCoords(((RectangleMapObject) object).getRectangle().getX(), ((RectangleMapObject) object).getRectangle().getY(), temp);
         guy.setPosition(temp.x * SpaceMain.tileSize, temp.y * SpaceMain.tileSize);
-      }
-    }
-  }
-
-  public int getCount(String name, String typ) {
-    int i = 0;
-    for (MapObject object : objLayer.getObjects()) {
-      if (object.getName().equals(name) && object.getProperties().get("type").equals(typ)) {
-        i++;
-      }
-    }
-    return i;
-  }
-
-  public void resetPositions(List guys, String name, String typ) {
-    int i = 0;
-    for (MapObject object : objLayer.getObjects()) {
-      if (object.getName().equals(name) && object.getProperties().get("type").equals(typ)) {
-        SetPosition guy = (SetPosition) guys.get(i);
-        getTileCoords(((RectangleMapObject) object).getRectangle().getX(), ((RectangleMapObject) object).getRectangle().getY(), temp);
-        guy.setPosition(temp.x * SpaceMain.tileSize, temp.y * SpaceMain.tileSize);
-        i++;
       }
     }
   }
@@ -269,26 +247,17 @@ public class World implements Disposable {
     return flooded;
   }
 
-
-  private void printMap() {
-    System.out.println("-----");
-    for (int y = pathMap.length - 1; y >= 0; y--) {
-      String str = "";
-      for (int x = 0; x < pathMap[y].length; x++) {
-        if (pathMap[y][x] == Integer.MIN_VALUE) {
-          str = str + "   ";
-        } else if (pathMap[y][x] == Integer.MIN_VALUE + 1) {
-          str = str + " x ";
-        } else {
-          NumberFormat nf = NumberFormat.getIntegerInstance();
-          nf.setMinimumIntegerDigits(2);
-          nf.setGroupingUsed(false);
-          str = str + nf.format(pathMap[y][x]) + " ";
-        }
+  public void loadEnemies(List<Enemy> enemies, SpriterDataManager spriterDataManager) {
+    enemies.clear();
+    for (MapObject object : objLayer.getObjects()) {
+      if (object.getName().equals("monster")) {
+        getTileCoords(((RectangleMapObject) object).getRectangle().getX(), ((RectangleMapObject) object).getRectangle().getY(), temp);
+        String typ = (String) object.getProperties().get("type");
+        Enemy enemy = new Enemy(spriterDataManager.getEntity(typ), spriterDataManager.getDrawer(typ), SpaceMain.tileSize);
+        enemy.setLevel( Integer.parseInt((String) object.getProperties().get("level")));
+        enemy.setPosition(temp.x * SpaceMain.tileSize, temp.y * SpaceMain.tileSize);
+        enemies.add(enemy);
       }
-      System.out.println(str);
     }
-
   }
-
 }

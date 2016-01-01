@@ -1,12 +1,12 @@
 
 alien.png
-size: 256,64
+size: 512,64
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 alien_body
   rotate: false
-  xy: 64, 19
+  xy: 183, 18
   size: 60, 43
   orig: 60, 43
   offset: 0, 0
@@ -20,21 +20,42 @@ alien_eyeball
   index: -1
 alien_head
   rotate: false
+  xy: 63, 10
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1
+alien_head2
+  rotate: false
   xy: 2, 9
-  size: 60, 53
-  orig: 60, 53
+  size: 59, 52
+  orig: 59, 52
+  offset: 0, 0
+  index: -1
+alien_head3
+  rotate: false
+  xy: 123, 10
+  size: 58, 51
+  orig: 58, 51
   offset: 0, 0
   index: -1
 alien_leg
   rotate: false
-  xy: 126, 35
+  xy: 245, 34
+  size: 14, 27
+  orig: 14, 27
+  offset: 0, 0
+  index: -1
+alien_legspike
+  rotate: false
+  xy: 261, 34
   size: 14, 27
   orig: 14, 27
   offset: 0, 0
   index: -1
 deadEyeball
   rotate: false
-  xy: 126, 23
+  xy: 245, 22
   size: 13, 10
   orig: 13, 10
   offset: 0, 0

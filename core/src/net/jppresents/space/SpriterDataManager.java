@@ -28,7 +28,7 @@ public class SpriterDataManager implements Disposable{
     SCMLReader reader = new SCMLReader(scmlHandle.read());
     Data data = reader.getData();
     LibGdxAtlasLoader loader = new LibGdxAtlasLoader(data, Gdx.files.internal(filename +"/" + filename + ".atlas"));
-    loader.load(scmlHandle.file());
+    loader.load(filename);
     LibGdxDrawer drawer = new LibGdxDrawer(loader, batch, null);
     spriterData.put(filename, data);
     spriterDrawer.put(filename, drawer);

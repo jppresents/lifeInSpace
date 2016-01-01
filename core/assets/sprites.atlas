@@ -4,7 +4,7 @@ size: 1024,128
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-abBarFill
+apBar
   rotate: false
   xy: 2, 84
   size: 400, 39
@@ -12,13 +12,6 @@ abBarFill
   offset: 0, 0
   index: -1
 apBarFill
-  rotate: false
-  xy: 2, 84
-  size: 400, 39
-  orig: 400, 39
-  offset: 0, 0
-  index: -1
-apBar
   rotate: false
   xy: 2, 43
   size: 400, 39
@@ -41,7 +34,7 @@ hpBarFill
   index: -1
 marker
   rotate: false
-  xy: 478, 15
+  xy: 478, 14
   size: 23, 23
   orig: 23, 23
   offset: 0, 0
@@ -53,9 +46,16 @@ markerError
   orig: 31, 31
   offset: 0, 0
   index: -1
+markerSkip
+  rotate: false
+  xy: 478, 39
+  size: 56, 43
+  orig: 56, 43
+  offset: 0, 0
+  index: -1
 markerTarget
   rotate: false
-  xy: 478, 40
+  xy: 536, 40
   size: 42, 42
   orig: 42, 42
   offset: 0, 0
@@ -69,7 +69,7 @@ selector
   index: -1
 shot
   rotate: false
-  xy: 522, 71
+  xy: 580, 71
   size: 32, 11
   orig: 32, 11
   offset: 0, 0

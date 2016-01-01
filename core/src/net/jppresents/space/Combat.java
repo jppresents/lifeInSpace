@@ -18,7 +18,7 @@ public class Combat {
     private int lifeTime = 50;
     private int startTick = 20;
     private int visibleTick = 22;
-    private int damage = 50;
+    private int damage = 0;
 
     public Shot() {
       sprite = new Sprite(SpaceMain.assets.getSprites().findRegion("shot"));
@@ -102,8 +102,9 @@ public class Combat {
   }
 
 
-  public void shoot(Vector3 tilePosFrom, Vector3 tilePosTo) {
+  public void shoot(Vector3 tilePosFrom, Vector3 tilePosTo, int damage) {
     Shot shot = getShot();
+    shot.damage = damage;
     shot.active = true;
     shot.setPos(tilePosFrom.x * SpaceMain.tileSize + SpaceMain.tileSize / 2, tilePosFrom.y * SpaceMain.tileSize + SpaceMain.tileSize / 2);
     shot.velocity.set(tilePosTo.x - tilePosFrom.x, tilePosTo.y - tilePosFrom.y);

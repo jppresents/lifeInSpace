@@ -9,9 +9,12 @@ public class UserInterface {
   private final TextureAtlas.AtlasRegion markerError;
   private final TextureAtlas.AtlasRegion selector;
   private final TextureAtlas.AtlasRegion markerTarget;
+  private final TextureAtlas.AtlasRegion markerSkip;
+  private final int barHeight, barWidth;
 
   private boolean error = false;
   private boolean target = false;
+  private boolean skip = false;
 
   private int selectorX, selectorY;
 
@@ -25,12 +28,15 @@ public class UserInterface {
     markerError = SpaceMain.assets.getSprites().findRegion("markerError");
     markerTarget = SpaceMain.assets.getSprites().findRegion("markerTarget");
     selector = SpaceMain.assets.getSprites().findRegion("selector");
+    markerSkip = SpaceMain.assets.getSprites().findRegion("markerSkip");
     selectorX = -1;
     selectorY = -1;
-    healthBar = new ProgressBar(10, 670, 100, 100, SpaceMain.assets.getSprites().findRegion("hpBar"), SpaceMain.assets.getSprites().findRegion("hpBarFill"));
+    barHeight = SpaceMain.assets.getSprites().findRegion("apBar").getRegionHeight();
+    barWidth =  SpaceMain.assets.getSprites().findRegion("apBar").getRegionWidth();
     actionBarY = -SpaceMain.assets.getSprites().findRegion("apBar").getRegionHeight();
+    healthBar = new ProgressBar(0, 0, 100, 100, SpaceMain.assets.getSprites().findRegion("hpBar"), SpaceMain.assets.getSprites().findRegion("hpBarFill"));
     currentActionBarY = actionBarY;
-    actionBar = new ProgressBar(850, currentActionBarY, 3, 3, SpaceMain.assets.getSprites().findRegion("apBar"), SpaceMain.assets.getSprites().findRegion("apBarFill"));
+    actionBar = new ProgressBar(0, 0, 3, 3, SpaceMain.assets.getSprites().findRegion("apBar"), SpaceMain.assets.getSprites().findRegion("apBarFill"));
   }
 
   public void render(SpriteBatch batch, Camera camera) {
@@ -39,6 +45,11 @@ public class UserInterface {
       if (!target) {
         batch.setColor(0.5f, 0.8f, 0.9f, 1);
         batch.draw(selector, selectorX - selector.getRegionWidth() / 2, selectorY - selector.getRegionHeight() / 2);
+      }
+
+      if (skip) {
+        batch.setColor(0.2f, 0, 0, 1);
+        batch.draw(markerSkip, selectorX - markerSkip.getRegionWidth() / 2, selectorY - markerSkip.getRegionHeight() / 2);
       }
 
       if (error) {
@@ -83,6 +94,10 @@ public class UserInterface {
     this.target = target;
   }
 
+  public void setSkip(boolean skip) {
+    this.skip = skip;
+  }
+
   public void setActionPoints(float value) {
     actionBar.setValue(value);
   }
@@ -93,5 +108,27 @@ public class UserInterface {
     } else {
       actionBarY = -SpaceMain.assets.getSprites().findRegion("apBar").getRegionHeight();
     }
+  }
+
+  public void setMaxHealthPoints(int healthPoints) {
+    this.healthBar.setMaxValue(healthPoints);
+  }
+
+  public void setMaxActionPoints(int healthPoints) {
+    this.actionBar.setMaxValue(healthPoints);
+  }
+
+  public void setHealthPoints(int healthPoints) {
+    this.healthBar.setValue(healthPoints);
+  }
+
+  public void resize(Camera camera) {
+    healthBar.setX(10);
+    healthBar.setY((int)camera.viewportHeight - barHeight);
+
+    actionBarY = -barHeight;
+    currentActionBarY = -barHeight;
+    actionBar.setX((int)camera.viewportWidth - barWidth);
+    actionBar.setY(currentActionBarY);
   }
 }

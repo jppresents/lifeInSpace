@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class SpaceMain extends ApplicationAdapter {
@@ -25,7 +26,6 @@ public class SpaceMain extends ApplicationAdapter {
 
   private List<AnimatedGameObject> gameObjects = new ArrayList<AnimatedGameObject>(10);
 
-  private Input input;
   private GameLogic gameLogic;
   private UserInterface ui;
 
@@ -56,7 +56,7 @@ public class SpaceMain extends ApplicationAdapter {
 
     gameLogic = new GameLogic(world, gameObjects, spriterDataManager, ui, combat);
 
-    input = new Input(true, camera, gameLogic);
+    new Input(true, camera, gameLogic);
   }
 
   @Override
@@ -64,19 +64,23 @@ public class SpaceMain extends ApplicationAdapter {
     viewport.update(width, height, false);
     camera.update();
     lights.resize(width, height);
+    ui.resize(camera);
   }
 
 
+  int tick = 0;
+
   @Override
   public void render() {
+    tick++;
 
     //update gameObjects
     for (AnimatedGameObject obj : gameObjects) {
       obj.update();
     }
-    gameObjects.sort(AnimatedGameObject.getYSortComparator());
+    Collections.sort(gameObjects, AnimatedGameObject.getYSortComparator());
 
-    gameLogic.update();
+    gameLogic.update(tick);
     gameLogic.controlCamera(camera);
 
     camera.update();

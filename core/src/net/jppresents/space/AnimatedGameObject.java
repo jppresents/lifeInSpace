@@ -15,6 +15,7 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
   private int maxActionPoints = 3;
   private boolean combat;
   private boolean currentMovecostsActinPoints;
+  private int damage = 1;
 
   public int getActionPoints() {
     return actionPoints;
@@ -28,8 +29,20 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
     actionPoints -= value;
   }
 
+  public void setDamage(int damage) {
+    this.damage = damage;
+  }
+
   public float calcDistance(AnimatedGameObject object) {
     return (float)Math.sqrt( Math.pow(getTilePosition().x - object.getTilePosition().x, 2) + Math.pow(getTilePosition().y - object.getTilePosition().y, 2));
+  }
+
+  public int getMaxActionPoints() {
+    return maxActionPoints;
+  }
+
+  public int getDamage() {
+    return damage;
   }
 
   protected enum Movement {NONE, LEFT, RIGHT, UP, DOWN;}
@@ -44,11 +57,27 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
   private List<Light> attachedLights = new ArrayList<Light>(1);
   private Movement movement = Movement.NONE;
   private int tileSize = 0;
-  private int health = 100;
+  private int maxHealth = 10;
+  private int health = 10;
+  private int idleTick;
 
   public int getHealth() {
     return health;
   }
+
+  public int getMaxHealth() {
+    return maxHealth;
+  }
+
+  public void setMaxHealth(int maxHealth) {
+    this.maxHealth = maxHealth;
+  }
+
+  public void setHealth(int health) {
+    this.health = health;
+  }
+
+
 
   private static YSortComparator ySortComparator = new YSortComparator();
 
@@ -57,18 +86,29 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
   }
 
 
-  public boolean isIdle() {
-    return pathLength == 0 || currentPathTarget == pathLength;
+  protected void setIdleIn(int timeInMs, int currentTick) {
+    idleTick = (int)((float)timeInMs/1000*60) + currentTick;
   }
 
-  public void cancelMove() {
-    if (currentPathTarget < pathLength - 1) {
-      pathLength = currentPathTarget + 1;
+  public boolean isIdle(int tick) {
+    return (pathLength == 0 || currentPathTarget == pathLength) && tick > idleTick;
+  }
+
+  public void cancelMove(boolean instant) {
+    if (instant) {
+      currentPathTarget = 0;
+      pathLength = 0;
+    } else {
+      if (currentPathTarget < pathLength - 1) {
+        pathLength = currentPathTarget + 1;
+      }
     }
     currentMovecostsActinPoints = combat;
   }
 
   public void hit(int dmg) {
+    if (health <= 0)
+      return;
     health -= dmg;
     if (health <= 0) {
       health = 0;
@@ -152,7 +192,7 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
           currentMovecostsActinPoints = true;
         }
         if (actionPoints <= 0) {
-          cancelMove();
+          cancelMove(true);
         }
 
         if (currentPathTarget == pathLength) {

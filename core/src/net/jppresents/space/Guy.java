@@ -88,13 +88,18 @@ public class Guy extends AnimatedGameObject {
 
   @Override
   public void animationFinished(Animation animation) {
+    if (animation.name.equals("front_die")) {
+      spriterPlayer.speed = 0;
+      spriterPlayer.setTime(animation.length - 1);
+    }
 
     if (animation.name.equals("front_idle_gun_flip")) {
       spriterPlayer.setAnimation("front_idle");
       idleAnimationCount = 0;
     }
 
-    if (animation.name.equals("front_fire") || animation.name.equals("back_fire") || animation.name.equals("side_fire")  ) {
+    if (animation.name.equals("front_fire") || animation.name.equals("back_fire") ||
+        animation.name.equals("side_fire") || animation.name.equals("front_hurt") ) {
       spriterPlayer.setAnimation("front_idle");
       faceRight = false;
     }
@@ -107,5 +112,17 @@ public class Guy extends AnimatedGameObject {
     if (idleAnimationCount > 5) {
       spriterPlayer.setAnimation("front_idle_gun_flip");
     }
+  }
+
+  @Override
+  protected void die() {
+    spriterPlayer.setAnimation("front_die");
+    SpaceMain.assets.playSound(Assets.SoundEffect.GUY_HURT2);
+  }
+
+  @Override
+  protected void hurt() {
+    SpaceMain.assets.playSound(Assets.SoundEffect.GUY_HURT);
+    spriterPlayer.setAnimation("front_hurt");
   }
 }
