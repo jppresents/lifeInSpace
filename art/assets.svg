@@ -2757,7 +2757,9 @@
     </g>
     <g
        id="alien_legspike"
-       inkscape:label="#g4725">
+       inkscape:label="#g4725"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <path
          sodipodi:nodetypes="sssssss"
          inkscape:connector-curvature="0"
