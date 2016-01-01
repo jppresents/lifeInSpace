@@ -28,10 +28,20 @@ public class World implements Disposable {
 
   public World() {
     mapLoader = new TmxMapLoader();
-    load("world");
+    changeLevel("world");
+  }
+
+  public void changeLevel(String filename) {
+    load(filename);
   }
 
   private void load(String mapName) {
+    if (map != null) {
+      map.dispose();
+    }
+    if (mapRenderer != null) {
+      mapRenderer.dispose();
+    }
     map = mapLoader.load("world/" + mapName + ".tmx");
     mainLayer = (TiledMapTileLayer) (map.getLayers().get("world"));
     objLayer = map.getLayers().get("objects");

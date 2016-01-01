@@ -113,6 +113,8 @@ public class GameLogic {
   public void reset() {
     gameObjects.clear();
     gameObjects.add(guy);
+    guy.setCombat(false);
+    guy.setHealth(guy.getMaxHealth());
     world.applyPlayerPosition(guy, "Start");
     world.loadEnemies(enemies, spriterDataManager);
     gameObjects.addAll(enemies);
@@ -127,7 +129,6 @@ public class GameLogic {
   public void touchDown(float x, float y) {
     mouseMoved(x, y);
     if (state == State.PLAYERINPUT) {
-
       if (guy.getHealth() <= 0) {
         return;
       }
