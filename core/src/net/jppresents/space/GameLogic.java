@@ -1,6 +1,7 @@
 package net.jppresents.space;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 import java.util.ArrayList;
@@ -10,6 +11,8 @@ public class GameLogic {
 
 
   private final Combat combat;
+
+  private Vector2 lastMouse = new Vector2(0, 0);
 
   private enum State {PLAYERINPUT, PLAYERMOVING, ENEMYTURN, COMBAT}
 
@@ -70,12 +73,14 @@ public class GameLogic {
     if (state == State.PLAYERMOVING) {
       if (guy.isIdle(tick)) {
         state = State.PLAYERINPUT;
+        refreshUI();
       }
     }
 
     if (state == State.COMBAT) {
       if (!combat.isActive()) {
         state = State.PLAYERINPUT;
+        refreshUI();
       }
     }
 
@@ -89,6 +94,7 @@ public class GameLogic {
         if (nextActiveEnemyIndex >= enemies.size()) {
           state = State.PLAYERINPUT;
           guy.resetActionPoints();
+          refreshUI();
         } else {
           activeEnemy = enemies.get(nextActiveEnemyIndex);
           activeEnemy.resetActionPoints();
@@ -157,20 +163,26 @@ public class GameLogic {
     }
   }
 
+  private void refreshUI() {
+    mouseMoved(lastMouse.x, lastMouse.y);
+  }
+
   public void mouseMoved(float x, float y) {
     if (state == State.PLAYERINPUT) {
+      lastMouse.x = x;
+      lastMouse.y = y;
       world.getTileCoords(x, y, temp);
       target.x = (int) temp.x;
       target.y = (int) temp.y;
       ui.setSelectorPos((int) temp.x * SpaceMain.tileSize + SpaceMain.tileSize / 2, (int) temp.y * SpaceMain.tileSize + SpaceMain.tileSize / 2);
       ui.setError(world.isTileBlocking((int) target.x, (int) target.y));
-      ui.setTarget(getActiveEnemy((int) target.x, (int) target.y) != null);
+      ui.setTarget(getActiveEnemy((int) target.x, (int) target.y));
       ui.setSkip(guy.inCombat() && guy.getTilePosition().x == target.x && guy.getTilePosition().y == target.y);
     }
   }
 
-  private AnimatedGameObject getActiveEnemy(int x, int y) {
-    for (AnimatedGameObject obj : enemies) {
+  private Enemy getActiveEnemy(int x, int y) {
+    for (Enemy obj : enemies) {
       Vector3 pos = obj.getTilePosition();
       if (pos.x == x && pos.y == y && obj.getHealth() > 0) {
         return obj;

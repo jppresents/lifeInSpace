@@ -126,7 +126,7 @@ public class Enemy extends AnimatedGameObject {
       spriterPlayer.characterMaps[0] = spriterPlayer.getEntity().getCharacterMap("SpikeHead");
       spriterPlayer.characterMaps[1] = spriterPlayer.getEntity().getCharacterMap("SpikeLeg");
     }
-    if (level ==5) {
+    if (level == 5) {
       spriterPlayer.characterMaps[0] = spriterPlayer.getEntity().getCharacterMap("EyeHead");
     }
   }

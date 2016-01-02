@@ -18,6 +18,13 @@ apBarFill
   orig: 400, 39
   offset: 0, 0
   index: -1
+apBarIndicator
+  rotate: false
+  xy: 613, 63
+  size: 10, 19
+  orig: 10, 19
+  offset: 0, 0
+  index: -1
 hpBar
   rotate: false
   xy: 404, 84
@@ -32,6 +39,20 @@ hpBarFill
   orig: 400, 39
   offset: 0, 0
   index: -1
+hpBarFillSmall
+  rotate: false
+  xy: 806, 117
+  size: 60, 6
+  orig: 60, 6
+  offset: 0, 0
+  index: -1
+hpBarSmall
+  rotate: false
+  xy: 404, 2
+  size: 60, 6
+  orig: 60, 6
+  offset: 0, 0
+  index: -1
 marker
   rotate: false
   xy: 478, 14
@@ -41,7 +62,7 @@ marker
   index: -1
 markerError
   rotate: false
-  xy: 806, 92
+  xy: 580, 51
   size: 31, 31
   orig: 31, 31
   offset: 0, 0
@@ -69,7 +90,7 @@ selector
   index: -1
 shot
   rotate: false
-  xy: 580, 71
+  xy: 806, 104
   size: 32, 11
   orig: 32, 11
   offset: 0, 0

@@ -13,6 +13,7 @@ public class ProgressBar {
   private TextureRegion fillRegion;
   private int targetWidth;
   private int currentWidth;
+  private boolean fixedToCamera = true;
 
   public ProgressBar(float x, float y, float maxValue, float value, TextureRegion barRegion, TextureRegion fillRegion) {
     this.x = x;
@@ -25,7 +26,7 @@ public class ProgressBar {
 
   public void setValue(float value) {
     this.value = value;
-    targetWidth = Math.round(fillRegion.getRegionWidth() * value/maxValue);
+    targetWidth = Math.round(fillRegion.getRegionWidth() * value / maxValue);
   }
 
   public void setMaxValue(float maxValue) {
@@ -44,8 +45,18 @@ public class ProgressBar {
       currentWidth = targetWidth;
     }
 
-    batch.draw(barRegion, x + camera.position.x - camera.viewportWidth/2, y + camera.position.y - camera.viewportHeight/2);
-    batch.draw(fillRegion.getTexture(), x + camera.position.x - camera.viewportWidth/2, y + camera.position.y - camera.viewportHeight/2, currentWidth, fillRegion.getRegionHeight(), fillRegion.getRegionX(), fillRegion.getRegionY(), currentWidth, fillRegion.getRegionHeight(), false, false );
+    float renderX = x;
+    float renderY = y;
+    if (fixedToCamera) {
+      renderX += camera.position.x - camera.viewportWidth / 2;
+      renderY += camera.position.y - camera.viewportHeight / 2;
+    } else {
+      renderX -= barRegion.getRegionWidth()/2;
+      renderY += barRegion.getRegionHeight()/2;
+    }
+
+    batch.draw(barRegion, renderX, renderY);
+    batch.draw(fillRegion.getTexture(), renderX, renderY, currentWidth, fillRegion.getRegionHeight(), fillRegion.getRegionX(), fillRegion.getRegionY(), currentWidth, fillRegion.getRegionHeight(), false, false);
   }
 
   public int getHeight() {
@@ -62,5 +73,14 @@ public class ProgressBar {
 
   public void setX(int x) {
     this.x = x;
+  }
+
+  public void setValueNoAnimation(int value) {
+    setValue(value);
+    currentWidth = targetWidth;
+  }
+
+  public void setFixedToCamera(boolean fixedToCamera) {
+    this.fixedToCamera = fixedToCamera;
   }
 }
