@@ -6,4 +6,5 @@ public interface GameObject {
   float getX();
   float getY();
   int getHealth();
+  void dispose();
 }

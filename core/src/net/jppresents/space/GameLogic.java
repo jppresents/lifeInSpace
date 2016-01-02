@@ -31,6 +31,9 @@ public class GameLogic {
   private Guy guy;
   private List<Enemy> enemies = new ArrayList<Enemy>(20);
 
+  private int gameOverTime = 0;
+  private int lastTick = 0;
+
   public GameLogic(World world, List<GameObject> gameObjects, SpriterDataManager spriterDataManager, UserInterface ui, Combat combat) {
     this.ui = ui;
     this.world = world;
@@ -44,6 +47,12 @@ public class GameLogic {
   }
 
   public void update(int tick) {
+    lastTick = tick;
+    if (gameOverTime == 0 && guy.getHealth() <= 0) {
+      SpaceMain.lights.fadeTo(0.2f, 0, 0, 0, 0);
+      gameOverTime = tick;
+    }
+
     for (Enemy enemy : enemies) {
       enemy.updateEnemy(guy, tick);
     }
@@ -118,13 +127,17 @@ public class GameLogic {
   }
 
   public void reset() {
+    for (GameObject obj: gameObjects) {
+      obj.dispose();
+    }
     gameObjects.clear();
     gameObjects.add(guy);
-    guy.setCombat(false);
-    guy.setHealth(guy.getMaxHealth());
+    guy.reset();
     world.applyPlayerPosition(guy, "Start");
     world.loadEnemies(enemies, spriterDataManager);
     gameObjects.addAll(enemies);
+    SpaceMain.lights.resetColor();
+    gameOverTime = 0;
   }
 
 
@@ -137,6 +150,9 @@ public class GameLogic {
     mouseMoved(x, y);
     if (state == State.PLAYERINPUT) {
       if (guy.getHealth() <= 0) {
+        if (gameOverTime < lastTick - 120) {
+          reset();
+        }
         return;
       }
 

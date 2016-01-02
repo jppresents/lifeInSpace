@@ -41,7 +41,7 @@ public class SpaceMain extends ApplicationAdapter {
     batch = new SpriteBatch();
 
     lights = new Lights();
-    lights.setAmbientColor(0.5f, 0.3f, 0.3f, 1);
+    lights.setDefaultAmbientColor(0.5f, 0.3f, 0.3f, 1);
 
     world = new World();
     tileSize = world.getTileSize();

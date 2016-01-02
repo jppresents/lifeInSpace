@@ -28,6 +28,8 @@ public class Light {
       on = value;
       if (on) {
         owner.addLight(this);
+      } else {
+        owner.removeLight(this);
       }
     }
   }

@@ -17,7 +17,11 @@ public class Lights implements Disposable{
   private FrameBuffer lightBuffer;
   private Batch lightBufferBatch;
   private List<Light> lights = new ArrayList<Light>(10);
-  private Color ambientColor;
+  private Color defaultAmbientColor = new Color(0.3f, 0.3f, 0.3f, 1);
+  private Color ambientColor  = new Color(0.3f, 0.3f, 0.3f, 1);
+  private Color targetAmbientColor  = new Color(0.3f, 0.3f, 0.3f, 1);
+  private float globalLightStrength  = 1f;
+  private float targetGlobalLightStrengh = 1f;
 
 
   public Lights() {
@@ -27,7 +31,18 @@ public class Lights implements Disposable{
     lightTexture = new Texture("light.png");
     lightBatch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE);
     lightBatch.enableBlending();
-    ambientColor = new Color(0.3f, 0.3f, 0.3f, 1);
+  }
+
+  public void resetColor() {
+    ambientColor.set(defaultAmbientColor);
+    targetAmbientColor.set(defaultAmbientColor);
+    globalLightStrength = 1;
+    targetGlobalLightStrengh = 1;
+  }
+
+  public void fadeTo(float r, float g, float b, float a, float globalLightStrength) {
+    targetAmbientColor.set(r, g, b, a);
+    targetGlobalLightStrengh = globalLightStrength;
   }
 
   @Override
@@ -49,7 +64,31 @@ public class Lights implements Disposable{
     lightBuffer.getColorBufferTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
   }
 
+  private float moveTowards(float from, float to, float increment) {
+    if (Math.abs(from - to) < increment*2) {
+      return to;
+    } else if (from < to) {
+      return from + increment;
+    } else if (from > to) {
+      return from - increment;
+    }
+    return from;
+  }
+
+  private Color tempColor = new Color();
+
   public void render(Camera camera) {
+    if (globalLightStrength != targetGlobalLightStrengh) {
+      globalLightStrength = moveTowards(globalLightStrength, targetGlobalLightStrengh, 0.01f);
+    }
+
+    if (!targetAmbientColor.equals(ambientColor)) {
+      ambientColor.r = moveTowards(ambientColor.r, targetAmbientColor.r, 0.01f);
+      ambientColor.g = moveTowards(ambientColor.g, targetAmbientColor.g, 0.01f);
+      ambientColor.b = moveTowards(ambientColor.b, targetAmbientColor.b, 0.01f);
+      ambientColor.a = moveTowards(ambientColor.a, targetAmbientColor.a, 0.01f);
+    }
+
     lightBuffer.begin();
     Gdx.gl.glClearColor(ambientColor.r, ambientColor.g, ambientColor.b, ambientColor.a);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -59,7 +98,11 @@ public class Lights implements Disposable{
       Light light = lights.get(i);
       if (light.isOn()) {
         light.update();
-        lightBatch.setColor(light.getColor());
+        tempColor.set(light.getColor());
+        if (globalLightStrength < tempColor.a) {
+          tempColor.a = globalLightStrength;
+        }
+        lightBatch.setColor(tempColor);
         lightBatch.draw(lightTexture, light.getX() - light.getSize() / 2, light.getY() - light.getSize() / 2, light.getSize(), light.getSize(), 0, 0, 128, 128, false, false);
       } else {
         lights.remove(i);
@@ -83,7 +126,9 @@ public class Lights implements Disposable{
     lights.remove(light);
   }
 
-  public void setAmbientColor(float r, float g, float b, float a) {
-    this.ambientColor.set(r, g, b, a);
+  public void setDefaultAmbientColor(float r, float g, float b, float a) {
+    defaultAmbientColor.set(r, g, b, a);
+    targetAmbientColor.set(r, g, b, a);
+    ambientColor.set(r, g, b, a);
   }
 }

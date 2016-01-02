@@ -20,6 +20,10 @@ public class Guy extends AnimatedGameObject {
     attachLight(light);
   }
 
+  public void setGunLevel(int lvl) {
+    //todo -> charmap & gun laser color
+  }
+
   @Override
   public void update() {
     super.update();
@@ -114,5 +118,13 @@ public class Guy extends AnimatedGameObject {
   protected void hurt() {
     SpaceMain.assets.playSound(Assets.SoundEffect.GUY_HURT);
     spriterPlayer.setAnimation("front_hurt");
+  }
+
+  public void reset() {
+    setCombat(false);
+    setHealth(getMaxHealth());
+    setGunLevel(0);
+    spriterPlayer.setAnimation("front_idle");
+    spriterPlayer.speed = 15;
   }
 }

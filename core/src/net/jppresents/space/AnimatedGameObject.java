@@ -285,4 +285,11 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
   public boolean inCombat() {
     return combat;
   }
+
+  @Override
+  public void dispose() {
+    for (Light light: attachedLights) {
+      light.setOn(false);
+    }
+  }
 }
