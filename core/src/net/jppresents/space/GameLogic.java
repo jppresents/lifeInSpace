@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameLogic {
-
-
   private final Combat combat;
 
   private Vector2 lastMouse = new Vector2(0, 0);

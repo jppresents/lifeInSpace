@@ -15,6 +15,6 @@ public class DesktopLauncher {
       config.height = 720;
     }
     config.title = "Life in space - and how to get rid of it";
-		new LwjglApplication(new SpaceMain(), config);
+		new LwjglApplication(new SpaceMain("noSound".equalsIgnoreCase(arg[0])), config);
 	}
 }

@@ -32,6 +32,16 @@ public class SpaceMain extends ApplicationAdapter {
 
   private Combat combat;
 
+  private boolean soundOn = true;
+
+  public SpaceMain() {
+  }
+
+  public SpaceMain(boolean noSound) {
+    soundOn = !noSound;
+  }
+
+
   @Override
   public void create() {
     camera = new OrthographicCamera();
@@ -46,7 +56,7 @@ public class SpaceMain extends ApplicationAdapter {
     world = new World();
     tileSize = world.getTileSize();
 
-    assets = new Assets();
+    assets = new Assets(soundOn);
 
     spriterDataManager = new SpriterDataManager(batch);
     spriterDataManager.load("guy");
@@ -58,6 +68,7 @@ public class SpaceMain extends ApplicationAdapter {
     gameLogic = new GameLogic(world, gameObjects, spriterDataManager, ui, combat);
 
     new Input(true, camera, gameLogic);
+    assets.startMusic();
   }
 
   @Override
