@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class SpaceMain extends ApplicationAdapter {
@@ -24,7 +25,7 @@ public class SpaceMain extends ApplicationAdapter {
 
   public static Assets assets;
 
-  private List<AnimatedGameObject> gameObjects = new ArrayList<AnimatedGameObject>(10);
+  private List<GameObject> gameObjects = new ArrayList<GameObject>(10);
 
   private GameLogic gameLogic;
   private UserInterface ui;
@@ -68,6 +69,19 @@ public class SpaceMain extends ApplicationAdapter {
   }
 
 
+  private static class YSortComparator implements Comparator<GameObject> {
+    @Override
+    public int compare(GameObject o1, GameObject o2) {
+      if (o2.getY() == o1.getY()) {
+        return o1.getHealth() - o2.getHealth();
+      }
+      return Math.round(o2.getY() - o1.getY());
+    }
+  }
+
+  private static YSortComparator ySortComparator = new YSortComparator();
+
+
   int tick = 0;
 
   @Override
@@ -75,10 +89,10 @@ public class SpaceMain extends ApplicationAdapter {
     tick++;
 
     //update gameObjects
-    for (AnimatedGameObject obj : gameObjects) {
+    for (GameObject obj : gameObjects) {
       obj.update();
     }
-    Collections.sort(gameObjects, AnimatedGameObject.getYSortComparator());
+    Collections.sort(gameObjects, ySortComparator);
 
     gameLogic.update(tick);
     gameLogic.controlCamera(camera);
@@ -91,8 +105,8 @@ public class SpaceMain extends ApplicationAdapter {
     //render the gameObjects
     batch.setProjectionMatrix(camera.combined);
     batch.begin();
-    for (AnimatedGameObject obj : gameObjects) {
-      obj.draw();
+    for (GameObject obj : gameObjects) {
+      obj.render();
     }
     combat.render(batch);
     batch.end();

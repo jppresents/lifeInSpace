@@ -40,7 +40,8 @@ public class Enemy extends AnimatedGameObject {
 
   @Override
   public void animationFinished(Animation animation) {
-    if (animation.name.equals("front_hurt")) {
+    if (animation.name.equals("front_hurt") || animation.name.equals("side_attack") || animation.name.equals("front_attack") || animation.name.equals("back_attack")) {
+      setFaceRight(false);
       spriterPlayer.setAnimation("front_idle");
     }
 
@@ -69,6 +70,17 @@ public class Enemy extends AnimatedGameObject {
       }
 
       if (getHealth() > 0 && getActionPoints() > 0 && isIdle(tick) && distance < 2 && !attackedThisTurn) {
+        if (guy.getX() < getX()) {
+          spriterPlayer.setAnimation("side_attack");
+        } else if (guy.getX() > getX()) {
+          spriterPlayer.setAnimation("side_attack");
+          setFaceRight(true);
+        } else if (guy.getY() > getY()) {
+          spriterPlayer.setAnimation("back_attack");
+        } else {
+          spriterPlayer.setAnimation("front_attack");
+        }
+
         guy.hit(getDamage());
         setIdleIn(600, tick);
         attackedThisTurn = true;
@@ -80,7 +92,6 @@ public class Enemy extends AnimatedGameObject {
         light.setColor(0.5f, 0.2f, 0.2f, 1);
       }
     }
-    return;
   }
 
 
@@ -113,22 +124,39 @@ public class Enemy extends AnimatedGameObject {
 
   public void setLevel(int level) {
     this.level = level;
-    setMaxHealth(level * 2);
-    setHealth(level * 2);
-    setDamage(level * 2);
+    setInitialHealth(3);
+    setDamage(1);
+    setMaxActionPoints(3);
+
     if (level == 2) {
       spriterPlayer.characterMaps[0] = spriterPlayer.getEntity().getCharacterMap("SpikeLeg");
+      setDamage(2);
+      setInitialHealth(4);
     }
     if (level == 3) {
       spriterPlayer.characterMaps[0] = spriterPlayer.getEntity().getCharacterMap("SpikeHead");
+      setMaxActionPoints(4);
+      setDamage(2);
+      setInitialHealth(5);
     }
     if (level == 4) {
       spriterPlayer.characterMaps[0] = spriterPlayer.getEntity().getCharacterMap("SpikeHead");
       spriterPlayer.characterMaps[1] = spriterPlayer.getEntity().getCharacterMap("SpikeLeg");
+      setMaxActionPoints(4);
+      setDamage(3);
+      setInitialHealth(6);
     }
     if (level == 5) {
       spriterPlayer.characterMaps[0] = spriterPlayer.getEntity().getCharacterMap("EyeHead");
+      setMaxActionPoints(5);
+      setDamage(3);
+      setInitialHealth(10);
     }
+  }
+
+  private void setInitialHealth(int value) {
+    setMaxHealth(value);
+    setHealth(value);
   }
 
 }

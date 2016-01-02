@@ -7,15 +7,19 @@ import com.badlogic.gdx.math.Vector3;
 import com.brashmonkey.spriter.*;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
-public class AnimatedGameObject implements SetPosition, Player.PlayerListener, SetPath{
+public class AnimatedGameObject implements SetPosition, Player.PlayerListener, SetPath, GameObject {
   private int actionPoints = 3;
   private int maxActionPoints = 3;
   private boolean combat;
   private boolean currentMovecostsActinPoints;
   private int damage = 1;
+  private boolean faceRight = false;
+
+  public void setFaceRight(boolean faceRight) {
+    this.faceRight = faceRight;
+  }
 
   public int getActionPoints() {
     return actionPoints;
@@ -45,7 +49,7 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
     return damage;
   }
 
-  protected enum Movement {NONE, LEFT, RIGHT, UP, DOWN;}
+  protected enum Movement {NONE, LEFT, RIGHT, UP, DOWN}
   protected Player spriterPlayer;
 
   private Drawer drawer;
@@ -77,14 +81,10 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
     this.health = health;
   }
 
-
-
-  private static YSortComparator ySortComparator = new YSortComparator();
-
-  public static YSortComparator getYSortComparator() {
-    return ySortComparator;
+  public void setMaxActionPoints(int maxActionPoints) {
+    this.actionPoints = maxActionPoints;
+    this.maxActionPoints = maxActionPoints;
   }
-
 
   protected void setIdleIn(int timeInMs, int currentTick) {
     idleTick = (int)((float)timeInMs/1000*60) + currentTick;
@@ -133,16 +133,6 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
   public void fadeAllLights(float percent) {
     for (Light light: attachedLights) {
       light.setFade(percent);
-    }
-  }
-
-  private static class YSortComparator implements Comparator<AnimatedGameObject> {
-    @Override
-    public int compare(AnimatedGameObject o1, AnimatedGameObject o2) {
-      if (o2.getY() == o1.getY()) {
-        return o1.getHealth() - o2.getHealth();
-      }
-      return Math.round(o2.getY() - o1.getY());
     }
   }
 
@@ -214,6 +204,13 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
         }
       }
     }
+    if (!faceRight && spriterPlayer.flippedX() == -1) {
+      spriterPlayer.flipX();
+    }
+
+    if (faceRight && spriterPlayer.flippedX() != -1) {
+      spriterPlayer.flipX();
+    }
     updateAnimation();
     spriterPlayer.setPosition(worldPosition.x + tileSize/2, worldPosition.y);
     tilePosition.x = Math.round(worldPosition.x / tileSize);
@@ -226,7 +223,7 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
     camera.position.y = spriterPlayer.getY();
   }
 
-  public void draw() {
+  public void render() {
     drawer.draw(spriterPlayer);
   }
 

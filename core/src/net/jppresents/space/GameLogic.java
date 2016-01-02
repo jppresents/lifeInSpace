@@ -18,7 +18,7 @@ public class GameLogic {
 
   private final UserInterface ui;
   private World world;
-  private List<AnimatedGameObject> gameObjects;
+  private List<GameObject> gameObjects;
   private SpriterDataManager spriterDataManager;
 
   private Vector3 temp = new Vector3();
@@ -31,7 +31,7 @@ public class GameLogic {
   private Guy guy;
   private List<Enemy> enemies = new ArrayList<Enemy>(20);
 
-  public GameLogic(World world, List<AnimatedGameObject> gameObjects, SpriterDataManager spriterDataManager, UserInterface ui, Combat combat) {
+  public GameLogic(World world, List<GameObject> gameObjects, SpriterDataManager spriterDataManager, UserInterface ui, Combat combat) {
     this.ui = ui;
     this.world = world;
     this.gameObjects = gameObjects;
@@ -86,6 +86,7 @@ public class GameLogic {
 
     if (state == State.PLAYERINPUT && guy.getActionPoints() <= 0) {
       state = State.ENEMYTURN;
+      ui.hideSelector();
       nextActiveEnemyIndex = 0;
     }
 

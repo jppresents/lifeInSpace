@@ -9,7 +9,6 @@ public class Guy extends AnimatedGameObject {
 
   private int idleAnimationCount = 0;
   private boolean wasWalking = true;
-  private boolean faceRight = false;
 
   public Guy(Entity entity, Drawer drawer, int tileSize) {
     super(entity, drawer, tileSize);
@@ -28,15 +27,6 @@ public class Guy extends AnimatedGameObject {
 
   @Override
   protected void updateAnimation() {
-
-    if (!faceRight && spriterPlayer.flippedX() == -1) {
-      spriterPlayer.flipX();
-    }
-
-    if (faceRight && spriterPlayer.flippedX() != -1) {
-      spriterPlayer.flipX();
-    }
-
     if (getMovement() != Movement.NONE) {
       wasWalking = true;
     }
@@ -46,24 +36,24 @@ public class Guy extends AnimatedGameObject {
         if (wasWalking) {
           spriterPlayer.setAnimation("front_idle");
           wasWalking = false;
-          faceRight = false;
+          setFaceRight(false);
         }
         break;
       case LEFT:
         spriterPlayer.setAnimation("side_walk");
-        faceRight = false;
+        setFaceRight(false);
         break;
       case RIGHT:
         spriterPlayer.setAnimation("side_walk");
-        faceRight = true;
+        setFaceRight(true);
         break;
       case UP:
         spriterPlayer.setAnimation("back_walk");
-        faceRight = false;
+        setFaceRight(false);
         break;
       case DOWN:
         spriterPlayer.setAnimation("front_walk");
-        faceRight = false;
+        setFaceRight(false);
         break;
     }
   }
@@ -73,15 +63,15 @@ public class Guy extends AnimatedGameObject {
     float distX = Math.abs(worldPosition.x - targetX);
     float distY = Math.abs(worldPosition.y - targetY);
     if (distX > distY) {
-      faceRight = targetX > worldPosition.x;
+      setFaceRight(targetX > worldPosition.x);
       spriterPlayer.setAnimation("side_fire");
     } else {
       if (targetY > worldPosition.y) {
         spriterPlayer.setAnimation("back_fire");
-        faceRight = false;
+        setFaceRight(false);
       } else {
         spriterPlayer.setAnimation("front_fire");
-        faceRight = false;
+        setFaceRight(false);
       }
     }
   }
@@ -101,7 +91,7 @@ public class Guy extends AnimatedGameObject {
     if (animation.name.equals("front_fire") || animation.name.equals("back_fire") ||
         animation.name.equals("side_fire") || animation.name.equals("front_hurt") ) {
       spriterPlayer.setAnimation("front_idle");
-      faceRight = false;
+      setFaceRight(false);
     }
 
     if (animation.name.equals("front_idle")) {

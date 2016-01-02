@@ -68,7 +68,253 @@
                 </key>
             </timeline>
         </animation>
-        <animation id="1" name="front_hurt" length="400" interval="100">
+        <animation id="1" name="front_attack" length="400" interval="100">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="0" z_index="1"/>
+                    <object_ref id="2" timeline="2" key="0" z_index="2"/>
+                    <object_ref id="3" timeline="3" key="0" z_index="3"/>
+                    <object_ref id="4" timeline="4" key="0" z_index="4"/>
+                    <object_ref id="5" timeline="5" key="0" z_index="5"/>
+                    <object_ref id="6" timeline="6" key="0" z_index="6"/>
+                </key>
+                <key id="1" time="200">
+                    <object_ref id="0" timeline="0" key="1" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="1" z_index="1"/>
+                    <object_ref id="2" timeline="2" key="1" z_index="2"/>
+                    <object_ref id="3" timeline="3" key="1" z_index="3"/>
+                    <object_ref id="4" timeline="4" key="1" z_index="4"/>
+                    <object_ref id="5" timeline="5" key="1" z_index="5"/>
+                    <object_ref id="6" timeline="6" key="1" z_index="6"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="alien_body">
+                <key id="0" spin="0">
+                    <object folder="0" file="1" x="-29.144385" y="56.149733" angle="0"/>
+                </key>
+                <key id="1" time="200" spin="0">
+                    <object folder="0" file="1" x="-28.029143" y="36.447131" angle="0"/>
+                </key>
+            </timeline>
+            <timeline id="1" name="alien_head">
+                <key id="0" spin="-1">
+                    <object folder="0" file="2" x="-29.144385" y="88.502674" angle="0"/>
+                </key>
+                <key id="1" time="200">
+                    <object folder="0" file="2" x="-17.991969" y="76.97851" angle="347.371988" scale_x="1"/>
+                </key>
+            </timeline>
+            <timeline id="2" name="alien_leg_000">
+                <key id="0" spin="0">
+                    <object folder="0" file="0" x="-8.02139" y="21.657754" angle="0"/>
+                </key>
+                <key id="1" time="200" spin="0">
+                    <object folder="0" file="0" x="-6.534401" y="-3.249309" angle="0"/>
+                </key>
+            </timeline>
+            <timeline id="3" name="alien_leg_001">
+                <key id="0" spin="0">
+                    <object folder="0" file="0" x="-19.251337" y="23.262032" angle="341.24135"/>
+                </key>
+                <key id="1" time="200" spin="0">
+                    <object folder="0" file="0" x="-18.136095" y="3.55943" angle="341.24135"/>
+                </key>
+            </timeline>
+            <timeline id="4" name="alien_leg_002">
+                <key id="0" spin="0">
+                    <object folder="0" file="0" x="5.614973" y="21.390374" angle="10.885527"/>
+                </key>
+                <key id="1" time="200" spin="0">
+                    <object folder="0" file="0" x="5.98672" y="-3.516689" angle="10.885527"/>
+                </key>
+            </timeline>
+            <timeline id="5" name="alien_leg_003">
+                <key id="0" spin="0">
+                    <object folder="0" file="0" x="18.983957" y="22.994652" angle="19.179008"/>
+                </key>
+                <key id="1" time="200" spin="0">
+                    <object folder="0" file="0" x="20.099199" y="3.29205" angle="19.179008"/>
+                </key>
+            </timeline>
+            <timeline id="6" name="alien_eyeball">
+                <key id="0" spin="-1">
+                    <object folder="0" file="3" x="-2.941176" y="62.834225" angle="0"/>
+                </key>
+                <key id="1" time="200">
+                    <object folder="0" file="3" x="1.96574" y="46.202427" angle="347.371988" scale_x="1"/>
+                </key>
+            </timeline>
+        </animation>
+        <animation id="2" name="side_attack" length="400" interval="100">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="0" z_index="1"/>
+                    <object_ref id="2" timeline="2" key="0" z_index="2"/>
+                    <object_ref id="3" timeline="3" key="0" z_index="3"/>
+                    <object_ref id="4" timeline="4" key="0" z_index="4"/>
+                    <object_ref id="5" timeline="5" key="0" z_index="5"/>
+                    <object_ref id="6" timeline="6" key="0" z_index="6"/>
+                </key>
+                <key id="1" time="200">
+                    <object_ref id="0" timeline="0" key="1" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="1" z_index="1"/>
+                    <object_ref id="2" timeline="2" key="1" z_index="2"/>
+                    <object_ref id="3" timeline="3" key="1" z_index="3"/>
+                    <object_ref id="4" timeline="4" key="1" z_index="4"/>
+                    <object_ref id="5" timeline="5" key="1" z_index="5"/>
+                    <object_ref id="6" timeline="6" key="1" z_index="6"/>
+                </key>
+                <key id="2" time="285">
+                    <object_ref id="0" timeline="0" key="2" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="2" z_index="1"/>
+                    <object_ref id="2" timeline="2" key="2" z_index="2"/>
+                    <object_ref id="3" timeline="3" key="2" z_index="3"/>
+                    <object_ref id="4" timeline="4" key="2" z_index="4"/>
+                    <object_ref id="5" timeline="5" key="2" z_index="5"/>
+                    <object_ref id="6" timeline="6" key="2" z_index="6"/>
+                </key>
+                <key id="3" time="400">
+                    <object_ref id="0" timeline="0" key="2" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="2" z_index="1"/>
+                    <object_ref id="2" timeline="2" key="2" z_index="2"/>
+                    <object_ref id="3" timeline="3" key="2" z_index="3"/>
+                    <object_ref id="4" timeline="4" key="2" z_index="4"/>
+                    <object_ref id="5" timeline="5" key="2" z_index="5"/>
+                    <object_ref id="6" timeline="6" key="3" z_index="6"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="alien_body">
+                <key id="0" spin="-1">
+                    <object folder="0" file="1" x="-29.144385" y="56.149733" angle="0"/>
+                </key>
+                <key id="1" time="200">
+                    <object folder="0" file="1" x="-30.259627" y="78.082819" angle="337.675585"/>
+                </key>
+                <key id="2" time="285">
+                    <object folder="0" file="1" x="-33.131374" y="65.043785" angle="347.163461"/>
+                </key>
+            </timeline>
+            <timeline id="1" name="alien_head">
+                <key id="0" spin="-1">
+                    <object folder="0" file="2" x="-29.144385" y="88.502674" angle="0"/>
+                </key>
+                <key id="1" time="200">
+                    <object folder="0" file="2" x="-27.635777" y="110.241323" angle="337.675585"/>
+                </key>
+                <key id="2" time="285">
+                    <object folder="0" file="2" x="-26.06504" y="96.002397" angle="347.163461"/>
+                </key>
+            </timeline>
+            <timeline id="2" name="alien_leg_000">
+                <key id="0" spin="-1">
+                    <object folder="0" file="0" x="-8.02139" y="21.657754" angle="0"/>
+                </key>
+                <key id="1" time="200">
+                    <object folder="0" file="0" x="-23.821635" y="38.152507" angle="308.842182"/>
+                </key>
+                <key id="2" time="285">
+                    <object folder="0" file="0" x="-20.452256" y="27.424765" angle="330.584255"/>
+                </key>
+            </timeline>
+            <timeline id="3" name="alien_leg_001">
+                <key id="0" spin="-1">
+                    <object folder="0" file="0" x="-19.251337" y="23.262032" angle="341.24135"/>
+                </key>
+                <key id="1" time="200">
+                    <object folder="0" file="0" x="-33.600489" y="43.90224" angle="292.317666"/>
+                </key>
+                <key id="2" time="285">
+                    <object folder="0" file="0" x="-30.847824" y="31.41268" angle="313.110231"/>
+                </key>
+            </timeline>
+            <timeline id="4" name="alien_leg_002">
+                <key id="0" spin="0">
+                    <object folder="0" file="0" x="5.614973" y="21.390374" angle="10.885527"/>
+                </key>
+                <key id="1" time="200" spin="0">
+                    <object folder="0" file="0" x="-5.165696" y="29.94056" angle="10.885527"/>
+                </key>
+                <key id="2" time="285" spin="0">
+                    <object folder="0" file="0" x="-3.929637" y="22.589259" angle="10.885527"/>
+                </key>
+            </timeline>
+            <timeline id="5" name="alien_leg_003">
+                <key id="0" spin="0">
+                    <object folder="0" file="0" x="18.983957" y="22.994652" angle="19.179008"/>
+                </key>
+                <key id="1" time="200" spin="0">
+                    <object folder="0" file="0" x="8.203288" y="31.544838" angle="19.179008"/>
+                </key>
+                <key id="2" time="285" spin="0">
+                    <object folder="0" file="0" x="9.439347" y="24.193537" angle="19.179008"/>
+                </key>
+            </timeline>
+            <timeline id="6" name="alien_eyeball">
+                <key id="0" spin="-1">
+                    <object folder="0" file="3" x="-4.428165" y="64.692961" angle="0"/>
+                </key>
+                <key id="1" time="200">
+                    <object folder="0" file="3" x="-14.633712" y="79.145709" angle="337.675585"/>
+                </key>
+                <key id="2" time="285">
+                    <object folder="0" file="3" x="-6.59747" y="65.717046" angle="347.163461"/>
+                </key>
+                <key id="3" time="400">
+                    <object folder="0" file="3" x="-4.799912" y="64.321214"/>
+                </key>
+            </timeline>
+        </animation>
+        <animation id="3" name="back_attack" length="1000" interval="100">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="0" z_index="1"/>
+                    <object_ref id="2" timeline="2" key="0" z_index="2"/>
+                    <object_ref id="3" timeline="3" key="0" z_index="3"/>
+                    <object_ref id="4" timeline="4" key="0" z_index="4"/>
+                    <object_ref id="5" timeline="5" key="0" z_index="5"/>
+                    <object_ref id="6" timeline="6" key="0" z_index="6"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="alien_body">
+                <key id="0" spin="0">
+                    <object folder="0" file="1" x="-29.144385" y="56.149733" angle="0"/>
+                </key>
+            </timeline>
+            <timeline id="1" name="alien_head">
+                <key id="0" spin="0">
+                    <object folder="0" file="2" x="-29.144385" y="88.502674" angle="0"/>
+                </key>
+            </timeline>
+            <timeline id="2" name="alien_leg_000">
+                <key id="0" spin="0">
+                    <object folder="0" file="0" x="-8.02139" y="21.657754" angle="0"/>
+                </key>
+            </timeline>
+            <timeline id="3" name="alien_leg_001">
+                <key id="0" spin="0">
+                    <object folder="0" file="0" x="-19.251337" y="23.262032" angle="341.24135"/>
+                </key>
+            </timeline>
+            <timeline id="4" name="alien_leg_002">
+                <key id="0" spin="0">
+                    <object folder="0" file="0" x="5.614973" y="21.390374" angle="10.885527"/>
+                </key>
+            </timeline>
+            <timeline id="5" name="alien_leg_003">
+                <key id="0" spin="0">
+                    <object folder="0" file="0" x="18.983957" y="22.994652" angle="19.179008"/>
+                </key>
+            </timeline>
+            <timeline id="6" name="alien_eyeball">
+                <key id="0" spin="0">
+                    <object folder="0" file="3" x="-2.941176" y="62.834225" angle="0"/>
+                </key>
+            </timeline>
+        </animation>
+        <animation id="4" name="front_hurt" length="400" interval="100">
             <mainline>
                 <key id="0">
                     <object_ref id="0" timeline="0" key="0" z_index="0"/>
@@ -158,7 +404,7 @@
                 </key>
             </timeline>
         </animation>
-        <animation id="2" name="front_die" length="400" interval="100" looping="false">
+        <animation id="5" name="front_die" length="400" interval="100" looping="false">
             <mainline>
                 <key id="0">
                     <object_ref id="0" timeline="0" key="0" z_index="0"/>
@@ -236,7 +482,7 @@
                 </key>
             </timeline>
         </animation>
-        <animation id="3" name="front_walk" length="400" interval="100">
+        <animation id="6" name="front_walk" length="400" interval="100">
             <mainline>
                 <key id="0">
                     <object_ref id="0" timeline="0" key="0" z_index="0"/>
@@ -314,7 +560,7 @@
                 </key>
             </timeline>
         </animation>
-        <animation id="4" name="front_idle" length="1600" interval="100">
+        <animation id="7" name="front_idle" length="1600" interval="100">
             <mainline>
                 <key id="0">
                     <object_ref id="0" timeline="0" key="0" z_index="0"/>
