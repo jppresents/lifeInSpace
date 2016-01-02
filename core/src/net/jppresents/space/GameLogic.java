@@ -128,7 +128,8 @@ public class GameLogic {
 
   public void reset() {
     for (GameObject obj: gameObjects) {
-      obj.dispose();
+      if (obj != guy)
+        obj.dispose();
     }
     gameObjects.clear();
     gameObjects.add(guy);

@@ -78,7 +78,7 @@ public class World implements Disposable {
 
   public boolean isTileBlocking(int x, int y) {
     TiledMapTileLayer.Cell cell = mainLayer.getCell(x, y);
-    return cell == null || cell.getTile().getProperties().containsKey("b");
+    return cell == null || cell.getTile().getProperties().containsKey("b") && cell.getTile().getProperties().get("b").equals("1");
   }
 
   public int getTileSize() {
