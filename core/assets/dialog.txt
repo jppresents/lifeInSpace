@@ -1,0 +1,38 @@
+info_1:
+This is mission control:
+We have encountered life in space.
+Your priority is to get rid of it.
+Start with clearing out this base.
+Every life you encounter is considered hostile.
+
+info_2:
+This is mission control:
+This base is now secure, good work.
+Leave the base and clear the perimiter of any life forms.
+
+info_3:
+This is mission control:
+Good work, you now have to head north towards the main base.
+Remember any life encountered is still considered hostile.
+
+info_4:
+This is mission control:
+The main base must be secured.
+Remove all life forms.
+
+end_of_combat_1:
+This is mission control:
+Good work, keep at it.
+
+end_of_combat_2:
+This is mission control:
+Nicely done, continue your mission.
+
+end_of_combat_3:
+This is mission control:
+You really know how to get rid of those.
+
+death:
+This is mission control:
+Do you copy? I repeat, do you copy?
+[static]
