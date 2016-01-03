@@ -1,5 +1,7 @@
 package net.jppresents.space;
 
+import com.badlogic.gdx.*;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -11,6 +13,9 @@ public class GameLogic {
   private final Combat combat;
 
   private Vector2 lastMouse = new Vector2(0, 0);
+  private Vector2 dragFrom = new Vector2(0, 0);
+  private Vector2 moveCam = new Vector2(0, 0);
+  private boolean resetCam;
 
   private enum State {PLAYERINPUT, PLAYERMOVING, ENEMYTURN, COMBAT}
 
@@ -137,15 +142,45 @@ public class GameLogic {
     gameObjects.addAll(enemies);
     SpaceMain.lights.resetColor();
     gameOverTime = 0;
+    resetCam = true;
   }
 
 
-  public void controlCamera(OrthographicCamera camera) {
-    guy.centerCamera(camera);
+  public void controlCamera(OrthographicCamera camera, int tick) {
+    if (resetCam) {
+      guy.centerCamera(camera);
+      resetCam = false;
+    }
+    camera.translate(moveCam.x, moveCam.y);
+    moveCam.set(0, 0);
+
+    guy.restrictCamera(camera);
+    if (!guy.isIdle(tick)) {
+      guy.moveCamera(camera);
+    }
     world.restrictCamera(camera);
   }
 
-  public void touchDown(float x, float y) {
+
+  public void unprojectedTouchDown(float x, float y, int button) {
+    if (button == Input.Buttons.RIGHT) {
+      dragFrom.set(x, y);
+    }
+  }
+
+  public void unprojectedTouchDragged(float x, float y) {
+    if (dragFrom.x != -1 || dragFrom.y != -1) {
+      moveCam.add(dragFrom.x - x, -(dragFrom.y - y));
+      dragFrom.set(x, y);
+    }
+  }
+
+  public void touchDown(float x, float y, int button) {
+    if (button != Input.Buttons.LEFT) {
+      return;
+    }
+    dragFrom.set(-1, -1);
+
     mouseMoved(x, y);
     if (state == State.PLAYERINPUT) {
       if (guy.getHealth() <= 0) {

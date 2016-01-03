@@ -38,7 +38,7 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
   }
 
   public float calcDistance(AnimatedGameObject object) {
-    return (float)Math.sqrt( Math.pow(getTilePosition().x - object.getTilePosition().x, 2) + Math.pow(getTilePosition().y - object.getTilePosition().y, 2));
+    return (float) Math.sqrt(Math.pow(getTilePosition().x - object.getTilePosition().x, 2) + Math.pow(getTilePosition().y - object.getTilePosition().y, 2));
   }
 
   public int getMaxActionPoints() {
@@ -49,7 +49,9 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
     return damage;
   }
 
+
   protected enum Movement {NONE, LEFT, RIGHT, UP, DOWN}
+
   protected Player spriterPlayer;
 
   private Drawer drawer;
@@ -87,7 +89,7 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
   }
 
   protected void setIdleIn(int timeInMs, int currentTick) {
-    idleTick = (int)((float)timeInMs/1000*60) + currentTick;
+    idleTick = (int) ((float) timeInMs / 1000 * 60) + currentTick;
   }
 
   public boolean isIdle(int tick) {
@@ -131,7 +133,7 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
   }
 
   public void fadeAllLights(float percent) {
-    for (Light light: attachedLights) {
+    for (Light light : attachedLights) {
       light.setFade(percent);
     }
   }
@@ -163,8 +165,8 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
       resetActionPoints();
     }
 
-    for (Light light: attachedLights) {
-      light.setPosition(worldPosition.x + tileSize/2, worldPosition.y);
+    for (Light light : attachedLights) {
+      light.setPosition(worldPosition.x + tileSize / 2, worldPosition.y);
     }
 
     Vector2 target = null;
@@ -216,7 +218,7 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
       spriterPlayer.flipX();
     }
     updateAnimation();
-    spriterPlayer.setPosition(worldPosition.x + tileSize/2, worldPosition.y);
+    spriterPlayer.setPosition(worldPosition.x + tileSize / 2, worldPosition.y);
     tilePosition.x = Math.round(worldPosition.x / tileSize);
     tilePosition.y = Math.round(worldPosition.y / tileSize);
     spriterPlayer.update();
@@ -226,6 +228,66 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
     camera.position.x = spriterPlayer.getX();
     camera.position.y = spriterPlayer.getY();
   }
+
+
+  private Vector2 target = new Vector2();
+
+  private void getCameraTarget(Vector2 target, OrthographicCamera camera) {
+    float width = camera.viewportWidth / 2;
+    float height = camera.viewportHeight / 2;
+
+    target.set(camera.position.x, camera.position.y);
+    if (spriterPlayer.getX() - (SpaceMain.tileSize * 0.5f) < camera.position.x - width) {
+      target.x = spriterPlayer.getX() + width - (SpaceMain.tileSize * 0.5f);
+    }
+
+    if (spriterPlayer.getX() + (SpaceMain.tileSize * 0.5f) > camera.position.x + width) {
+      target.x = spriterPlayer.getX() - width + (SpaceMain.tileSize * 0.5f);
+    }
+
+    if (spriterPlayer.getY() < camera.position.y - height) {
+      target.y = spriterPlayer.getY() + height;
+    }
+
+    if (spriterPlayer.getY() + (SpaceMain.tileSize * 1.6f) > camera.position.y + height) {
+      target.y = spriterPlayer.getY() - height + (SpaceMain.tileSize * 1.6f);
+    }
+  }
+
+  public void restrictCamera(OrthographicCamera camera) {
+    getCameraTarget(target, camera);
+    camera.position.x = target.x;
+    camera.position.y = target.y;
+  }
+
+  private final int camSpeed = 4;
+
+  public void moveCamera(OrthographicCamera camera) {
+    target.x = spriterPlayer.getX();
+    target.y = spriterPlayer.getY();
+
+    if (camera.position.x < target.x) {
+      camera.position.x += camSpeed;
+    }
+    if (camera.position.x > target.x) {
+      camera.position.x -= camSpeed;
+    }
+    if (camera.position.y < target.y) {
+      camera.position.y += camSpeed;
+    }
+    if (camera.position.y > target.y) {
+      camera.position.y -= camSpeed;
+    }
+
+    if (Math.abs(camera.position.y - target.y) < camSpeed * 2) {
+      camera.position.y = target.y;
+    }
+
+    if (Math.abs(camera.position.x - target.x) < camSpeed * 2) {
+      camera.position.x = target.x;
+    }
+  }
+
 
   public void render() {
     drawer.draw(spriterPlayer);
@@ -292,7 +354,7 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
 
   @Override
   public void dispose() {
-    for (Light light: attachedLights) {
+    for (Light light : attachedLights) {
       light.setOn(false);
     }
   }

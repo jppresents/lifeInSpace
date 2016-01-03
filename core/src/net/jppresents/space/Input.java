@@ -32,7 +32,8 @@ public class Input implements InputProcessor {
 
   @Override
   public boolean touchDragged(int screenX, int screenY, int pointer) {
-    return false;
+    gameLogic.unprojectedTouchDragged(screenX, screenY);
+    return true;
   }
 
   @Override
@@ -43,7 +44,8 @@ public class Input implements InputProcessor {
   @Override
   public boolean touchDown(int screenX, int screenY, int pointer, int button) {
     camera.unproject(touchPoint.set(screenX, screenY, 0));
-    gameLogic.touchDown(touchPoint.x, touchPoint.y);
+    gameLogic.touchDown(touchPoint.x, touchPoint.y, button);
+    gameLogic.unprojectedTouchDown(screenX, screenY, button);
     return true;
   }
 

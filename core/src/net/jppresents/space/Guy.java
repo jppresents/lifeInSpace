@@ -1,5 +1,6 @@
 package net.jppresents.space;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.brashmonkey.spriter.Animation;
 import com.brashmonkey.spriter.Drawer;
 import com.brashmonkey.spriter.Entity;

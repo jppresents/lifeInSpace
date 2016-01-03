@@ -106,7 +106,7 @@ public class SpaceMain extends ApplicationAdapter {
     Collections.sort(gameObjects, ySortComparator);
 
     gameLogic.update(tick);
-    gameLogic.controlCamera(camera);
+    gameLogic.controlCamera(camera, tick);
 
     camera.update();
 
