@@ -67,6 +67,8 @@ public class InputHandler implements InputProcessor {
 
       if (lastTileTouch.x == x && lastTileTouch.y == y) {
         gameLogic.executeAction();
+        lastTileTouch.x = -1;
+        lastTileTouch.y = -1;
       }
       return true;
     }
