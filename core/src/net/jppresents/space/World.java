@@ -270,4 +270,11 @@ public class World implements Disposable {
       }
     }
   }
+
+  public int getTileIndex(int x, int y) {
+    TiledMapTileLayer.Cell cell = mainLayer.getCell(x, y);
+    if (cell == null)
+      return -1;
+    return cell.getTile().getId() - 1;
+  }
 }

@@ -34,6 +34,8 @@ public class SpaceMain extends ApplicationAdapter {
   private Combat combat;
 
   private boolean soundOn = true;
+  public static Color insideColor;
+  public static Color outsideColor;
 
   public SpaceMain() {
   }
@@ -53,7 +55,9 @@ public class SpaceMain extends ApplicationAdapter {
     batch = new SpriteBatch();
 
     lights = new Lights();
-    lights.setDefaultAmbientColor(0.5f, 0.3f, 0.3f, 1);
+    insideColor = new Color(0.4f, 0.4f, 0.4f, 1);
+    outsideColor = new Color(0.5f, 0.3f, 0.3f, 1);
+    lights.setDefaultAmbientColor(insideColor);
 
     world = new World();
     tileSize = world.getTileSize();

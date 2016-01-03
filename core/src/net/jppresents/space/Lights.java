@@ -40,6 +40,10 @@ public class Lights implements Disposable{
     targetGlobalLightStrengh = 1;
   }
 
+  public void fadeTo(Color color) {
+    targetAmbientColor.set(color);
+  }
+
   public void fadeTo(float r, float g, float b, float a, float globalLightStrength) {
     targetAmbientColor.set(r, g, b, a);
     targetGlobalLightStrengh = globalLightStrength;
@@ -126,9 +130,9 @@ public class Lights implements Disposable{
     lights.remove(light);
   }
 
-  public void setDefaultAmbientColor(float r, float g, float b, float a) {
-    defaultAmbientColor.set(r, g, b, a);
-    targetAmbientColor.set(r, g, b, a);
-    ambientColor.set(r, g, b, a);
+  public void setDefaultAmbientColor(Color color) {
+    defaultAmbientColor.set(color);
+    targetAmbientColor.set(color);
+    ambientColor.set(color);
   }
 }

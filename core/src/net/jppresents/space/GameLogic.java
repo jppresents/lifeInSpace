@@ -53,11 +53,22 @@ public class GameLogic {
     }
   }
 
+  private float lastPosX, lastPosY;
+  private void handleSceneLighting() {
+    if (guy.getHealth() > 0 && (guy.getTilePosition().x != lastPosX || guy.getTilePosition().y != lastPosY)) {
+      lastPosX = guy.getTilePosition().x;
+      lastPosY = guy.getTilePosition().y;
+      if (world.getTileIndex((int)lastPosX, (int)lastPosY) == 38) {
+        SpaceMain.lights.fadeTo(SpaceMain.insideColor);
+      } else if (world.getTileIndex((int)lastPosX, (int)lastPosY) == 0) {
+        SpaceMain.lights.fadeTo(SpaceMain.outsideColor);
+      }
+    }
+  }
+
   public void update(int tick) {
 
-//    if (guy.getHealth() > 0 && tick % 60 == 0) {
-//      world.getTileCoords();
-//    }
+    handleSceneLighting();
 
     lastTick = tick;
     if (gameOverTime == 0 && guy.getHealth() <= 0) {
