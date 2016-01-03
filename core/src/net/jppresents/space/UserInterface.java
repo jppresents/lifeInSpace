@@ -24,6 +24,7 @@ public class UserInterface {
   private ProgressBar targetHealthBar;
   private int actionBarY = 0;
   private int currentActionBarY = 0;
+  private TextBox textBox;
 
   public UserInterface() {
     marker = SpaceMain.assets.getSprites().findRegion("marker");
@@ -42,6 +43,7 @@ public class UserInterface {
     targetHealthBar = new ProgressBar(0, 0, 0, 0, SpaceMain.assets.getSprites().findRegion("hpBarSmall"), SpaceMain.assets.getSprites().findRegion("hpBarFillSmall"), null);
     targetHealthBar.setFixedToCamera(false);
     targetHealthBar.setShowValues(false);
+    textBox = new TextBox(SpaceMain.assets.getSprites(), "textbox");
   }
 
   public void render(SpriteBatch batch, Camera camera) {
@@ -86,6 +88,8 @@ public class UserInterface {
     }
     actionBar.setY(currentActionBarY);
     actionBar.render(batch, camera);
+
+    textBox.render(batch, camera);
   }
 
   public void setSelectorPos(int x, int y) {
@@ -146,5 +150,9 @@ public class UserInterface {
     currentActionBarY = -barHeight;
     actionBar.setX((int)camera.viewportWidth - barWidth - 10);
     actionBar.setY(currentActionBarY + 10);
+  }
+
+  public TextBox getTextBox() {
+    return textBox;
   }
 }

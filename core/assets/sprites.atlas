@@ -1,117 +1,126 @@
 
 sprites.png
-size: 1024,128
+size: 1024,256
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 apBar
   rotate: false
-  xy: 2, 87
+  xy: 2, 213
   size: 400, 39
   orig: 400, 39
   offset: 0, 0
   index: -1
 apBarFill
   rotate: false
-  xy: 2, 46
+  xy: 2, 172
   size: 400, 39
   orig: 400, 39
   offset: 0, 0
   index: -1
 apBarIndicator
   rotate: false
-  xy: 404, 87
+  xy: 404, 213
   size: 400, 39
   orig: 400, 39
   offset: 0, 0
   index: -1
 hpBar
   rotate: false
-  xy: 2, 5
+  xy: 2, 131
   size: 400, 39
   orig: 400, 39
   offset: 0, 0
   index: -1
 hpBarFill
   rotate: false
-  xy: 404, 46
+  xy: 404, 172
   size: 400, 39
   orig: 400, 39
   offset: 0, 0
   index: -1
 hpBarFillSmall
   rotate: false
-  xy: 806, 46
+  xy: 2, 2
   size: 60, 6
   orig: 60, 6
   offset: 0, 0
   index: -1
 hpBarSmall
   rotate: false
-  xy: 938, 73
+  xy: 76, 76
   size: 60, 6
   orig: 60, 6
   offset: 0, 0
   index: -1
 marker
   rotate: false
-  xy: 495, 21
+  xy: 451, 147
   size: 23, 23
   orig: 23, 23
   offset: 0, 0
   index: -1
 markerError
   rotate: false
-  xy: 938, 40
+  xy: 247, 98
   size: 31, 31
   orig: 31, 31
   offset: 0, 0
   index: -1
 markerNext
   rotate: false
-  xy: 448, 15
+  xy: 404, 141
   size: 45, 29
   orig: 45, 29
   offset: 0, 0
   index: -1
 markerSkip
   rotate: false
-  xy: 880, 36
+  xy: 145, 86
   size: 56, 43
   orig: 56, 43
   offset: 0, 0
   index: -1
 markerTarget
   rotate: false
-  xy: 404, 2
+  xy: 203, 87
   size: 42, 42
   orig: 42, 42
   offset: 0, 0
   index: -1
 medkit
   rotate: false
-  xy: 880, 81
+  xy: 2, 10
   size: 67, 45
   orig: 67, 45
   offset: 0, 0
   index: -1
 selector
   rotate: false
-  xy: 806, 54
+  xy: 2, 57
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 shot
   rotate: false
-  xy: 448, 2
+  xy: 76, 63
   size: 32, 11
   orig: 32, 11
   offset: 0, 0
   index: -1
+textbox
+  rotate: false
+  xy: 806, 72
+  size: 201, 180
+  split: 80, 79, 76, 81
+  pad: 81, 80, 69, 73
+  orig: 201, 180
+  offset: 0, 0
+  index: -1
 weaponCrate
   rotate: false
-  xy: 949, 81
+  xy: 76, 84
   size: 67, 45
   orig: 67, 45
   offset: 0, 0

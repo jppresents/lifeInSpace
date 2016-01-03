@@ -45,9 +45,20 @@ public class GameLogic {
     guy = new Guy(spriterDataManager.getEntity("guy"), spriterDataManager.getDrawer("guy"), SpaceMain.tileSize);
     gameObjects.add(guy);
     reset();
+    //todo maybe read texts from file
+    if (SpaceMain.touchMode) {
+      this.ui.getTextBox().setText("\"life in space and how to get rid of it\"\n\nControls:\ndrag to move the camera\ntouch to see action, touch again to execute the action");
+    } else {
+      this.ui.getTextBox().setText("\"life in space and how to get rid of it\"\n\nControls:\nhold mouse right to move the camera\nclick mouse left to move and shoot");
+    }
   }
 
   public void update(int tick) {
+
+//    if (guy.getHealth() > 0 && tick % 60 == 0) {
+//      world.getTileCoords();
+//    }
+
     lastTick = tick;
     if (gameOverTime == 0 && guy.getHealth() <= 0) {
       SpaceMain.lights.fadeTo(0.2f, 0, 0, 0, 0);
@@ -128,7 +139,7 @@ public class GameLogic {
   }
 
   public void reset() {
-    for (GameObject obj: gameObjects) {
+    for (GameObject obj : gameObjects) {
       if (obj != guy)
         obj.dispose();
     }
@@ -148,6 +159,10 @@ public class GameLogic {
     if (resetCam) {
       guy.centerCamera(camera);
       resetCam = false;
+    }
+    if (ui.getTextBox().isActive()) {
+      moveCam.set(0, 0);
+      return;
     }
     camera.translate(moveCam.x, moveCam.y);
     moveCam.set(0, 0);
@@ -171,6 +186,13 @@ public class GameLogic {
   }
 
   public void executeAction() {
+    if (ui.getTextBox().isActive()) {
+      if (ui.getTextBox().isDone()) {
+        ui.getTextBox().setText(""); //hide
+      }
+      return;
+    }
+
     dragFrom.set(-1, -1);
     if (state == State.PLAYERINPUT) {
       if (guy.getHealth() <= 0) {
@@ -215,6 +237,15 @@ public class GameLogic {
   }
 
   public void setAndDisplayAction(float x, float y) {
+    if (ui.getTextBox().isActive()) {
+      if (SpaceMain.touchMode) {
+        if (ui.getTextBox().isDone()) {
+          ui.getTextBox().setText(""); //hide
+        }
+      }
+      return; //no actions until textbox is done
+    }
+
     if (state == State.PLAYERINPUT) {
       lastMouse.x = x;
       lastMouse.y = y;
