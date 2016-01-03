@@ -164,7 +164,10 @@ public class GameLogic {
       AnimatedGameObject enemy = getActiveEnemy((int) target.x, (int) target.y);
 
       if (enemy != null) {
-        guy.decActionPoints(1);
+        if (guy.getActionPoints() < guy.getShotCost()) {
+          return;
+        }
+        guy.decActionPoints(guy.getShotCost());
         combat.shoot(guy.getTilePosition(), enemy.getTilePosition(), guy.getDamage());
         state = State.COMBAT;
         ui.hideSelector();
@@ -192,7 +195,13 @@ public class GameLogic {
       target.y = (int) temp.y;
       ui.setSelectorPos((int) temp.x * SpaceMain.tileSize + SpaceMain.tileSize / 2, (int) temp.y * SpaceMain.tileSize + SpaceMain.tileSize / 2);
       ui.setError(world.isTileBlocking((int) target.x, (int) target.y));
-      ui.setTarget(getActiveEnemy((int) target.x, (int) target.y));
+      Enemy activeEnemy = getActiveEnemy((int) target.x, (int) target.y);
+      ui.setTarget(activeEnemy);
+      if (activeEnemy != null) {
+        ui.setActionCost(guy.getShotCost());
+      } else {
+        ui.setActionCost(0);
+      }
       ui.setSkip(guy.inCombat() && guy.getTilePosition().x == target.x && guy.getTilePosition().y == target.y);
     }
   }

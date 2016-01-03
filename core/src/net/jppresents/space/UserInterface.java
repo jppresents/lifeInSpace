@@ -36,11 +36,12 @@ public class UserInterface {
     barHeight = SpaceMain.assets.getSprites().findRegion("apBar").getRegionHeight();
     barWidth =  SpaceMain.assets.getSprites().findRegion("apBar").getRegionWidth();
     actionBarY = -SpaceMain.assets.getSprites().findRegion("apBar").getRegionHeight();
-    healthBar = new ProgressBar(0, 0, 100, 100, SpaceMain.assets.getSprites().findRegion("hpBar"), SpaceMain.assets.getSprites().findRegion("hpBarFill"));
+    healthBar = new ProgressBar(0, 0, 100, 100, SpaceMain.assets.getSprites().findRegion("hpBar"), SpaceMain.assets.getSprites().findRegion("hpBarFill"), null);
     currentActionBarY = actionBarY;
-    actionBar = new ProgressBar(0, 0, 3, 3, SpaceMain.assets.getSprites().findRegion("apBar"), SpaceMain.assets.getSprites().findRegion("apBarFill"));
-    targetHealthBar = new ProgressBar(0, 0, 0, 0, SpaceMain.assets.getSprites().findRegion("hpBarSmall"), SpaceMain.assets.getSprites().findRegion("hpBarFillSmall"));
+    actionBar = new ProgressBar(0, 0, 3, 3, SpaceMain.assets.getSprites().findRegion("apBar"), SpaceMain.assets.getSprites().findRegion("apBarFill"), SpaceMain.assets.getSprites().findRegion("apBarIndicator"));
+    targetHealthBar = new ProgressBar(0, 0, 0, 0, SpaceMain.assets.getSprites().findRegion("hpBarSmall"), SpaceMain.assets.getSprites().findRegion("hpBarFillSmall"), null);
     targetHealthBar.setFixedToCamera(false);
+    targetHealthBar.setShowValues(false);
   }
 
   public void render(SpriteBatch batch, Camera camera) {
@@ -94,6 +95,7 @@ public class UserInterface {
 
   public void hideSelector() {
     selectorX = -1;
+    actionBar.showCost(0);
   }
 
   public void setError(boolean error) {
@@ -118,6 +120,10 @@ public class UserInterface {
     } else {
       actionBarY = -SpaceMain.assets.getSprites().findRegion("apBar").getRegionHeight();
     }
+  }
+
+  public void setActionCost(int value) {
+    this.actionBar.showCost(value);
   }
 
   public void setMaxHealthPoints(int healthPoints) {

@@ -9,6 +9,7 @@ public class Guy extends AnimatedGameObject {
 
   private int idleAnimationCount = 0;
   private boolean wasWalking = true;
+  private int shotCost = 2;
 
   public Guy(Entity entity, Drawer drawer, int tileSize) {
     super(entity, drawer, tileSize);
@@ -126,5 +127,9 @@ public class Guy extends AnimatedGameObject {
     setGunLevel(0);
     spriterPlayer.setAnimation("front_idle");
     spriterPlayer.speed = 15;
+  }
+
+  public int getShotCost() {
+    return shotCost;
   }
 }

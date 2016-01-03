@@ -5,9 +5,17 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import net.jppresents.space.SpaceMain;
 
 public class DesktopLauncher {
-	public static void main (String[] arg) {
+	private static boolean argsContain(String[] arg, String search) {
+    for (String anArg : arg) {
+      if (anArg.equalsIgnoreCase(search))
+        return true;
+    }
+    return false;
+  }
+
+  public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		if (arg.length  > 0 && arg[0].equals("small")) {
+		if (argsContain(arg, "small")) {
       config.width = 1280 / 2;
       config.height = 720 / 2;
     } else {
@@ -15,6 +23,6 @@ public class DesktopLauncher {
       config.height = 720;
     }
     config.title = "Life in space - and how to get rid of it";
-		new LwjglApplication(new SpaceMain("noSound".equalsIgnoreCase(arg[0])), config);
+		new LwjglApplication(new SpaceMain(argsContain(arg, "noSound")), config);
 	}
 }

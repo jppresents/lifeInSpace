@@ -6,112 +6,112 @@ filter: Nearest,Nearest
 repeat: none
 apBar
   rotate: false
-  xy: 2, 84
+  xy: 2, 87
   size: 400, 39
   orig: 400, 39
   offset: 0, 0
   index: -1
 apBarFill
   rotate: false
-  xy: 2, 43
+  xy: 2, 46
   size: 400, 39
   orig: 400, 39
   offset: 0, 0
   index: -1
 apBarIndicator
   rotate: false
-  xy: 751, 63
-  size: 10, 19
-  orig: 10, 19
+  xy: 404, 87
+  size: 400, 39
+  orig: 400, 39
   offset: 0, 0
   index: -1
 hpBar
   rotate: false
-  xy: 404, 84
+  xy: 2, 5
   size: 400, 39
   orig: 400, 39
   offset: 0, 0
   index: -1
 hpBarFill
   rotate: false
-  xy: 2, 2
+  xy: 404, 46
   size: 400, 39
   orig: 400, 39
   offset: 0, 0
   index: -1
 hpBarFillSmall
   rotate: false
-  xy: 404, 2
+  xy: 806, 46
   size: 60, 6
   orig: 60, 6
   offset: 0, 0
   index: -1
 hpBarSmall
   rotate: false
-  xy: 478, 29
+  xy: 938, 73
   size: 60, 6
   orig: 60, 6
   offset: 0, 0
   index: -1
 marker
   rotate: false
-  xy: 853, 100
+  xy: 495, 21
   size: 23, 23
   orig: 23, 23
   offset: 0, 0
   index: -1
 markerError
   rotate: false
-  xy: 718, 51
+  xy: 938, 40
   size: 31, 31
   orig: 31, 31
   offset: 0, 0
   index: -1
 markerNext
   rotate: false
-  xy: 806, 94
+  xy: 448, 15
   size: 45, 29
   orig: 45, 29
   offset: 0, 0
   index: -1
 markerSkip
   rotate: false
-  xy: 616, 39
+  xy: 880, 36
   size: 56, 43
   orig: 56, 43
   offset: 0, 0
   index: -1
 markerTarget
   rotate: false
-  xy: 674, 40
+  xy: 404, 2
   size: 42, 42
   orig: 42, 42
   offset: 0, 0
   index: -1
 medkit
   rotate: false
-  xy: 478, 37
+  xy: 880, 81
   size: 67, 45
   orig: 67, 45
   offset: 0, 0
   index: -1
 selector
   rotate: false
-  xy: 404, 10
+  xy: 806, 54
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 shot
   rotate: false
-  xy: 478, 16
+  xy: 448, 2
   size: 32, 11
   orig: 32, 11
   offset: 0, 0
   index: -1
 weaponCrate
   rotate: false
-  xy: 547, 37
+  xy: 949, 81
   size: 67, 45
   orig: 67, 45
   offset: 0, 0

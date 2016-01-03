@@ -2,24 +2,32 @@ package net.jppresents.space;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 
 public class ProgressBar {
   private float maxValue;
   private float value;
   private float x;
   private float y;
-  private TextureRegion barRegion;
-  private TextureRegion fillRegion;
+  private final TextureRegion barRegion;
+  private final TextureRegion fillRegion;
+  private final TextureRegion costRegion;
   private int targetWidth;
   private int currentWidth;
   private boolean fixedToCamera = true;
+  private float costValue = 0;
+  private boolean showValues = true;
+  private int costAlpha = 0;
+  private float costValueDisplay;
 
-  public ProgressBar(float x, float y, float maxValue, float value, TextureRegion barRegion, TextureRegion fillRegion) {
+  public ProgressBar(float x, float y, float maxValue, float value, TextureRegion barRegion, TextureRegion fillRegion, TextureRegion costRegion) {
     this.x = x;
     this.y = y;
     this.barRegion = barRegion;
     this.fillRegion = fillRegion;
+    this.costRegion = costRegion;
     this.value = value;
     setMaxValue(maxValue);
   }
@@ -57,14 +65,33 @@ public class ProgressBar {
 
     batch.draw(barRegion, renderX, renderY);
     batch.draw(fillRegion.getTexture(), renderX, renderY, currentWidth, fillRegion.getRegionHeight(), fillRegion.getRegionX(), fillRegion.getRegionY(), currentWidth, fillRegion.getRegionHeight(), false, false);
-  }
 
-  public int getHeight() {
-    return barRegion.getRegionHeight();
-  }
+    //cost value
+    if (costValue > 0 && costRegion != null) {
+      costAlpha++;
+      batch.setColor(1, 1, 1, 0.2f + 0.8f * Math.abs(MathUtils.sinDeg(costAlpha*2)));
+      int costWidth = Math.round(costRegion.getRegionWidth() * costValue / maxValue);
+      int costStart = Math.round(costRegion.getRegionWidth() * (maxValue - value)/maxValue);
+      batch.draw(costRegion.getTexture(), renderX + costRegion.getRegionWidth() - costWidth - costStart, renderY, costWidth, costRegion.getRegionHeight(), costRegion.getRegionX() + (costRegion.getRegionWidth() - costWidth -costStart), costRegion.getRegionY(), costWidth, costRegion.getRegionHeight(), false, false);
+      batch.setColor(1, 1, 1, 1);
+    }
 
-  public int getWidth() {
-    return barRegion.getRegionWidth();
+    if (showValues) {
+      BitmapFont font = SpaceMain.assets.getFont();
+      String text;
+      if (costValue == 0) {
+        text = (int) value + " / " + (int) maxValue;
+      } else {
+        text = (int) value + "(-" + (int) costValueDisplay + ") / " + (int) maxValue;
+        if (costValueDisplay > value) {
+          font.setColor(1, 0, 0, 1);
+        } else {
+          font.setColor(1, 1, 1, 1);
+        }
+      }
+      font.draw(batch, text, renderX + barRegion.getRegionWidth() / 2 - font.getSpaceWidth() * text.length()/2, renderY + barRegion.getRegionHeight()/2 + font.getLineHeight()/2);
+    }
+
   }
 
   public void setY(int y) {
@@ -80,7 +107,19 @@ public class ProgressBar {
     currentWidth = targetWidth;
   }
 
+  public void showCost(int value) {
+    costValue = value;
+    costValueDisplay = value;
+    if (this.value - value < 0) {
+      costValue = this.value;
+    }
+  }
+
   public void setFixedToCamera(boolean fixedToCamera) {
     this.fixedToCamera = fixedToCamera;
+  }
+
+  public void setShowValues(boolean showValues) {
+    this.showValues = showValues;
   }
 }
