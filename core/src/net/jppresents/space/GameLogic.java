@@ -1,7 +1,5 @@
 package net.jppresents.space;
 
-import com.badlogic.gdx.*;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -161,27 +159,19 @@ public class GameLogic {
     world.restrictCamera(camera);
   }
 
-
-  public void unprojectedTouchDown(float x, float y, int button) {
-    if (button == Input.Buttons.RIGHT) {
-      dragFrom.set(x, y);
-    }
+  public void startCameraDrag(float x, float y) {
+    dragFrom.set(x, y);
   }
 
-  public void unprojectedTouchDragged(float x, float y) {
+  public void cameraDragged(float x, float y) {
     if (dragFrom.x != -1 || dragFrom.y != -1) {
       moveCam.add(dragFrom.x - x, -(dragFrom.y - y));
       dragFrom.set(x, y);
     }
   }
 
-  public void touchDown(float x, float y, int button) {
-    if (button != Input.Buttons.LEFT) {
-      return;
-    }
+  public void executeAction() {
     dragFrom.set(-1, -1);
-
-    mouseMoved(x, y);
     if (state == State.PLAYERINPUT) {
       if (guy.getHealth() <= 0) {
         if (gameOverTime < lastTick - 120) {
@@ -219,10 +209,12 @@ public class GameLogic {
   }
 
   private void refreshUI() {
-    mouseMoved(lastMouse.x, lastMouse.y);
+    if (!SpaceMain.touchMode) {
+      setAndDisplayAction(lastMouse.x, lastMouse.y);
+    }
   }
 
-  public void mouseMoved(float x, float y) {
+  public void setAndDisplayAction(float x, float y) {
     if (state == State.PLAYERINPUT) {
       lastMouse.x = x;
       lastMouse.y = y;

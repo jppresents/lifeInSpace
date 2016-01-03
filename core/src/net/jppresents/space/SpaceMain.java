@@ -13,6 +13,7 @@ import java.util.List;
 
 public class SpaceMain extends ApplicationAdapter {
   public static int tileSize = 0;
+  public static boolean touchMode = false;
   private World world;
 
   private SpriterDataManager spriterDataManager;
@@ -37,7 +38,8 @@ public class SpaceMain extends ApplicationAdapter {
   public SpaceMain() {
   }
 
-  public SpaceMain(boolean noSound) {
+  public SpaceMain(boolean touchMode, boolean noSound) {
+    this.touchMode = touchMode;
     soundOn = !noSound;
   }
 
@@ -67,7 +69,7 @@ public class SpaceMain extends ApplicationAdapter {
 
     gameLogic = new GameLogic(world, gameObjects, spriterDataManager, ui, combat);
 
-    new Input(true, camera, gameLogic);
+    new InputHandler(true, camera, gameLogic, touchMode);
     assets.startMusic();
   }
 
