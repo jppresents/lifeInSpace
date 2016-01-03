@@ -154,6 +154,10 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
     return pos * tileSize;
   }
 
+  public void setCurrentMovecostsActinPoints(boolean currentMovecostsActinPoints) {
+    this.currentMovecostsActinPoints = currentMovecostsActinPoints;
+  }
+
   public void update() {
     if (!combat) {
       resetActionPoints();

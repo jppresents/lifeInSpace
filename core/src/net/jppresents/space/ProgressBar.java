@@ -78,6 +78,7 @@ public class ProgressBar {
 
     if (showValues) {
       BitmapFont font = SpaceMain.assets.getFont();
+      font.setColor(1, 1, 1, 1);
       String text;
       if (costValue == 0) {
         text = (int) value + " / " + (int) maxValue;
@@ -85,8 +86,6 @@ public class ProgressBar {
         text = (int) value + "(-" + (int) costValueDisplay + ") / " + (int) maxValue;
         if (costValueDisplay > value) {
           font.setColor(1, 0, 0, 1);
-        } else {
-          font.setColor(1, 1, 1, 1);
         }
       }
       font.draw(batch, text, renderX + barRegion.getRegionWidth() / 2 - font.getSpaceWidth() * text.length()/2, renderY + barRegion.getRegionHeight()/2 + font.getLineHeight()/2);

@@ -168,6 +168,7 @@ public class GameLogic {
           return;
         }
         guy.decActionPoints(guy.getShotCost());
+        guy.setCurrentMovecostsActinPoints(true);
         combat.shoot(guy.getTilePosition(), enemy.getTilePosition(), guy.getDamage());
         state = State.COMBAT;
         ui.hideSelector();
