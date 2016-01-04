@@ -16,8 +16,8 @@ public class Combat {
     private Vector2 velocity = new Vector2();
     private boolean active = true;
     private int lifeTime = 50;
-    private int startTick = 20;
-    private int visibleTick = 22;
+    private int startTick = 19;
+    private int visibleTick = 23;
     private int damage = 0;
 
     public Shot() {
@@ -43,7 +43,7 @@ public class Combat {
 
     private Enemy findTarget(List<Enemy> enemies, int x, int y) {
       for (Enemy enemy : enemies) {
-        if (enemy.getTilePosition().x == x && enemy.getTilePosition().y == y && enemy.getHealth() > 0) {
+        if (enemy.getTilePosition().x == x && enemy.getTilePosition().y == y && enemy.getSecondarySortAttrib() > 0) {
           return enemy;
         }
       }
@@ -55,7 +55,7 @@ public class Combat {
       sprite.setPosition(sprite.getX() + velocity.x, sprite.getY() + velocity.y);
       light.setPosition(sprite.getX(), sprite.getY());
 
-      if (tick > startTick) {
+      if (tick > visibleTick) {
         light.setOn(true);
       }
 

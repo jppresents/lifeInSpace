@@ -48,51 +48,51 @@ hpBarFillSmall
   index: -1
 hpBarSmall
   rotate: false
-  xy: 76, 76
+  xy: 454, 164
   size: 60, 6
   orig: 60, 6
   offset: 0, 0
   index: -1
 marker
   rotate: false
-  xy: 451, 147
+  xy: 76, 61
   size: 23, 23
   orig: 23, 23
   offset: 0, 0
   index: -1
 markerError
   rotate: false
-  xy: 247, 98
+  xy: 225, 98
   size: 31, 31
   orig: 31, 31
   offset: 0, 0
   index: -1
 markerNext
   rotate: false
-  xy: 404, 141
+  xy: 178, 100
   size: 45, 29
   orig: 45, 29
   offset: 0, 0
   index: -1
 markerSkip
   rotate: false
-  xy: 145, 86
+  xy: 76, 86
   size: 56, 43
   orig: 56, 43
   offset: 0, 0
   index: -1
 markerTarget
   rotate: false
-  xy: 203, 87
+  xy: 134, 87
   size: 42, 42
   orig: 42, 42
   offset: 0, 0
   index: -1
 medkit
   rotate: false
-  xy: 2, 10
-  size: 67, 45
-  orig: 67, 45
+  xy: 404, 138
+  size: 48, 32
+  orig: 48, 32
   offset: 0, 0
   index: -1
 selector
@@ -104,7 +104,7 @@ selector
   index: -1
 shot
   rotate: false
-  xy: 76, 63
+  xy: 454, 151
   size: 32, 11
   orig: 32, 11
   offset: 0, 0
@@ -120,7 +120,7 @@ textbox
   index: -1
 weaponCrate
   rotate: false
-  xy: 76, 84
+  xy: 2, 10
   size: 67, 45
   orig: 67, 45
   offset: 0, 0

@@ -6,7 +6,7 @@ filter: Nearest,Nearest
 repeat: none
 arm
   rotate: false
-  xy: 326, 87
+  xy: 488, 87
   size: 14, 28
   orig: 14, 28
   offset: 0, 0
@@ -20,7 +20,7 @@ body_front
   index: -1
 body_side
   rotate: false
-  xy: 286, 72
+  xy: 448, 72
   size: 38, 43
   orig: 38, 43
   offset: 0, 0
@@ -34,7 +34,7 @@ gun_big
   index: -1
 gun_small
   rotate: false
-  xy: 286, 58
+  xy: 448, 58
   size: 23, 12
   orig: 23, 12
   offset: 0, 0
@@ -69,8 +69,22 @@ head_side
   index: -1
 leg
   rotate: false
-  xy: 342, 87
+  xy: 103, 16
   size: 14, 28
   orig: 14, 28
+  offset: 0, 0
+  index: -1
+muzzleFlash
+  rotate: false
+  xy: 286, 58
+  size: 79, 57
+  orig: 79, 57
+  offset: 0, 0
+  index: -1
+muzzleFlashBig
+  rotate: false
+  xy: 367, 58
+  size: 79, 57
+  orig: 79, 57
   offset: 0, 0
   index: -1
