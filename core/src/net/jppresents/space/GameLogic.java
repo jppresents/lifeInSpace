@@ -31,6 +31,8 @@ public class GameLogic {
 
   private Guy guy;
   private List<Enemy> enemies = new ArrayList<Enemy>(20);
+  private List<Goody> goodies = new ArrayList<Goody>(20);
+
 
   private int gameOverTime = 0;
   private int lastTick = 0;
@@ -42,7 +44,7 @@ public class GameLogic {
     this.spriterDataManager = spriterDataManager;
     this.combat = combat;
 
-    guy = new Guy(spriterDataManager.getEntity("guy"), spriterDataManager.getDrawer("guy"), SpaceMain.tileSize);
+    guy = new Guy(spriterDataManager.getEntity("guy"), spriterDataManager.getDrawer("guy"));
     gameObjects.add(guy);
     reset();
     //todo maybe read texts from file
@@ -54,10 +56,20 @@ public class GameLogic {
   }
 
   private float lastPosX, lastPosY;
-  private void handleSceneLighting() {
+
+  private void handleWorldInteraction() {
     if (guy.getHealth() > 0 && (guy.getTilePosition().x != lastPosX || guy.getTilePosition().y != lastPosY)) {
       lastPosX = guy.getTilePosition().x;
       lastPosY = guy.getTilePosition().y;
+
+      //Goodie pickups
+      Goody goody = findActiveGoody((int)lastPosX, (int)lastPosY);
+      if (goody != null) {
+        goody.setActive(false);
+        guy.setHealth(guy.getHealth() + 2);
+      }
+
+      //Light changes
       if (world.getTileIndex((int)lastPosX, (int)lastPosY) == 38) {
         SpaceMain.lights.fadeTo(SpaceMain.insideColor);
       } else if (world.getTileIndex((int)lastPosX, (int)lastPosY) == 0) {
@@ -68,7 +80,7 @@ public class GameLogic {
 
   public void update(int tick) {
 
-    handleSceneLighting();
+    handleWorldInteraction();
 
     lastTick = tick;
     if (gameOverTime == 0 && guy.getHealth() <= 0) {
@@ -160,6 +172,8 @@ public class GameLogic {
     world.applyPlayerPosition(guy, "Start");
     world.loadEnemies(enemies, spriterDataManager);
     gameObjects.addAll(enemies);
+    world.loadGoodies(goodies);
+    gameObjects.addAll(goodies);
     SpaceMain.lights.resetColor();
     gameOverTime = 0;
     resetCam = true;
@@ -199,7 +213,9 @@ public class GameLogic {
   public void executeAction() {
     if (ui.getTextBox().isActive()) {
       if (ui.getTextBox().isDone()) {
-        ui.getTextBox().setText(""); //hide
+        ui.getTextBox().hide();
+        dragFrom.set(-1, -1);
+        moveCam.set(0, 0);
       }
       return;
     }
@@ -219,7 +235,7 @@ public class GameLogic {
         return;
       }
 
-      AnimatedGameObject enemy = getActiveEnemy((int) target.x, (int) target.y);
+      AnimatedGameObject enemy = findActiveEnemy((int) target.x, (int) target.y);
 
       if (enemy != null) {
         if (guy.getActionPoints() < guy.getShotCost()) {
@@ -241,20 +257,25 @@ public class GameLogic {
     }
   }
 
-  private void refreshUI() {
-    if (!SpaceMain.touchMode) {
-      setAndDisplayAction(lastMouse.x, lastMouse.y);
-    }
-  }
-
   public void setAndDisplayAction(float x, float y) {
+
     if (ui.getTextBox().isActive()) {
       if (SpaceMain.touchMode) {
         if (ui.getTextBox().isDone()) {
-          ui.getTextBox().setText(""); //hide
+          ui.getTextBox().hide();
         }
       }
       return; //no actions until textbox is done
+    }
+
+
+    if (SpaceMain.touchMode) {
+      if (gameOverTime < lastTick - 120 && guy.getHealth() <= 0) {
+        reset();
+      }
+      if (state == State.PLAYERMOVING) {
+        guy.cancelMove(false);
+      }
     }
 
     if (state == State.PLAYERINPUT) {
@@ -265,7 +286,7 @@ public class GameLogic {
       target.y = (int) temp.y;
       ui.setSelectorPos((int) temp.x * SpaceMain.tileSize + SpaceMain.tileSize / 2, (int) temp.y * SpaceMain.tileSize + SpaceMain.tileSize / 2);
       ui.setError(world.isTileBlocking((int) target.x, (int) target.y));
-      Enemy activeEnemy = getActiveEnemy((int) target.x, (int) target.y);
+      Enemy activeEnemy = findActiveEnemy((int) target.x, (int) target.y);
       ui.setTarget(activeEnemy);
       if (activeEnemy != null) {
         ui.setActionCost(guy.getShotCost());
@@ -276,7 +297,23 @@ public class GameLogic {
     }
   }
 
-  private Enemy getActiveEnemy(int x, int y) {
+  private void refreshUI() {
+    if (!SpaceMain.touchMode) {
+      setAndDisplayAction(lastMouse.x, lastMouse.y);
+    }
+  }
+
+  private Goody findActiveGoody(int x, int y) {
+    for (Goody obj : goodies) {
+      Vector2 pos = obj.getPosition();
+      if (pos.x == x && pos.y == y && obj.isActive()) {
+        return obj;
+      }
+    }
+    return null;
+  }
+
+  private Enemy findActiveEnemy(int x, int y) {
     for (Enemy obj : enemies) {
       Vector3 pos = obj.getTilePosition();
       if (pos.x == x && pos.y == y && obj.getHealth() > 0) {

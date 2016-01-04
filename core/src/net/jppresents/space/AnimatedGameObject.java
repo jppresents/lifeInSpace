@@ -1,6 +1,7 @@
 package net.jppresents.space;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -49,6 +50,10 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
     return damage;
   }
 
+  public int getHealth() {
+    return health;
+  }
+
 
   protected enum Movement {NONE, LEFT, RIGHT, UP, DOWN}
 
@@ -62,12 +67,11 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
   private int currentPathTarget = 0;
   private List<Light> attachedLights = new ArrayList<Light>(1);
   private Movement movement = Movement.NONE;
-  private int tileSize = 0;
   private int maxHealth = 10;
-  private int health = 10;
+  protected int health = 10;
   private int idleTick;
 
-  public int getHealth() {
+  public int getSecondarySortAttrib() {
     return health;
   }
 
@@ -80,7 +84,7 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
   }
 
   public void setHealth(int health) {
-    this.health = health;
+    this.health = Math.min(health, maxHealth);
   }
 
   public void setMaxActionPoints(int maxActionPoints) {
@@ -138,11 +142,10 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
     }
   }
 
-  public AnimatedGameObject(Entity entity, Drawer drawer, int tileSize) {
+  public AnimatedGameObject(Entity entity, Drawer drawer) {
     spriterPlayer = new Player(entity);
     spriterPlayer.addListener(this);
     this.drawer = drawer;
-    this.tileSize = tileSize;
     spriterPlayer.setPosition(100, 100);
     spriterPlayer.setAnimation("front_idle");
     spriterPlayer.setTime(MathUtils.random(800)); //so not all idles are synchronized
@@ -153,7 +156,7 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
   }
 
   private float toWorld(float pos) {
-    return pos * tileSize;
+    return pos * SpaceMain.tileSize;
   }
 
   public void setCurrentMovecostsActinPoints(boolean currentMovecostsActinPoints) {
@@ -166,7 +169,7 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
     }
 
     for (Light light : attachedLights) {
-      light.setPosition(worldPosition.x + tileSize / 2, worldPosition.y);
+      light.setPosition(worldPosition.x + SpaceMain.tileSize / 2, worldPosition.y);
     }
 
     Vector2 target = null;
@@ -218,9 +221,9 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
       spriterPlayer.flipX();
     }
     updateAnimation();
-    spriterPlayer.setPosition(worldPosition.x + tileSize / 2, worldPosition.y);
-    tilePosition.x = Math.round(worldPosition.x / tileSize);
-    tilePosition.y = Math.round(worldPosition.y / tileSize);
+    spriterPlayer.setPosition(worldPosition.x + SpaceMain.tileSize / 2, worldPosition.y);
+    tilePosition.x = Math.round(worldPosition.x / SpaceMain.tileSize);
+    tilePosition.y = Math.round(worldPosition.y / SpaceMain.tileSize);
     spriterPlayer.update();
   }
 
@@ -289,7 +292,7 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
   }
 
 
-  public void render() {
+  public void render(Batch batch) {
     drawer.draw(spriterPlayer);
   }
 

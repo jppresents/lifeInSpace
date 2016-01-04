@@ -70,7 +70,7 @@ public class UserInterface {
         targetHealthBar.setX(selectorX);
         targetHealthBar.setY(selectorY - 45);
         targetHealthBar.setMaxValue(target.getMaxHealth());
-        targetHealthBar.setValueNoAnimation(target.getHealth());
+        targetHealthBar.setValueNoAnimation(target.getSecondarySortAttrib());
         batch.setColor(1, 1, 1, 1);
         targetHealthBar.render(batch, camera);
       }

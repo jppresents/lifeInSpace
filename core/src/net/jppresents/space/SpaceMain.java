@@ -41,7 +41,7 @@ public class SpaceMain extends ApplicationAdapter {
   }
 
   public SpaceMain(boolean touchMode, boolean noSound) {
-    this.touchMode = touchMode;
+    SpaceMain.touchMode = touchMode;
     soundOn = !noSound;
   }
 
@@ -90,7 +90,7 @@ public class SpaceMain extends ApplicationAdapter {
     @Override
     public int compare(GameObject o1, GameObject o2) {
       if (o2.getY() == o1.getY()) {
-        return o1.getHealth() - o2.getHealth();
+        return o1.getSecondarySortAttrib() - o2.getSecondarySortAttrib();
       }
       return Math.round(o2.getY() - o1.getY());
     }
@@ -123,7 +123,7 @@ public class SpaceMain extends ApplicationAdapter {
     batch.setProjectionMatrix(camera.combined);
     batch.begin();
     for (GameObject obj : gameObjects) {
-      obj.render();
+      obj.render(batch);
     }
     combat.render(batch);
     batch.end();

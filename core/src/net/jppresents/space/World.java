@@ -12,7 +12,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Disposable;
 
-import java.text.NumberFormat;
 import java.util.List;
 
 public class World implements Disposable {
@@ -214,7 +213,7 @@ public class World implements Disposable {
       }
     }
     for (Enemy enemy : enemies) {
-      if (enemy.getHealth() > 0) {
+      if (enemy.getSecondarySortAttrib() > 0) {
         pathMap[(int) enemy.getTilePosition().y][(int) enemy.getTilePosition().x] = Integer.MIN_VALUE + 1;
       }
     }
@@ -262,14 +261,29 @@ public class World implements Disposable {
     for (MapObject object : objLayer.getObjects()) {
       if (object.getName().equals("monster")) {
         getTileCoords(((RectangleMapObject) object).getRectangle().getX(), ((RectangleMapObject) object).getRectangle().getY(), temp);
-        String typ = (String) object.getProperties().get("type");
-        Enemy enemy = new Enemy(spriterDataManager.getEntity(typ), spriterDataManager.getDrawer(typ), SpaceMain.tileSize);
+        String type = (String) object.getProperties().get("type");
+        Enemy enemy = new Enemy(spriterDataManager.getEntity(type), spriterDataManager.getDrawer(type));
         enemy.setLevel( Integer.parseInt((String) object.getProperties().get("level")));
         enemy.setPosition(temp.x * SpaceMain.tileSize, temp.y * SpaceMain.tileSize);
         enemies.add(enemy);
       }
     }
   }
+
+  public void loadGoodies(List<Goody> goodies) {
+    goodies.clear();
+    for (MapObject object : objLayer.getObjects()) {
+      if (object.getName().equals("goody")) {
+        getTileCoords(((RectangleMapObject) object).getRectangle().getX(), ((RectangleMapObject) object).getRectangle().getY(), temp);
+        String type = (String) object.getProperties().get("type");
+        Goody goody = new Goody(type);
+        goody.setAmount( Integer.parseInt((String) object.getProperties().get("amount")));
+        goody.setPosition(temp.x, temp.y);
+        goodies.add(goody);
+      }
+    }
+  }
+
 
   public int getTileIndex(int x, int y) {
     TiledMapTileLayer.Cell cell = mainLayer.getCell(x, y);

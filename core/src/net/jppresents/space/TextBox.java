@@ -34,6 +34,10 @@ public class TextBox {
     font.draw(batch, text, left + 50, bottom + camera.viewportHeight/2 - 50, camera.viewportWidth * 0.8f - 100, Align.left, true);
   }
 
+  public void hide() {
+    setText("");
+  }
+
   public void setText(String text) {
     alpha = 0;
     this.text = text;

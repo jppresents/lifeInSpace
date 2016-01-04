@@ -12,10 +12,10 @@ public class Guy extends AnimatedGameObject {
   private boolean wasWalking = true;
   private int shotCost = 2;
 
-  public Guy(Entity entity, Drawer drawer, int tileSize) {
-    super(entity, drawer, tileSize);
+  public Guy(Entity entity, Drawer drawer) {
+    super(entity, drawer);
     spriterPlayer.characterMaps = new Entity.CharacterMap[1];
-    spriterPlayer.characterMaps[0] = spriterPlayer.getEntity().getCharacterMap("gun_small");
+    //spriterPlayer.characterMaps[0] = spriterPlayer.getEntity().getCharacterMap("gun_small");
 
     Light light = new Light(0, 0, 0, 40, 512, SpaceMain.lights);
     light.setColor(0.8f, 0.6f, 0.6f, 1);
@@ -133,4 +133,5 @@ public class Guy extends AnimatedGameObject {
   public int getShotCost() {
     return shotCost;
   }
+
 }

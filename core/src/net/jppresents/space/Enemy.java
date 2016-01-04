@@ -16,8 +16,8 @@ public class Enemy extends AnimatedGameObject {
   boolean attackedThisTurn = false;
   private int level;
 
-  public Enemy(Entity entity, Drawer drawer, int tileSize) {
-    super(entity, drawer, tileSize);
+  public Enemy(Entity entity, Drawer drawer) {
+    super(entity, drawer);
     light = new Light(0, 0, 0, 40, 300, SpaceMain.lights);
     light.setColor(0.2f, 0.5f, 0.5f, 1);
     attachLight(light);
@@ -52,7 +52,7 @@ public class Enemy extends AnimatedGameObject {
   }
 
   public void planTurn(World world, Guy guy, List<Enemy> enemies) {
-    if (getHealth() <= 0)
+    if (getSecondarySortAttrib() <= 0)
       return;
     attackedThisTurn = false;
     if (isAggro()) {
@@ -64,12 +64,12 @@ public class Enemy extends AnimatedGameObject {
     if (aggro) {
       float distance = guy.calcDistance(this);
 
-      if (distance >= deAggroRange && getHealth() == getMaxHealth()) {
+      if (distance >= deAggroRange && getSecondarySortAttrib() == getMaxHealth()) {
         aggro = false;
         light.setColor(0.2f, 0.5f, 0.5f, 1);
       }
 
-      if (getHealth() > 0 && getActionPoints() > 0 && isIdle(tick) && distance < 2 && !attackedThisTurn) {
+      if (getSecondarySortAttrib() > 0 && getActionPoints() > 0 && isIdle(tick) && distance < 2 && !attackedThisTurn) {
         if (guy.getX() < getX()) {
           spriterPlayer.setAnimation("side_attack");
         } else if (guy.getX() > getX()) {
@@ -87,7 +87,7 @@ public class Enemy extends AnimatedGameObject {
       }
 
     } else {
-      if (guy.calcDistance(this) <= aggroRange || getHealth() < getMaxHealth()) {
+      if (guy.calcDistance(this) <= aggroRange || getSecondarySortAttrib() < getMaxHealth()) {
         aggro = true;
         light.setColor(0.5f, 0.2f, 0.2f, 1);
       }
@@ -97,7 +97,7 @@ public class Enemy extends AnimatedGameObject {
 
   @Override
   protected void updateAnimation() {
-    if (getHealth() > 0) {
+    if (getSecondarySortAttrib() > 0) {
 
       if (getMovement() != Movement.NONE) {
         wasWalking = true;
