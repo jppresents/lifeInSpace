@@ -13,7 +13,7 @@ import java.util.Map;
 public class Assets implements Disposable {
   private final boolean sound;
 
-  public enum SoundEffect {BLASTER, ALIEN_HURT, ALIEN_DIE, GUY_HURT, GUY_HURT2, FIZZLE}
+  public enum SoundEffect {BLASTER, ALIEN_HURT, ALIEN_DIE, GUY_HURT, GUY_HURT2, FIZZLE, POWERUP, HEAL}
 
   private final TextureAtlas sprites;
   private final Map<SoundEffect, Sound> sounds;
@@ -31,10 +31,13 @@ public class Assets implements Disposable {
     sounds.put(SoundEffect.ALIEN_DIE, Gdx.audio.newSound(Gdx.files.internal("sound/alienDie.ogg")));
     sounds.put(SoundEffect.GUY_HURT, Gdx.audio.newSound(Gdx.files.internal("sound/guyHurt.ogg")));
     sounds.put(SoundEffect.GUY_HURT2, Gdx.audio.newSound(Gdx.files.internal("sound/guyHurt2.ogg")));
+    sounds.put(SoundEffect.POWERUP, Gdx.audio.newSound(Gdx.files.internal("sound/powerup.ogg")));
+    sounds.put(SoundEffect.HEAL, Gdx.audio.newSound(Gdx.files.internal("sound/heal.ogg")));
 
     bgMusic = Gdx.audio.newMusic(Gdx.files.internal("music/bgMusic.ogg"));
     bgMusic.setVolume(0.4f);
     bgMusic.setLooping(true);
+
     font = new BitmapFont(Gdx.files.internal("font/font.fnt"));
   }
 

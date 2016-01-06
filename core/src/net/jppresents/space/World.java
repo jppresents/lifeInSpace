@@ -276,8 +276,7 @@ public class World implements Disposable {
       if (object.getName().equals("goody")) {
         getTileCoords(((RectangleMapObject) object).getRectangle().getX(), ((RectangleMapObject) object).getRectangle().getY(), temp);
         String type = (String) object.getProperties().get("type");
-        Goody goody = new Goody(type);
-        goody.setAmount( Integer.parseInt((String) object.getProperties().get("amount")));
+        Goody goody = new Goody(type, Integer.parseInt((String) object.getProperties().get("amount")));
         goody.setPosition(temp.x, temp.y);
         goodies.add(goody);
       }

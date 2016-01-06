@@ -3,11 +3,31 @@
     <folder id="0">
         <file id="0" name="heal.png" width="29" height="28" pivot_x="0.513932" pivot_y="0.509615"/>
         <file id="1" name="highlight.png" width="99" height="96" pivot_x="0" pivot_y="1"/>
-        <file id="2" name="gunEffect.png" width="48" height="22" pivot_x="0" pivot_y="1"/>
+        <file id="2" name="gun1.png" width="23" height="17" pivot_x="0" pivot_y="1"/>
         <file id="3" name="apUp.png" width="71" height="54" pivot_x="0" pivot_y="1"/>
         <file id="4" name="hpUp.png" width="71" height="54" pivot_x="0" pivot_y="1"/>
-    </folder>
+        <file id="5" name="gun2.png" width="23" height="17" pivot_x="0" pivot_y="1"/>
+        <file id="6" name="gun3.png" width="23" height="17" pivot_x="0" pivot_y="1"/>
+        <file id="7" name="gun4.png" width="23" height="17" pivot_x="0" pivot_y="1"/>
+        <file id="8" name="gun5.png" width="23" height="17" pivot_x="0" pivot_y="1"/>
+        <file id="9" name="gun6.png" width="23" height="17" pivot_x="0" pivot_y="1"/>
+	</folder>
     <entity id="0" name="effects">
+        <character_map id="0" name="gun2">
+            <map folder="0" file="2" target_folder="0" target_file="5"/>
+        </character_map>
+        <character_map id="0" name="gun3">
+            <map folder="0" file="2" target_folder="0" target_file="6"/>
+        </character_map>
+        <character_map id="0" name="gun4">
+            <map folder="0" file="2" target_folder="0" target_file="7"/>
+        </character_map>
+        <character_map id="0" name="gun5">
+            <map folder="0" file="2" target_folder="0" target_file="8"/>
+        </character_map>
+        <character_map id="0" name="gun6">
+            <map folder="0" file="2" target_folder="0" target_file="9"/>
+        </character_map>
         <animation id="0" name="newGun" length="1200" interval="100">
             <mainline>
                 <key id="0">
@@ -227,16 +247,16 @@
             </mainline>
             <timeline id="0" name="apUp">
                 <key id="0" spin="0">
-                    <object folder="0" file="3" x="-34.95935" y="-0.813008" a="0"/>
+                    <object folder="0" file="3" x="-34.95935" y="-0.813008" angle="0" a="0"/>
                 </key>
                 <key id="1" time="205" spin="0">
-                    <object folder="0" file="3" x="-34.95935" y="53.075881"/>
+                    <object folder="0" file="3" x="-34.95935" y="53.075881" angle="0"/>
                 </key>
                 <key id="2" time="400" spin="0">
-                    <object folder="0" file="3" x="-34.95935" y="104.336043"/>
+                    <object folder="0" file="3" x="-34.95935" y="104.336043" angle="0"/>
                 </key>
                 <key id="3" time="600" spin="0">
-                    <object folder="0" file="3" x="-34.95935" y="156.910569" a="0"/>
+                    <object folder="0" file="3" x="-34.95935" y="156.910569" angle="0" a="0"/>
                 </key>
             </timeline>
         </animation>
@@ -257,16 +277,16 @@
             </mainline>
             <timeline id="0" name="apUp">
                 <key id="0" spin="0">
-                    <object folder="0" file="4" x="-34.95935" y="-0.813008" a="0"/>
+                    <object folder="0" file="4" x="-34.95935" y="-0.813008" angle="0" a="0"/>
                 </key>
                 <key id="1" time="205" spin="0">
-                    <object folder="0" file="4" x="-34.95935" y="53.075881"/>
+                    <object folder="0" file="4" x="-34.95935" y="53.075881" angle="0"/>
                 </key>
                 <key id="2" time="400" spin="0">
-                    <object folder="0" file="4" x="-34.95935" y="104.336043"/>
+                    <object folder="0" file="4" x="-34.95935" y="104.336043" angle="0"/>
                 </key>
                 <key id="3" time="600" spin="0">
-                    <object folder="0" file="4" x="-34.95935" y="156.910569" a="0"/>
+                    <object folder="0" file="4" x="-34.95935" y="156.910569" angle="0" a="0"/>
                 </key>
             </timeline>
         </animation>

@@ -17,9 +17,14 @@ public class Goody implements GameObject{
   private Light light;
   private boolean blink;
 
-  public Goody(String type) {
-    this.type = type;
-    TextureAtlas.AtlasRegion region = SpaceMain.assets.getSprites().findRegion(type);
+  public Goody(String goodieType, int amount) {
+    type = goodieType;
+    this.amount = amount;
+    String regionName = type;
+    if (type.equals("weaponkit")) {
+      regionName = type + amount;
+    }
+    TextureAtlas.AtlasRegion region = SpaceMain.assets.getSprites().findRegion(regionName);
     if (region == null) {
       region = SpaceMain.assets.getSprites().findRegion("medkit");
       this.type = "medkit";
@@ -67,10 +72,6 @@ public class Goody implements GameObject{
 
   public Vector2 getPosition() {
     return position;
-  }
-
-  public void setAmount(int amount) {
-    this.amount = amount;
   }
 
   public void setPosition(float x, float y) {

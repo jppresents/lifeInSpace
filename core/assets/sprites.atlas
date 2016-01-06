@@ -55,7 +55,7 @@ hpBarFillSmall
   index: -1
 hpBarSmall
   rotate: false
-  xy: 220, 113
+  xy: 654, 154
   size: 60, 6
   orig: 60, 6
   offset: 0, 0
@@ -76,14 +76,14 @@ marker
   index: -1
 markerError
   rotate: false
-  xy: 551, 129
+  xy: 367, 88
   size: 31, 31
   orig: 31, 31
   offset: 0, 0
   index: -1
 markerNext
   rotate: false
-  xy: 504, 131
+  xy: 320, 90
   size: 45, 29
   orig: 45, 29
   offset: 0, 0
@@ -118,7 +118,7 @@ selector
   index: -1
 shot
   rotate: false
-  xy: 220, 100
+  xy: 654, 141
   size: 32, 11
   orig: 32, 11
   offset: 0, 0
@@ -132,9 +132,44 @@ textbox
   orig: 201, 180
   offset: 0, 0
   index: -1
-weaponkit
+weaponkit1
   rotate: false
   xy: 170, 87
+  size: 48, 32
+  orig: 48, 32
+  offset: 0, 0
+  index: -1
+weaponkit2
+  rotate: false
+  xy: 504, 128
+  size: 48, 32
+  orig: 48, 32
+  offset: 0, 0
+  index: -1
+weaponkit3
+  rotate: false
+  xy: 220, 87
+  size: 48, 32
+  orig: 48, 32
+  offset: 0, 0
+  index: -1
+weaponkit4
+  rotate: false
+  xy: 554, 128
+  size: 48, 32
+  orig: 48, 32
+  offset: 0, 0
+  index: -1
+weaponkit5
+  rotate: false
+  xy: 270, 87
+  size: 48, 32
+  orig: 48, 32
+  offset: 0, 0
+  index: -1
+weaponkit6
+  rotate: false
+  xy: 604, 128
   size: 48, 32
   orig: 48, 32
   offset: 0, 0

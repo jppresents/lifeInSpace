@@ -22,11 +22,11 @@ public class Guy extends AnimatedGameObject {
     super(entity, drawer);
     this.effectDrawer = effectDrawer;
     this.effectPlayer = new Player(effects);
+    this.effectPlayer.characterMaps = new Entity.CharacterMap[1];
     effectPlayer.addListener(this);
     effectVisible = false;
 
     spriterPlayer.characterMaps = new Entity.CharacterMap[1];
-    spriterPlayer.characterMaps[0] = spriterPlayer.getEntity().getCharacterMap("gun_small");
 
     Light light = new Light(0, 0, 0, 40, 512, SpaceMain.lights);
     light.setColor(0.8f, 0.6f, 0.6f, 1);
@@ -39,9 +39,13 @@ public class Guy extends AnimatedGameObject {
 
   public void setGunLevel(int gunLevel) {
     this.gunLevel = gunLevel;
-    if (gunLevel == 1) {
+    if (gunLevel == 0) {
       spriterPlayer.characterMaps[0] = null;
-      this.setDamage(2);
+      this.setDamage(1);
+    } else {
+      spriterPlayer.characterMaps[0] = spriterPlayer.getEntity().getCharacterMap("gun" + gunLevel);
+      //todo damage isn't really linear to gun level, instead there should also be range upgrades (for the levels with scopes)
+      this.setDamage(gunLevel);
     }
   }
 
@@ -155,6 +159,14 @@ public class Guy extends AnimatedGameObject {
   }
 
   @Override
+  public boolean isIdle(int tick) {
+    if (super.isIdle(tick)) {
+      return !spriterPlayer.getAnimation().name.equals("front_item");
+    }
+    return false;
+  }
+
+  @Override
   protected void die() {
     spriterPlayer.setAnimation("front_die");
     SpaceMain.assets.playSound(Assets.SoundEffect.GUY_HURT2);
@@ -182,6 +194,9 @@ public class Guy extends AnimatedGameObject {
   public void pickupNewGun(int newGunLevel) {
     this.newGunLevel = newGunLevel;
     effectPlayer.setAnimation("newGun");
+    if (newGunLevel > 1) {
+      effectPlayer.characterMaps[0] = effectPlayer.getEntity().getCharacterMap("gun" + newGunLevel);
+    }
     spriterPlayer.setAnimation("front_item");
     effectVisible = true;
   }

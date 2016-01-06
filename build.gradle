@@ -54,6 +54,16 @@ task texturePacker << {
         into 'core/assets/effects/'
         include '**/effects.scml'
     }
+    copy {
+        from 'art/guy/'
+        into 'core/assets/guy/'
+        include '**/guy.scml'
+    }
+    copy {
+        from 'art/alien/'
+        into 'core/assets/alien/'
+        include '**/alien.scml'
+    }
 }	
 
 

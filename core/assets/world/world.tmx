@@ -373,7 +373,7 @@
 </data>
  </layer>
  <objectgroup name="objects">
-  <object name="Start" x="2000" y="2576" width="32" height="32"/>
+  <object name="Start" x="2704" y="1232" width="32" height="32"/>
   <object name="monster" type="alien" x="400" y="528" width="32" height="32">
    <properties>
     <property name="level" value="1"/>
@@ -519,17 +519,17 @@
     <property name="amount" value="2"/>
    </properties>
   </object>
-  <object name="goody" type="weaponkit" x="1936" y="2704" width="32" height="32">
+  <object name="goody" type="weaponkit" x="2704" y="1296" width="32" height="32">
    <properties>
     <property name="amount" value="1"/>
    </properties>
   </object>
-  <object name="goody" type="apkit" x="2000" y="2704" width="32" height="32">
+  <object name="goody" type="apkit" x="2768" y="1296" width="32" height="32">
    <properties>
     <property name="amount" value="1"/>
    </properties>
   </object>
-  <object name="goody" type="hpkit" x="2064" y="2704" width="32" height="32">
+  <object name="goody" type="hpkit" x="2832" y="1296" width="32" height="32">
    <properties>
     <property name="amount" value="2"/>
    </properties>
@@ -577,6 +577,36 @@
   <object name="goody" type="hpkit" x="1872" y="2768" width="32" height="32">
    <properties>
     <property name="amount" value="2"/>
+   </properties>
+  </object>
+  <object name="goody" type="medkit" x="2896" y="1296" width="32" height="32">
+   <properties>
+    <property name="amount" value="2"/>
+   </properties>
+  </object>
+  <object name="goody" type="weaponkit" x="2704" y="1360" width="32" height="32">
+   <properties>
+    <property name="amount" value="2"/>
+   </properties>
+  </object>
+  <object name="goody" type="weaponkit" x="2704" y="1424" width="32" height="32">
+   <properties>
+    <property name="amount" value="3"/>
+   </properties>
+  </object>
+  <object name="goody" type="weaponkit" x="2704" y="1488" width="32" height="32">
+   <properties>
+    <property name="amount" value="4"/>
+   </properties>
+  </object>
+  <object name="goody" type="weaponkit" x="2704" y="1552" width="32" height="32">
+   <properties>
+    <property name="amount" value="5"/>
+   </properties>
+  </object>
+  <object name="goody" type="weaponkit" x="2704" y="1616" width="32" height="32">
+   <properties>
+    <property name="amount" value="6"/>
    </properties>
   </object>
  </objectgroup>

@@ -5,20 +5,49 @@
         <file id="1" name="arm.png" width="14" height="28" pivot_x="0.532544" pivot_y="0.825444"/>
         <file id="2" name="head_fron.png" width="69" height="69" pivot_x="0.507042" pivot_y="0.0985915"/>
         <file id="3" name="leg.png" width="14" height="28" pivot_x="0.506757" pivot_y="0.875421"/>
-        <file id="4" name="gun_big.png" width="48" height="22" pivot_x="0.892794" pivot_y="0.367816"/>
-        <file id="5" name="gun_small.png" width="23" height="12" pivot_x="0.836305" pivot_y="0.456522"/>
+        <file id="4" name="gun0.png" width="48" height="22" pivot_x="0.836305" pivot_y="0.456522"/>
+        <file id="5" name="gun3.png" width="23" height="12" pivot_x="0.892794" pivot_y="0.367816"/>
         <file id="6" name="head_side.png" width="69" height="69" pivot_x="0" pivot_y="1"/>
         <file id="7" name="head_back.png" width="69" height="69" pivot_x="0.5" pivot_y="0.099"/>
         <file id="8" name="body_side.png" width="38" height="43" pivot_x="0" pivot_y="1"/>
         <file id="9" name="head_cracked.png" width="69" height="69" pivot_x="0.5" pivot_y="0.098591"/>
-        <file id="10" name="muzzleFlashBig.png" width="79" height="57" pivot_x="0.088608" pivot_y="0.526316"/>
-        <file id="11" name="muzzleFlash.png" width="79" height="57" pivot_x="0.087719" pivot_y="0.535714"/>
-    </folder>
+        <file id="10" name="muzzleFlash.png" width="79" height="57" pivot_x="0.087719" pivot_y="0.535714"/>
+        <file id="11" name="muzzleFlashBig.png" width="79" height="57" pivot_x="0.088608" pivot_y="0.526316"/>
+        <file id="12" name="gun1.png" width="48" height="22" pivot_x="0.836305" pivot_y="0.456522"/>
+		<file id="13" name="gun2.png" width="48" height="22" pivot_x="0.836305" pivot_y="0.456522"/>
+		<file id="14" name="gun4.png" width="23" height="12" pivot_x="0.892794" pivot_y="0.367816"/>
+		<file id="15" name="gun5.png" width="23" height="12" pivot_x="0.892794" pivot_y="0.367816"/>
+		<file id="16" name="gun6.png" width="23" height="12" pivot_x="0.892794" pivot_y="0.367816"/>
+	</folder>
     <entity id="0" name="guy">
-        <character_map id="0" name="gun_small">
+        <character_map id="0" name="gun1">
+            <map folder="0" file="4" target_folder="0" target_file="12"/>
+        </character_map>
+
+        <character_map id="0" name="gun2">
+            <map folder="0" file="4" target_folder="0" target_file="13"/>
+        </character_map>
+
+		<character_map id="0" name="gun3">
             <map folder="0" file="4" target_folder="0" target_file="5"/>
             <map folder="0" file="10" target_folder="0" target_file="11"/>
         </character_map>
+		
+		<character_map id="0" name="gun4">
+            <map folder="0" file="4" target_folder="0" target_file="14"/>
+            <map folder="0" file="10" target_folder="0" target_file="11"/>
+        </character_map>
+
+		<character_map id="0" name="gun5">
+            <map folder="0" file="4" target_folder="0" target_file="15"/>
+            <map folder="0" file="10" target_folder="0" target_file="11"/>
+        </character_map>
+		
+		<character_map id="0" name="gun6">
+            <map folder="0" file="4" target_folder="0" target_file="16"/>
+            <map folder="0" file="10" target_folder="0" target_file="11"/>
+        </character_map>
+		
         <animation id="0" name="side_none" length="1000" interval="100">
             <mainline>
                 <key id="0">
@@ -51,7 +80,7 @@
                     <object folder="0" file="3" x="8.346972" y="23.431533" angle="8.328251"/>
                 </key>
             </timeline>
-            <timeline id="4" name="gun_big">
+            <timeline id="4" name="gun0">
                 <key id="0" spin="0">
                     <object folder="0" file="4" x="-12.688868" y="30.103299" angle="53.184314"/>
                 </key>
@@ -165,7 +194,7 @@
                     <object folder="0" file="3" x="8.346972" y="23.431533" angle="8.328251"/>
                 </key>
             </timeline>
-            <timeline id="4" name="gun_big">
+            <timeline id="4" name="gun0">
                 <key id="0" spin="-1">
                     <object folder="0" file="4" x="-11.225109" y="27.838664" angle="60.235743"/>
                 </key>
@@ -296,7 +325,7 @@
                     <object folder="0" file="3" x="2.15371" y="22.188625" angle="337.650482"/>
                 </key>
             </timeline>
-            <timeline id="4" name="gun_big">
+            <timeline id="4" name="gun0">
                 <key id="0">
                     <object folder="0" file="4" x="-12.688868" y="30.103299" angle="53.184314"/>
                 </key>
@@ -363,7 +392,7 @@
                     <object folder="0" file="3" x="11.538462" y="23.076923" angle="0"/>
                 </key>
             </timeline>
-            <timeline id="6" name="gun_big">
+            <timeline id="6" name="gun0">
                 <key id="0" spin="0">
                     <object folder="0" file="4" x="-29.710145" y="31.521739" angle="57.319445"/>
                 </key>
@@ -477,7 +506,7 @@
                     <object folder="0" file="3" x="11.538462" y="23.076923" angle="0"/>
                 </key>
             </timeline>
-            <timeline id="6" name="gun_big">
+            <timeline id="6" name="gun0">
                 <key id="0" spin="-1">
                     <object folder="0" file="4" x="-29.710145" y="31.521739" angle="357.738661" scale_x="1"/>
                 </key>
@@ -594,7 +623,7 @@
                     <object folder="0" file="3" x="-18.677694" y="0.026692" angle="272.816511"/>
                 </key>
             </timeline>
-            <timeline id="6" name="gun_big">
+            <timeline id="6" name="gun0">
                 <key id="0" spin="-1">
                     <object folder="0" file="4" x="-29.710145" y="31.521739" angle="57.319445"/>
                 </key>
@@ -675,7 +704,7 @@
                     <object folder="0" file="3" x="10.736323" y="16.392431" angle="0" scale_y="0.716839"/>
                 </key>
             </timeline>
-            <timeline id="6" name="gun_big">
+            <timeline id="6" name="gun0">
                 <key id="0">
                     <object folder="0" file="4" x="-29.710145" y="31.521739" angle="57.319445"/>
                 </key>
@@ -804,7 +833,7 @@
                     <object folder="0" file="3" x="11.538462" y="23.394048" angle="0"/>
                 </key>
             </timeline>
-            <timeline id="6" name="gun_big">
+            <timeline id="6" name="gun0">
                 <key id="0" spin="0">
                     <object folder="0" file="4" x="-21.073825" y="27.192335" angle="89.320689"/>
                 </key>
@@ -956,7 +985,7 @@
                     <object folder="0" file="3" x="11.538462" y="23.076923" angle="0"/>
                 </key>
             </timeline>
-            <timeline id="6" name="gun_big">
+            <timeline id="6" name="gun0">
                 <key id="0">
                     <object folder="0" file="4" x="31.926175" y="32.192335" angle="112.128705" scale_y="-1"/>
                 </key>
@@ -1084,7 +1113,7 @@
                     <object folder="0" file="3" x="11.538462" y="23.076923" angle="0"/>
                 </key>
             </timeline>
-            <timeline id="6" name="gun_big">
+            <timeline id="6" name="gun0">
                 <key id="0" spin="-1">
                     <object folder="0" file="4" x="-29.710145" y="31.521739" angle="57.319445"/>
                 </key>
@@ -1165,7 +1194,7 @@
                     <object folder="0" file="3" x="11.538462" y="23.076923" angle="0"/>
                 </key>
             </timeline>
-            <timeline id="6" name="gun_big">
+            <timeline id="6" name="gun0">
                 <key id="0" spin="0">
                     <object folder="0" file="4" x="-29.710145" y="31.521739" angle="57.319445"/>
                 </key>
@@ -1264,7 +1293,7 @@
                     <object folder="0" file="3" x="11.538462" y="27.06243" angle="0"/>
                 </key>
             </timeline>
-            <timeline id="6" name="gun_big">
+            <timeline id="6" name="gun0">
                 <key id="0" spin="-1">
                     <object folder="0" file="4" x="-29.710145" y="31.521739" angle="57.319445"/>
                 </key>
@@ -1363,7 +1392,7 @@
                     <object folder="0" file="3" x="11.538462" y="27.06243" angle="0"/>
                 </key>
             </timeline>
-            <timeline id="6" name="gun_big">
+            <timeline id="6" name="gun0">
                 <key id="0">
                     <object folder="0" file="4" x="34.119642" y="32.230959" angle="131.348535" scale_y="-1"/>
                 </key>

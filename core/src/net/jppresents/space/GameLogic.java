@@ -66,22 +66,28 @@ public class GameLogic {
       Goody goody = findActiveGoody((int)lastPosX, (int)lastPosY);
       if (goody != null) {
         if ("weaponkit".equals(goody.getType())) {
-          guy.cancelMove(false);
+          if (goody.getAmount() > guy.getGunLevel()) {
+            SpaceMain.assets.playSound(Assets.SoundEffect.POWERUP);
+            guy.cancelMove(false);
+            guy.pickupNewGun(goody.getAmount());
+          }
           goody.setActive(false);
-          guy.pickupNewGun(guy.getGunLevel() + 1);
         }
         if ("medkit".equals(goody.getType()) && guy.getHealth() < guy.getMaxHealth()) {
+          SpaceMain.assets.playSound(Assets.SoundEffect.HEAL);
           goody.setActive(false);
           guy.setHealth(guy.getHealth() + goody.getAmount());
           guy.showHealAnimation();
         }
         if ("hpkit".equals(goody.getType())) {
           goody.setActive(false);
+          SpaceMain.assets.playSound(Assets.SoundEffect.POWERUP);
           guy.setMaxHealth(guy.getMaxHealth() + goody.getAmount());
           guy.setHealth(guy.getHealth() + goody.getAmount());
           guy.showMaxHealthUpAnimation();
         }
         if ("apkit".equals(goody.getType())) {
+          SpaceMain.assets.playSound(Assets.SoundEffect.POWERUP);
           goody.setActive(false);
           guy.setMaxActionPoints(guy.getMaxActionPoints() + goody.getAmount());
           guy.showMaxApUpAnimation();
@@ -246,6 +252,10 @@ public class GameLogic {
         if (gameOverTime < lastTick - 120) {
           reset();
         }
+        return;
+      }
+
+      if (!guy.isIdle(lastTick)) {
         return;
       }
 
