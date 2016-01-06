@@ -13,7 +13,7 @@ public class Enemy extends AnimatedGameObject {
   private float aggroRange = 6;
   private float deAggroRange = 9;
   private boolean wasWalking;
-  boolean attackedThisTurn = false;
+  private boolean attackedThisTurn = true;
   private int level;
 
   public Enemy(Entity entity, Drawer drawer) {
@@ -51,11 +51,12 @@ public class Enemy extends AnimatedGameObject {
     }
   }
 
+
   public void planTurn(World world, Guy guy, List<Enemy> enemies) {
-    if (getSecondarySortAttrib() <= 0)
+    if (getHealth() <= 0)
       return;
-    attackedThisTurn = false;
     if (isAggro()) {
+      attackedThisTurn = false;
       world.calcPath(this, this.getTilePosition(), guy.getTilePosition(), 1, enemies);
     }
   }
@@ -80,7 +81,6 @@ public class Enemy extends AnimatedGameObject {
         } else {
           spriterPlayer.setAnimation("front_attack");
         }
-
         guy.hit(getDamage());
         setIdleIn(600, tick);
         attackedThisTurn = true;
