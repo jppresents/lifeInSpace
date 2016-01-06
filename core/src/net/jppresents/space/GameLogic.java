@@ -75,6 +75,17 @@ public class GameLogic {
           guy.setHealth(guy.getHealth() + goody.getAmount());
           guy.showHealAnimation();
         }
+        if ("hpkit".equals(goody.getType())) {
+          goody.setActive(false);
+          guy.setMaxHealth(guy.getMaxHealth() + goody.getAmount());
+          guy.setHealth(guy.getHealth() + goody.getAmount());
+          guy.showMaxHealthUpAnimation();
+        }
+        if ("apkit".equals(goody.getType())) {
+          goody.setActive(false);
+          guy.setMaxActionPoints(guy.getMaxActionPoints() + goody.getAmount());
+          guy.showMaxApUpAnimation();
+        }
       }
 
       //Light changes

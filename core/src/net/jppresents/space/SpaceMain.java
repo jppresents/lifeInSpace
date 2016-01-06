@@ -91,6 +91,12 @@ public class SpaceMain extends ApplicationAdapter {
   private static class YSortComparator implements Comparator<GameObject> {
     @Override
     public int compare(GameObject o1, GameObject o2) {
+      if (o1.getSecondarySortAttrib() == -1 && o2.getSecondarySortAttrib() != -1) {
+        return -1;
+      }
+      if (o2.getSecondarySortAttrib() == -1 && o1.getSecondarySortAttrib() != -1) {
+        return 1;
+      }
       if (o2.getY() == o1.getY()) {
         return o1.getSecondarySortAttrib() - o2.getSecondarySortAttrib();
       }
@@ -113,7 +119,7 @@ public class SpaceMain extends ApplicationAdapter {
 
     //update gameObjects
     for (GameObject obj : gameObjects) {
-      obj.update();
+      obj.update(tick);
     }
     Collections.sort(gameObjects, ySortComparator);
 

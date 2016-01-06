@@ -48,6 +48,12 @@ task texturePacker << {
 	TexturePacker.process("art/alien", "core/assets", "alien/alien")
 	TexturePacker.process("art/sprites", "core/assets", "sprites")
     TexturePacker.process("art/ground/tiles", "core/assets", "world/world")
+
+    copy {
+        from 'art/effects/'
+        into 'core/assets/effects/'
+        include '**/effects.scml'
+    }
 }	
 
 

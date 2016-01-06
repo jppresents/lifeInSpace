@@ -4,6 +4,13 @@ size: 256,128
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+apUp
+  rotate: false
+  xy: 103, 68
+  size: 71, 54
+  orig: 71, 54
+  offset: 0, 0
+  index: -1
 gunEffect
   rotate: false
   xy: 2, 2
@@ -13,7 +20,7 @@ gunEffect
   index: -1
 heal
   rotate: false
-  xy: 103, 94
+  xy: 103, 38
   size: 29, 28
   orig: 29, 28
   offset: 0, 0
@@ -23,5 +30,12 @@ highlight
   xy: 2, 26
   size: 99, 96
   orig: 99, 96
+  offset: 0, 0
+  index: -1
+hpUp
+  rotate: false
+  xy: 176, 68
+  size: 71, 54
+  orig: 71, 54
   offset: 0, 0
   index: -1

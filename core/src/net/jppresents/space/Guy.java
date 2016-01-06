@@ -115,11 +115,6 @@ public class Guy extends AnimatedGameObject {
     }
   }
 
-  public void showHealAnimation() {
-    effectPlayer.setAnimation("heal");
-    effectVisible = true;
-  }
-
   @Override
   public void animationFinished(Animation animation) {
 
@@ -129,7 +124,7 @@ public class Guy extends AnimatedGameObject {
       effectVisible = false;
     }
 
-    if (animation.name.equals("heal")) {
+    if (animation.name.equals("heal") || animation.name.equals("apup") || animation.name.equals("hpup") ) {
       effectVisible = false;
     }
 
@@ -188,6 +183,21 @@ public class Guy extends AnimatedGameObject {
     this.newGunLevel = newGunLevel;
     effectPlayer.setAnimation("newGun");
     spriterPlayer.setAnimation("front_item");
+    effectVisible = true;
+  }
+
+  public void showMaxHealthUpAnimation() {
+    effectPlayer.setAnimation("hpup");
+    effectVisible = true;
+  }
+
+  public void showMaxApUpAnimation() {
+    effectPlayer.setAnimation("apup");
+    effectVisible = true;
+  }
+
+  public void showHealAnimation() {
+    effectPlayer.setAnimation("heal");
     effectVisible = true;
   }
 

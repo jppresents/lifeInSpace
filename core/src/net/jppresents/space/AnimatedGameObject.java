@@ -162,7 +162,7 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
     this.currentMovecostsActinPoints = currentMovecostsActinPoints;
   }
 
-  public void update() {
+  public void update(int tick) {
     if (!combat) {
       resetActionPoints();
     }

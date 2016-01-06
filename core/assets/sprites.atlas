@@ -25,6 +25,13 @@ apBarIndicator
   orig: 400, 39
   offset: 0, 0
   index: -1
+apkit
+  rotate: false
+  xy: 404, 128
+  size: 48, 32
+  orig: 48, 32
+  offset: 0, 0
+  index: -1
 hpBar
   rotate: false
   xy: 2, 121
@@ -41,35 +48,42 @@ hpBarFill
   index: -1
 hpBarFillSmall
   rotate: false
-  xy: 170, 113
+  xy: 120, 79
   size: 60, 6
   orig: 60, 6
   offset: 0, 0
   index: -1
 hpBarSmall
   rotate: false
-  xy: 501, 154
+  xy: 220, 113
   size: 60, 6
   orig: 60, 6
   offset: 0, 0
   index: -1
+hpkit
+  rotate: false
+  xy: 120, 87
+  size: 48, 32
+  orig: 48, 32
+  offset: 0, 0
+  index: -1
 marker
   rotate: false
-  xy: 170, 88
+  xy: 76, 52
   size: 23, 23
   orig: 23, 23
   offset: 0, 0
   index: -1
 markerError
   rotate: false
-  xy: 76, 44
+  xy: 551, 129
   size: 31, 31
   orig: 31, 31
   offset: 0, 0
   index: -1
 markerNext
   rotate: false
-  xy: 454, 131
+  xy: 504, 131
   size: 45, 29
   orig: 45, 29
   offset: 0, 0
@@ -90,7 +104,7 @@ markerTarget
   index: -1
 medkit
   rotate: false
-  xy: 404, 128
+  xy: 454, 128
   size: 48, 32
   orig: 48, 32
   offset: 0, 0
@@ -104,7 +118,7 @@ selector
   index: -1
 shot
   rotate: false
-  xy: 501, 141
+  xy: 220, 100
   size: 32, 11
   orig: 32, 11
   offset: 0, 0
@@ -120,7 +134,7 @@ textbox
   index: -1
 weaponkit
   rotate: false
-  xy: 120, 87
+  xy: 170, 87
   size: 48, 32
   orig: 48, 32
   offset: 0, 0

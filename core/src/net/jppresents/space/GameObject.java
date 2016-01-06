@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 
 public interface GameObject {
   void render(Batch batch);
-  void update();
+  void update(int tick);
   float getX();
   float getY();
   void dispose();
