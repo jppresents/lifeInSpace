@@ -114,7 +114,7 @@ public class GameLogic {
     }
 
     for (Enemy enemy : enemies) {
-      enemy.updateEnemy(guy, tick, world);
+      enemy.updateEnemy(guy, tick, world, enemies);
     }
 
     if (!guy.inCombat()) {
