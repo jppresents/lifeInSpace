@@ -290,4 +290,29 @@ public class World implements Disposable {
       return -1;
     return cell.getTile().getId() - 1;
   }
+
+  private Vector2 ray = new Vector2();
+  private Vector2 vel = new Vector2();
+  private Vector3 checkCoords = new Vector3();
+
+  private boolean hit(int targetx, int targety, Vector2 vec, int tolarance) {
+    return Math.abs(targetx - vec.x) < tolarance && Math.abs(targety - vec.y) < tolarance;
+  }
+
+  public boolean hasLineOfSight(int x, int y, int x2, int y2) {
+    ray.set(x * SpaceMain.tileSize, y * SpaceMain.tileSize);
+    vel.set(x2 - x, y2 - y);
+    vel.nor().scl(SpaceMain.tileSize/2);
+    x2 *= SpaceMain.tileSize;
+    y2 *= SpaceMain.tileSize;
+
+    while (!hit(x2, y2, ray, SpaceMain.tileSize/2)) {
+      ray.add(vel);
+      getTileCoords(ray.x, ray.y, checkCoords);
+      if (isTileBlocking((int)checkCoords.x, (int)checkCoords.y))
+        return false;
+      System.out.println("Checking " + checkCoords.x + ", " + checkCoords.y + " all good!");
+    }
+    return true;
+  }
 }

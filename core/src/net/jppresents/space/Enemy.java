@@ -61,11 +61,13 @@ public class Enemy extends AnimatedGameObject {
     }
   }
 
-  public void updateEnemy(AnimatedGameObject guy, int tick) {
+  private int lastGuyPosX, lastGuyPosY;
+
+  public void updateEnemy(AnimatedGameObject guy, int tick, World world) {
     if (aggro) {
       float distance = guy.calcDistance(this);
 
-      if (distance >= deAggroRange && getSecondarySortAttrib() == getMaxHealth()) {
+      if (distance >= deAggroRange && getHealth() == getMaxHealth()) {
         aggro = false;
         light.setColor(0.2f, 0.5f, 0.5f, 1);
       }
@@ -87,9 +89,20 @@ public class Enemy extends AnimatedGameObject {
       }
 
     } else {
-      if (guy.calcDistance(this) <= aggroRange || getSecondarySortAttrib() < getMaxHealth()) {
+      if (getSecondarySortAttrib() < getMaxHealth()) {
         aggro = true;
         light.setColor(0.5f, 0.2f, 0.2f, 1);
+      } else {
+        if ((int) guy.getTilePosition().y != lastGuyPosY || (int) guy.getTilePosition().x != lastGuyPosX) {
+          lastGuyPosX = (int) guy.getTilePosition().x;
+          lastGuyPosY = (int) guy.getTilePosition().y;
+          if ((guy.calcDistance(this) <= aggroRange
+              && world.hasLineOfSight((int) getTilePosition().x, (int) getTilePosition().y, (int) guy.getTilePosition().x, (int) guy.getTilePosition().y))
+              || getSecondarySortAttrib() < getMaxHealth()) {
+            aggro = true;
+            light.setColor(0.5f, 0.2f, 0.2f, 1);
+          }
+        }
       }
     }
   }
