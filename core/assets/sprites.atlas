@@ -6,122 +6,122 @@ filter: Nearest,Nearest
 repeat: none
 apBar
   rotate: false
-  xy: 2, 213
+  xy: 2, 203
   size: 400, 39
   orig: 400, 39
   offset: 0, 0
   index: -1
 apBarFill
   rotate: false
-  xy: 2, 172
+  xy: 2, 162
   size: 400, 39
   orig: 400, 39
   offset: 0, 0
   index: -1
 apBarIndicator
   rotate: false
-  xy: 404, 213
+  xy: 404, 203
   size: 400, 39
   orig: 400, 39
   offset: 0, 0
   index: -1
 hpBar
   rotate: false
-  xy: 2, 131
+  xy: 2, 121
   size: 400, 39
   orig: 400, 39
   offset: 0, 0
   index: -1
 hpBarFill
   rotate: false
-  xy: 404, 172
+  xy: 404, 162
   size: 400, 39
   orig: 400, 39
   offset: 0, 0
   index: -1
 hpBarFillSmall
   rotate: false
-  xy: 2, 2
+  xy: 170, 113
   size: 60, 6
   orig: 60, 6
   offset: 0, 0
   index: -1
 hpBarSmall
   rotate: false
-  xy: 454, 164
+  xy: 501, 154
   size: 60, 6
   orig: 60, 6
   offset: 0, 0
   index: -1
 marker
   rotate: false
-  xy: 76, 61
+  xy: 170, 88
   size: 23, 23
   orig: 23, 23
   offset: 0, 0
   index: -1
 markerError
   rotate: false
-  xy: 225, 98
+  xy: 76, 44
   size: 31, 31
   orig: 31, 31
   offset: 0, 0
   index: -1
 markerNext
   rotate: false
-  xy: 178, 100
+  xy: 454, 131
   size: 45, 29
   orig: 45, 29
   offset: 0, 0
   index: -1
 markerSkip
   rotate: false
-  xy: 76, 86
+  xy: 2, 2
   size: 56, 43
   orig: 56, 43
   offset: 0, 0
   index: -1
 markerTarget
   rotate: false
-  xy: 134, 87
+  xy: 76, 77
   size: 42, 42
   orig: 42, 42
   offset: 0, 0
   index: -1
 medkit
   rotate: false
-  xy: 404, 138
+  xy: 404, 128
   size: 48, 32
   orig: 48, 32
   offset: 0, 0
   index: -1
 selector
   rotate: false
-  xy: 2, 57
+  xy: 2, 47
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 shot
   rotate: false
-  xy: 454, 151
+  xy: 501, 141
   size: 32, 11
   orig: 32, 11
   offset: 0, 0
   index: -1
 textbox
   rotate: false
-  xy: 806, 72
+  xy: 806, 62
   size: 201, 180
   split: 80, 79, 76, 81
   pad: 81, 80, 69, 73
   orig: 201, 180
   offset: 0, 0
   index: -1
-weaponCrate
+weaponkit
   rotate: false
-  xy: 2, 10
-  size: 67, 45
-  orig: 67, 45
+  xy: 120, 87
+  size: 48, 32
+  orig: 48, 32
   offset: 0, 0
   index: -1

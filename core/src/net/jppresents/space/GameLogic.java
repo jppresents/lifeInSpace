@@ -44,7 +44,7 @@ public class GameLogic {
     this.spriterDataManager = spriterDataManager;
     this.combat = combat;
 
-    guy = new Guy(spriterDataManager.getEntity("guy"), spriterDataManager.getDrawer("guy"));
+    guy = new Guy(spriterDataManager.getEntity("guy"), spriterDataManager.getDrawer("guy"), spriterDataManager.getEntity("effects"), spriterDataManager.getDrawer("effects"));
     gameObjects.add(guy);
     reset();
     //todo maybe read texts from file
@@ -65,8 +65,16 @@ public class GameLogic {
       //Goodie pickups
       Goody goody = findActiveGoody((int)lastPosX, (int)lastPosY);
       if (goody != null) {
-        goody.setActive(false);
-        guy.setHealth(guy.getHealth() + 2);
+        if ("weaponkit".equals(goody.getType())) {
+          guy.cancelMove(false);
+          goody.setActive(false);
+          guy.pickupNewGun(guy.getGunLevel() + 1);
+        }
+        if ("medkit".equals(goody.getType()) && guy.getHealth() < guy.getMaxHealth()) {
+          goody.setActive(false);
+          guy.setHealth(guy.getHealth() + goody.getAmount());
+          guy.showHealAnimation();
+        }
       }
 
       //Light changes
@@ -193,6 +201,7 @@ public class GameLogic {
     moveCam.set(0, 0);
 
     guy.restrictCamera(camera);
+
     if (!guy.isIdle(tick)) {
       guy.moveCamera(camera);
     }

@@ -54,7 +54,6 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
     return health;
   }
 
-
   protected enum Movement {NONE, LEFT, RIGHT, UP, DOWN}
 
   protected Player spriterPlayer;
@@ -263,7 +262,8 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
     camera.position.y = target.y;
   }
 
-  private final int camSpeed = 4;
+  private final int camSpeed = 5;
+
 
   public void moveCamera(OrthographicCamera camera) {
     target.x = spriterPlayer.getX();
@@ -282,11 +282,11 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
       camera.position.y -= camSpeed;
     }
 
-    if (Math.abs(camera.position.y - target.y) < camSpeed * 2) {
+    if (Math.abs(camera.position.y - target.y) < camSpeed) {
       camera.position.y = target.y;
     }
 
-    if (Math.abs(camera.position.x - target.x) < camSpeed * 2) {
+    if (Math.abs(camera.position.x - target.x) < camSpeed) {
       camera.position.x = target.x;
     }
   }

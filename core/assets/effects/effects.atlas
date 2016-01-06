@@ -1,0 +1,27 @@
+
+effects.png
+size: 256,128
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+gunEffect
+  rotate: false
+  xy: 2, 2
+  size: 48, 22
+  orig: 48, 22
+  offset: 0, 0
+  index: -1
+heal
+  rotate: false
+  xy: 103, 94
+  size: 29, 28
+  orig: 29, 28
+  offset: 0, 0
+  index: -1
+highlight
+  rotate: false
+  xy: 2, 26
+  size: 99, 96
+  orig: 99, 96
+  offset: 0, 0
+  index: -1

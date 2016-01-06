@@ -10,8 +10,10 @@ public class Goody implements GameObject{
   private Sprite sprite;
   private boolean active = true;
   private Vector2 position = new Vector2();
+  private String type;
 
   public Goody(String type) {
+    this.type = type;
     sprite = new Sprite(SpaceMain.assets.getSprites().findRegion(type));
   }
 
@@ -70,5 +72,9 @@ public class Goody implements GameObject{
   @Override
   public int getSecondarySortAttrib() {
     return 0;
+  }
+
+  public String getType() {
+    return type;
   }
 }

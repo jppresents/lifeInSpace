@@ -87,10 +87,10 @@ public class Lights implements Disposable{
     }
 
     if (!targetAmbientColor.equals(ambientColor)) {
-      ambientColor.r = moveTowards(ambientColor.r, targetAmbientColor.r, 0.01f);
-      ambientColor.g = moveTowards(ambientColor.g, targetAmbientColor.g, 0.01f);
-      ambientColor.b = moveTowards(ambientColor.b, targetAmbientColor.b, 0.01f);
-      ambientColor.a = moveTowards(ambientColor.a, targetAmbientColor.a, 0.01f);
+      ambientColor.r = moveTowards(ambientColor.r, targetAmbientColor.r, 0.004f);
+      ambientColor.g = moveTowards(ambientColor.g, targetAmbientColor.g, 0.004f);
+      ambientColor.b = moveTowards(ambientColor.b, targetAmbientColor.b, 0.004f);
+      ambientColor.a = moveTowards(ambientColor.a, targetAmbientColor.a, 0.004f);
     }
 
     lightBuffer.begin();

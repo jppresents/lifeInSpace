@@ -1,9 +1,10 @@
 package net.jppresents.space;
 
-import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.brashmonkey.spriter.Animation;
 import com.brashmonkey.spriter.Drawer;
 import com.brashmonkey.spriter.Entity;
+import com.brashmonkey.spriter.Player;
 
 
 public class Guy extends AnimatedGameObject {
@@ -11,31 +12,63 @@ public class Guy extends AnimatedGameObject {
   private int idleAnimationCount = 0;
   private boolean wasWalking = true;
   private int shotCost = 2;
+  private Player effectPlayer;
+  private Drawer effectDrawer;
+  private int gunLevel = 0;
+  private boolean effectVisible;
+  private int newGunLevel;
 
-  public Guy(Entity entity, Drawer drawer) {
+  public Guy(Entity entity, Drawer drawer, Entity effects, Drawer effectDrawer) {
     super(entity, drawer);
+    this.effectDrawer = effectDrawer;
+    this.effectPlayer = new Player(effects);
+    effectPlayer.addListener(this);
+    effectVisible = false;
+
     spriterPlayer.characterMaps = new Entity.CharacterMap[1];
-    //spriterPlayer.characterMaps[0] = spriterPlayer.getEntity().getCharacterMap("gun_small");
+    spriterPlayer.characterMaps[0] = spriterPlayer.getEntity().getCharacterMap("gun_small");
 
     Light light = new Light(0, 0, 0, 40, 512, SpaceMain.lights);
     light.setColor(0.8f, 0.6f, 0.6f, 1);
     attachLight(light);
   }
 
-  public void setGunLevel(int lvl) {
-    //todo -> charmap & gun laser color
+  public int getGunLevel() {
+    return this.gunLevel;
+  }
+
+  public void setGunLevel(int gunLevel) {
+    this.gunLevel = gunLevel;
+    if (gunLevel == 1) {
+      spriterPlayer.characterMaps[0] = null;
+      this.setDamage(2);
+    }
   }
 
   @Override
-  public void update() {
-    super.update();
+  public void render(Batch batch) {
+    super.render(batch);
+    if (effectVisible) {
+      effectPlayer.setPosition(spriterPlayer.getX(), spriterPlayer.getY());
+      effectDrawer.draw(effectPlayer);
+    }
   }
 
   @Override
   protected void updateAnimation() {
+    if (effectVisible) {
+      effectPlayer.update();
+    }
+
     if (getMovement() != Movement.NONE) {
       wasWalking = true;
     }
+
+    if (spriterPlayer.getAnimation().name.equals("front_item")) {
+      return;
+    }
+
+
 
     switch(getMovement()) {
       case NONE:
@@ -82,14 +115,30 @@ public class Guy extends AnimatedGameObject {
     }
   }
 
+  public void showHealAnimation() {
+    effectPlayer.setAnimation("heal");
+    effectVisible = true;
+  }
+
   @Override
   public void animationFinished(Animation animation) {
+
+
+    if (animation.name.equals("newGun")) {
+      setGunLevel(newGunLevel);
+      effectVisible = false;
+    }
+
+    if (animation.name.equals("heal")) {
+      effectVisible = false;
+    }
+
     if (animation.name.equals("front_die")) {
       spriterPlayer.speed = 0;
       spriterPlayer.setTime(animation.length - 1);
     }
 
-    if (animation.name.equals("front_idle_gun_flip")) {
+    if (animation.name.equals("front_idle_gun_flip") || animation.name.equals("front_item")) {
       spriterPlayer.setAnimation("front_idle");
       idleAnimationCount = 0;
     }
@@ -132,6 +181,14 @@ public class Guy extends AnimatedGameObject {
 
   public int getShotCost() {
     return shotCost;
+  }
+
+
+  public void pickupNewGun(int newGunLevel) {
+    this.newGunLevel = newGunLevel;
+    effectPlayer.setAnimation("newGun");
+    spriterPlayer.setAnimation("front_item");
+    effectVisible = true;
   }
 
 }

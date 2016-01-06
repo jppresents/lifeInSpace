@@ -1,6 +1,7 @@
 package net.jppresents.space;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -67,6 +68,7 @@ public class SpaceMain extends ApplicationAdapter {
     spriterDataManager = new SpriterDataManager(batch);
     spriterDataManager.load("guy");
     spriterDataManager.load("alien");
+    spriterDataManager.load("effects");
 
     ui = new UserInterface();
     combat = new Combat();
@@ -101,8 +103,12 @@ public class SpaceMain extends ApplicationAdapter {
 
   int tick = 0;
 
+  //FPSLogger fps = new FPSLogger();
+
   @Override
   public void render() {
+    //fps.log();
+
     tick++;
 
     //update gameObjects
