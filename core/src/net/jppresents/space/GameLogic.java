@@ -214,7 +214,7 @@ public class GameLogic {
       moveCam.set(0, 0);
       return;
     }
-    camera.translate(moveCam.x, moveCam.y);
+    camera.translate(moveCam.x * camera.viewportWidth/SpaceMain.viewport.getScreenWidth(), moveCam.y * camera.viewportHeight/SpaceMain.viewport.getScreenHeight());
     moveCam.set(0, 0);
 
     guy.restrictCamera(camera);
@@ -231,7 +231,7 @@ public class GameLogic {
 
   public void cameraDragged(float x, float y) {
     if (dragFrom.x != -1 || dragFrom.y != -1) {
-      moveCam.add(dragFrom.x - x, -(dragFrom.y - y));
+      moveCam.add((dragFrom.x - x), -(dragFrom.y - y));
       dragFrom.set(x, y);
     }
   }

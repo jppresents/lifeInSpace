@@ -1,7 +1,6 @@
 package net.jppresents.space;
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -20,7 +19,7 @@ public class SpaceMain extends ApplicationAdapter {
   private SpriterDataManager spriterDataManager;
 
   private SpriteBatch batch;
-  private Viewport viewport;
+  public static Viewport viewport;
   private OrthographicCamera camera;
 
   public static Lights lights;
