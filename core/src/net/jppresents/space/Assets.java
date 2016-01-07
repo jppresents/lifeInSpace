@@ -5,7 +5,10 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonWriter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,6 +22,8 @@ public class Assets implements Disposable {
   private final Map<SoundEffect, Sound> sounds;
   private final Music bgMusic;
   private final BitmapFont font;
+  private final Skin skin;
+  private final Texts texts;
 
   public Assets(boolean sound) {
     this.sound = sound;
@@ -38,12 +43,25 @@ public class Assets implements Disposable {
     bgMusic.setVolume(0.4f);
     bgMusic.setLooping(true);
 
-    font = new BitmapFont(Gdx.files.internal("font/font.fnt"));
+    skin = new Skin(Gdx.files.internal("skin/skin.json"));
+    font = skin.getFont("default-font");
+
+    Json json = new Json();
+    texts = json.fromJson(Texts.class, Gdx.files.internal("text.json"));
+  }
+
+  public Skin getSkin() {
+    return skin;
+  }
+
+  public String getText(String key) {
+    return texts.getText(key);
   }
 
   @Override
   public void dispose() {
     sprites.dispose();
+    skin.dispose();
     for (Sound sound: sounds.values()) {
       sound.dispose();
     }

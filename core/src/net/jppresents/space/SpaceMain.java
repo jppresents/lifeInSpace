@@ -1,6 +1,8 @@
 package net.jppresents.space;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -37,6 +39,10 @@ public class SpaceMain extends ApplicationAdapter {
   public static Color insideColor;
   public static Color outsideColor;
 
+  public static MainMenu mainMenu;
+  private InputHandler input;
+  public static ExtendViewport stageViewPort;
+
   public SpaceMain() {
   }
 
@@ -51,6 +57,7 @@ public class SpaceMain extends ApplicationAdapter {
     camera = new OrthographicCamera();
 
     viewport = new ExtendViewport(1280, 720, camera);
+    stageViewPort = new ExtendViewport(1280, 720, new OrthographicCamera());
     camera.translate(1280 / 2, 720 / 2);
     batch = new SpriteBatch();
 
@@ -74,13 +81,18 @@ public class SpaceMain extends ApplicationAdapter {
 
     gameLogic = new GameLogic(world, gameObjects, spriterDataManager, ui, combat);
 
-    new InputHandler(true, camera, gameLogic, touchMode);
+    input = new InputHandler(camera, gameLogic, touchMode);
     assets.startMusic();
+
+    mainMenu = new MainMenu();
+
+    Gdx.input.setCatchBackKey(true); //android
   }
 
   @Override
   public void resize(int width, int height) {
     viewport.update(width, height, false);
+    stageViewPort.update(width, height, false);
     camera.update();
     lights.resize(width, height);
     ui.resize(camera);
@@ -112,6 +124,22 @@ public class SpaceMain extends ApplicationAdapter {
 
   @Override
   public void render() {
+
+    if (Gdx.input.isKeyPressed(Input.Keys.BACK) ||Gdx.input.isKeyPressed(Input.Keys.ESCAPE) ){
+     if (!mainMenu.isActive()) {
+       mainMenu.setActive(true);
+     }
+    }
+
+
+    if (mainMenu.isActive()) {
+      mainMenu.render();
+      Gdx.input.setInputProcessor(mainMenu.getStage());
+      return;
+    } else {
+      Gdx.input.setInputProcessor(input);
+    }
+
     //fps.log();
 
     tick++;
@@ -133,6 +161,7 @@ public class SpaceMain extends ApplicationAdapter {
     //render the gameObjects
     batch.setProjectionMatrix(camera.combined);
     batch.begin();
+
     for (GameObject obj : gameObjects) {
       obj.render(batch);
     }
@@ -141,7 +170,6 @@ public class SpaceMain extends ApplicationAdapter {
 
     //render the lights on top
     lights.render(camera);
-
     //ui on top (no lighting)
     batch.begin();
     ui.render(batch, camera);
@@ -154,6 +182,7 @@ public class SpaceMain extends ApplicationAdapter {
     lights.dispose();
     world.dispose();
     assets.dispose();
+    mainMenu.dispose();
   }
 
 

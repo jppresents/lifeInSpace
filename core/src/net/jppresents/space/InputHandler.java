@@ -16,10 +16,8 @@ public class InputHandler implements InputProcessor {
   private boolean touchModeWasUp = false;
   private int touchModeMoveCount = 0;
 
-  public InputHandler(boolean registerAsGdxInput, OrthographicCamera camera, GameLogic gameLogic, boolean touchMode) {
-    if (registerAsGdxInput) {
-      Gdx.input.setInputProcessor(this);
-    }
+  public InputHandler(OrthographicCamera camera, GameLogic gameLogic, boolean touchMode) {
+    Gdx.input.setInputProcessor(this);
     this.camera = camera;
     this.gameLogic = gameLogic;
     this.touchMode = touchMode;

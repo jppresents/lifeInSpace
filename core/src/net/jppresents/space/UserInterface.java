@@ -43,7 +43,7 @@ public class UserInterface {
     targetHealthBar = new ProgressBar(0, 0, 0, 0, SpaceMain.assets.getSprites().findRegion("hpBarSmall"), SpaceMain.assets.getSprites().findRegion("hpBarFillSmall"), null);
     targetHealthBar.setFixedToCamera(false);
     targetHealthBar.setShowValues(false);
-    textBox = new TextBox(SpaceMain.assets.getSprites(), "textbox");
+    textBox = new TextBox(SpaceMain.assets.getSprites(), "textbox", true);
   }
 
   public void render(SpriteBatch batch, Camera camera) {

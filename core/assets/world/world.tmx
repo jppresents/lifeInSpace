@@ -534,11 +534,6 @@
     <property name="amount" value="2"/>
    </properties>
   </object>
-  <object name="goody" type="test" x="2064" y="2640" width="32" height="32">
-   <properties>
-    <property name="amount" value="2"/>
-   </properties>
-  </object>
   <object name="goody" type="apkit" x="2000" y="2768" width="32" height="32">
    <properties>
     <property name="amount" value="1"/>
