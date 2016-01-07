@@ -5,8 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
+import com.badlogic.gdx.utils.viewport.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,7 +40,7 @@ public class SpaceMain extends ApplicationAdapter {
 
   public static MainMenu mainMenu;
   private InputHandler input;
-  public static ExtendViewport stageViewPort;
+  public static Viewport stageViewPort;
 
   public SpaceMain() {
   }
@@ -58,7 +57,6 @@ public class SpaceMain extends ApplicationAdapter {
 
     viewport = new ExtendViewport(1280, 720, camera);
     stageViewPort = new ExtendViewport(1280, 720, new OrthographicCamera());
-    camera.translate(1280 / 2, 720 / 2);
     batch = new SpriteBatch();
 
     lights = new Lights();

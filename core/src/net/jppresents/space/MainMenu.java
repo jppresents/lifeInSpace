@@ -78,7 +78,6 @@ public class MainMenu implements Disposable, EventListener {
     }
     Gdx.gl.glClearColor( 0, 0, 0, 1 );
     Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
-    stage.getCamera().position.set(stage.getViewport().getScreenWidth()/2, stage.getViewport().getScreenHeight()/2, 0);
     stage.draw();
     if (textBox.isActive()) {
       stage.getBatch().begin();
