@@ -2,7 +2,7 @@
 	texts:
 	{
 		a:"b",
-		credits:"\nlife in space\n\nmusic by andreas hausladen\n\ncode & art by Jan Peter Simonsen\n\npowered by libGdx\n\nsoftware used: intellij, inkscape, spriter, tiled, notepad++, paint.net, chronolapse",
+		credits:"\nlife in space\n\nmusic by Andreas Hausladen\n\ncode & art by Jan Peter Simonsen\n\npowered by libGdx\n\nsoftware used: intellij, inkscape, spriter, tiled, notepad++, paint.net, chronolapse",
 		help:"life in space\n the help... todo jps :)"
 	}
 }
