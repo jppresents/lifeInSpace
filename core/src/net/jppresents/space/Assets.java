@@ -8,25 +8,34 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonWriter;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class Assets implements Disposable {
-  private final boolean sound;
+  private boolean soundOn;
+  private boolean musicOn;
+  private GameMusic currentMusic, targetMusic;
+  private Music playingMusic;
+  private static final float TARGET_VOLUMNE = 0.3f;
+  private float currentVolume;
 
   public enum SoundEffect {BLASTER, ALIEN_HURT, ALIEN_DIE, GUY_HURT, GUY_HURT2, FIZZLE, POWERUP, HEAL}
+  public enum GameMusic {MENU, GAME}
 
   private final TextureAtlas sprites;
   private final Map<SoundEffect, Sound> sounds;
   private final Music bgMusic;
+  private final Music menuMusic;
   private final BitmapFont font;
   private final Skin skin;
   private final Texts texts;
 
-  public Assets(boolean sound) {
-    this.sound = sound;
+  public Assets() {
+    soundOn = SpaceMain.prefs.getBoolean(SpaceMain.Prefs.SOUND, true);
+    musicOn = SpaceMain.prefs.getBoolean(SpaceMain.Prefs.MUSIC, true);
+    System.out.println("Musik: " + musicOn + "Sound: " + soundOn);
+
     sprites = new TextureAtlas("sprites.atlas");
 
     sounds = new HashMap<SoundEffect, Sound>(2);
@@ -39,9 +48,13 @@ public class Assets implements Disposable {
     sounds.put(SoundEffect.POWERUP, Gdx.audio.newSound(Gdx.files.internal("sound/powerup.ogg")));
     sounds.put(SoundEffect.HEAL, Gdx.audio.newSound(Gdx.files.internal("sound/heal.ogg")));
 
+    menuMusic = Gdx.audio.newMusic(Gdx.files.internal("music/menuMusic.ogg"));
+    menuMusic.setLooping(true);
+    menuMusic.setVolume(0.3f);
+
     bgMusic = Gdx.audio.newMusic(Gdx.files.internal("music/bgMusic.ogg"));
-    bgMusic.setVolume(0.4f);
     bgMusic.setLooping(true);
+    bgMusic.setVolume(0.3f);
 
     skin = new Skin(Gdx.files.internal("skin/skin.json"));
     font = skin.getFont("default-font");
@@ -67,10 +80,84 @@ public class Assets implements Disposable {
     }
   }
 
-  public void startMusic() {
-    if (sound) {
-      bgMusic.play();
+  public void startMusic(GameMusic music) {
+    targetMusic = music;
+  }
+
+  private Music getMusic(GameMusic music) {
+    switch(music) {
+      case MENU:
+        return menuMusic;
+      case GAME:
+        return bgMusic;
     }
+    return bgMusic;
+  }
+
+  public void fadeMusic() {
+
+    if (musicOn) {
+      if (playingMusic == null) {
+        playingMusic = getMusic(targetMusic);
+        currentMusic = targetMusic;
+        playingMusic.play();
+      }
+      if (currentMusic == targetMusic) {
+        if (currentVolume < TARGET_VOLUMNE) {
+          currentVolume += 0.01;
+          playingMusic.setVolume(currentVolume);
+        }
+      } else {
+        if (currentVolume > 0) {
+          currentVolume -= 0.01;
+          if (currentVolume <= 0) {
+            playingMusic.stop();
+            currentMusic = targetMusic;
+            playingMusic = getMusic(currentMusic);
+            playingMusic.play();
+            currentVolume = 0.01f;
+          }
+          playingMusic.setVolume(currentVolume);
+        }
+      }
+    }
+  }
+
+  private void setSoundOn(boolean soundOn) {
+    if (this.soundOn != soundOn) {
+      SpaceMain.prefs.putBoolean(SpaceMain.Prefs.SOUND, soundOn);
+      SpaceMain.prefs.flush();
+      this.soundOn = soundOn;
+    }
+  }
+
+  private void setMusicOn(boolean musicOn) {
+    if (this.musicOn != musicOn) {
+      SpaceMain.prefs.putBoolean(SpaceMain.Prefs.MUSIC, musicOn);
+      SpaceMain.prefs.flush();
+      this.musicOn = musicOn;
+      if (musicOn) {
+        playingMusic = null;
+      } else {
+        playingMusic.stop();
+      }
+    }
+  }
+
+  public void toggleSound() {
+    setSoundOn(!soundOn);
+  }
+
+  public void toggleMusic() {
+    setMusicOn(!musicOn);
+  }
+
+  public boolean isSoundOn() {
+    return soundOn;
+  }
+
+  public boolean isMusicOn() {
+    return musicOn;
   }
 
   public BitmapFont getFont() {
@@ -82,7 +169,7 @@ public class Assets implements Disposable {
   }
 
   public void playSound(SoundEffect effect) {
-    if (sound) {
+    if (soundOn) {
       sounds.get(effect).play();
     }
   }

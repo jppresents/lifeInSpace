@@ -3,17 +3,23 @@ package net.jppresents.space;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.*;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Disposable;
 
 public class MainMenu implements Disposable, EventListener {
+  private final TextButton soundButton;
+  private final TextButton musicButton;
+  private final TextButton startButton;
   private Stage stage;
   private boolean active = true;
   private TextBox textBox;
   private int disableEvents = 0;
-  private TextButton startButton;
+  private Table mainMenuTable;
+  private Table optionMenuTable;
+
+  boolean optionsActive = false;
 
   public MainMenu() {
     stage = new Stage(SpaceMain.stageViewPort);
@@ -22,33 +28,49 @@ public class MainMenu implements Disposable, EventListener {
 
     Skin skin = SpaceMain.assets.getSkin();
 
-    Table table = new Table(skin);
-    table.setFillParent(true);
-    stage.addActor(table);
+    mainMenuTable = new Table(skin);
+    mainMenuTable.setSize(1280, 720);
+    stage.addActor(mainMenuTable);
 
     TextButton.TextButtonStyle buttonStyle = skin.get("default", TextButton.TextButtonStyle.class);
-    TextButton button = new TextButton("Start Story Mode", buttonStyle);
-    startButton = button;
-    button.addListener( new ClickListener() {
+    startButton  = new TextButton("Start Story Mode", buttonStyle);
+    startButton.addListener( new ChangeListener() {
       @Override
-      public void clicked(InputEvent event, float x, float y) {
-        SpaceMain.mainMenu.setActive(false);
+      public void changed(ChangeEvent event, Actor actor) {
+        stage.addAction(Actions.sequence(Actions.fadeOut(0.5f), Actions.run(new Runnable() {
+          @Override
+          public void run() {
+            setActive(false);
+          }
+        })) );
       }
     });
-    table.add(button).width(400).spaceBottom(40).height(150);;
-    table.row();
+    mainMenuTable.add(startButton).width(400).spaceBottom(40).height(100);;
+    mainMenuTable.row();
+
+    Button button = new TextButton("Options", buttonStyle);
+    button.addListener(new ChangeListener() {
+      @Override
+      public void changed (ChangeEvent event, Actor actor) {
+        if (!optionsActive) {
+          optionMenuTable.addAction(Actions.moveBy(-1280, 0, 0.75f));
+          mainMenuTable.addAction(Actions.moveBy(-1280, 0, 0.75f));
+          optionsActive = true;
+        }
+      }
+    });
+    mainMenuTable.add(button).width(400).spaceBottom(40).height(75);;
+    mainMenuTable.row();
 
     button = new TextButton("Help", buttonStyle);
-
     button.addListener(new ChangeListener() {
       @Override
       public void changed (ChangeEvent event, Actor actor) {
         SpaceMain.mainMenu.showText("help");
       }
     });
-
-    table.add(button).width(400).spaceBottom(40).height(100);;
-    table.row();
+    mainMenuTable.add(button).width(400).spaceBottom(40).height(50);;
+    mainMenuTable.row();
 
     button = new TextButton("Credits", buttonStyle);
     button.addListener(new ChangeListener() {
@@ -57,8 +79,8 @@ public class MainMenu implements Disposable, EventListener {
         SpaceMain.mainMenu.showText("credits");
       }
     });
-    table.add(button).width(400).spaceBottom(80).height(100);
-    table.row();
+    mainMenuTable.add(button).width(400).spaceBottom(80).height(50);
+    mainMenuTable.row();
 
     button = new TextButton("Quit", buttonStyle);
     button.addListener(new ChangeListener() {
@@ -67,12 +89,71 @@ public class MainMenu implements Disposable, EventListener {
         Gdx.app.exit();
       }
     });
-    table.add(button).width(400).height(100);
-    table.row();
+    mainMenuTable.add(button).width(400).height(50);
+    mainMenuTable.row();
 
+    optionMenuTable = new Table();
+    optionMenuTable.setSize(1280, 720);
+    optionMenuTable.addAction(Actions.moveBy(1280, 0));
+
+    musicButton = new TextButton("", buttonStyle);
+    musicButton.addListener( new ChangeListener() {
+      @Override
+      public void changed(ChangeEvent event, Actor actor) {
+        SpaceMain.assets.toggleMusic();
+        updateButtonLabels();
+      }
+    });
+    optionMenuTable.add(musicButton).width(400).spaceBottom(40).height(75);
+    optionMenuTable.row();
+
+    soundButton = new TextButton("", buttonStyle);
+    soundButton.addListener( new ChangeListener() {
+      @Override
+      public void changed(ChangeEvent event, Actor actor) {
+        SpaceMain.assets.toggleSound();
+        SpaceMain.assets.playSound(Assets.SoundEffect.HEAL);
+        updateButtonLabels();
+      }
+    });
+    optionMenuTable.add(soundButton).width(400).spaceBottom(40).height(75);
+    optionMenuTable.row();
+
+    button = new TextButton("Back", buttonStyle);
+    button.addListener( new ChangeListener() {
+      @Override
+      public void changed(ChangeEvent event, Actor actor) {
+        if (optionsActive) {
+          optionMenuTable.addAction(Actions.moveBy(1280, 0, 0.75f));
+          mainMenuTable.addAction(Actions.moveBy(1280, 0, 0.75f));
+          optionsActive = false;
+        }
+
+      }
+    });
+    optionMenuTable.add(button).width(400).spaceBottom(40).height(100);
+    optionMenuTable.row();
+
+    stage.addActor(optionMenuTable);
+    updateButtonLabels();
+  }
+
+  private void updateButtonLabels() {
+    if (SpaceMain.assets.isMusicOn()) {
+      musicButton.setText("Turn Muisc off");
+    } else {
+      musicButton.setText("Turn Muisc on");
+    }
+
+    if (SpaceMain.assets.isSoundOn()) {
+      soundButton.setText("Turn SFX off");
+    } else {
+      soundButton.setText("Turn SFX on");
+    }
   }
 
   public void render() {
+    stage.act();
     if (disableEvents > 0) {
       disableEvents--;
     }
@@ -94,6 +175,12 @@ public class MainMenu implements Disposable, EventListener {
     if (disableEvents == 0) {
       startButton.setText("Resume Game");
       this.active = active;
+      stage.addAction(Actions.fadeIn(0.5f));
+      if (active) {
+        SpaceMain.assets.startMusic(Assets.GameMusic.MENU);
+      } else {
+        SpaceMain.assets.startMusic(Assets.GameMusic.GAME);
+      }
     }
   }
 

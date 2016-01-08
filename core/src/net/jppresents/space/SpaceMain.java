@@ -3,6 +3,7 @@ package net.jppresents.space;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.*;
@@ -34,7 +35,6 @@ public class SpaceMain extends ApplicationAdapter {
 
   private Combat combat;
 
-  private boolean soundOn = true;
   public static Color insideColor;
   public static Color outsideColor;
 
@@ -42,17 +42,23 @@ public class SpaceMain extends ApplicationAdapter {
   private InputHandler input;
   public static Viewport stageViewPort;
 
+  public static Preferences prefs;
+  class Prefs {
+    final static String SOUND = "soundOn";
+    final static String MUSIC = "musicOn";
+  }
+
   public SpaceMain() {
   }
 
-  public SpaceMain(boolean touchMode, boolean noSound) {
+  public SpaceMain(boolean touchMode) {
     SpaceMain.touchMode = touchMode;
-    soundOn = !noSound;
   }
 
 
   @Override
   public void create() {
+    prefs = Gdx.app.getPreferences("life-in-space-and-how-to-get-rid-of-it");
     camera = new OrthographicCamera();
 
     viewport = new ExtendViewport(1280, 720, camera);
@@ -67,7 +73,7 @@ public class SpaceMain extends ApplicationAdapter {
     world = new World();
     tileSize = world.getTileSize();
 
-    assets = new Assets(soundOn);
+    assets = new Assets();
 
     spriterDataManager = new SpriterDataManager(batch);
     spriterDataManager.load("guy");
@@ -80,7 +86,7 @@ public class SpaceMain extends ApplicationAdapter {
     gameLogic = new GameLogic(world, gameObjects, spriterDataManager, ui, combat);
 
     input = new InputHandler(camera, gameLogic, touchMode);
-    assets.startMusic();
+    assets.startMusic(Assets.GameMusic.MENU);
 
     mainMenu = new MainMenu();
 
@@ -122,13 +128,13 @@ public class SpaceMain extends ApplicationAdapter {
 
   @Override
   public void render() {
+    assets.fadeMusic();
 
     if (Gdx.input.isKeyPressed(Input.Keys.BACK) ||Gdx.input.isKeyPressed(Input.Keys.ESCAPE) ){
      if (!mainMenu.isActive()) {
        mainMenu.setActive(true);
      }
     }
-
 
     if (mainMenu.isActive()) {
       mainMenu.render();
