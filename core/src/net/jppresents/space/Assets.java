@@ -21,7 +21,7 @@ public class Assets implements Disposable {
   private static final float TARGET_VOLUMNE = 0.3f;
   private float currentVolume;
 
-  public enum SoundEffect {BLASTER, ALIEN_HURT, ALIEN_DIE, GUY_HURT, GUY_HURT2, FIZZLE, POWERUP, HEAL}
+  public enum SoundEffect {BLASTER, ALIEN_HURT, ALIEN_DIE, GUY_HURT, GUY_HURT2, FIZZLE, POWERUP, HEAL, ERROR}
   public enum GameMusic {MENU, GAME}
 
   private final TextureAtlas sprites;
@@ -52,6 +52,7 @@ public class Assets implements Disposable {
     sounds.put(SoundEffect.GUY_HURT2, Gdx.audio.newSound(Gdx.files.internal("sound/guyHurt2.ogg")));
     sounds.put(SoundEffect.POWERUP, Gdx.audio.newSound(Gdx.files.internal("sound/powerup.ogg")));
     sounds.put(SoundEffect.HEAL, Gdx.audio.newSound(Gdx.files.internal("sound/heal.ogg")));
+    sounds.put(SoundEffect.ERROR, Gdx.audio.newSound(Gdx.files.internal("sound/error.ogg")));
 
     menuMusic = Gdx.audio.newMusic(Gdx.files.internal("music/menuMusic.ogg"));
     menuMusic.setLooping(true);

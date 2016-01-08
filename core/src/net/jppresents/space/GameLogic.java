@@ -269,6 +269,7 @@ public class GameLogic {
 
       if (enemy != null) {
         if (guy.getActionPoints() < guy.getShotCost()) {
+          SpaceMain.assets.playSound(Assets.SoundEffect.ERROR);
           return;
         }
         guy.decActionPoints(guy.getShotCost());
@@ -303,6 +304,7 @@ public class GameLogic {
       if (gameOverTime < lastTick - 120 && guy.getHealth() <= 0) {
         reset();
       }
+      //todo nur wenn es x frames seit dem letzten neuen befehl war
       if (state == State.PLAYERMOVING) {
         guy.cancelMove(false);
       }
@@ -317,7 +319,7 @@ public class GameLogic {
       ui.setSelectorPos((int) temp.x * SpaceMain.tileSize + SpaceMain.tileSize / 2, (int) temp.y * SpaceMain.tileSize + SpaceMain.tileSize / 2);
       ui.setError(world.isTileBlocking((int) target.x, (int) target.y));
       Enemy activeEnemy = findActiveEnemy((int) target.x, (int) target.y);
-      ui.setTarget(activeEnemy);
+      ui.setTarget(activeEnemy, guy.getActionPoints() >= guy.getShotCost());
       if (activeEnemy != null) {
         ui.setActionCost(guy.getShotCost());
       } else {

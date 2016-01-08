@@ -25,6 +25,9 @@ public class UserInterface {
   private int actionBarY = 0;
   private int currentActionBarY = 0;
   private TextBox textBox;
+  private int hiddenY;
+  private int visibleY;
+  private boolean canShoot;
 
   public UserInterface() {
     marker = SpaceMain.assets.getSprites().findRegion("marker");
@@ -36,9 +39,7 @@ public class UserInterface {
     selectorY = -1;
     barHeight = SpaceMain.assets.getSprites().findRegion("apBar").getRegionHeight();
     barWidth =  SpaceMain.assets.getSprites().findRegion("apBar").getRegionWidth();
-    actionBarY = -SpaceMain.assets.getSprites().findRegion("apBar").getRegionHeight();
     healthBar = new ProgressBar(0, 0, 100, 100, SpaceMain.assets.getSprites().findRegion("hpBar"), SpaceMain.assets.getSprites().findRegion("hpBarFill"), null);
-    currentActionBarY = actionBarY;
     actionBar = new ProgressBar(0, 0, 3, 3, SpaceMain.assets.getSprites().findRegion("apBar"), SpaceMain.assets.getSprites().findRegion("apBarFill"), SpaceMain.assets.getSprites().findRegion("apBarIndicator"));
     targetHealthBar = new ProgressBar(0, 0, 0, 0, SpaceMain.assets.getSprites().findRegion("hpBarSmall"), SpaceMain.assets.getSprites().findRegion("hpBarFillSmall"), null);
     targetHealthBar.setFixedToCamera(false);
@@ -65,8 +66,14 @@ public class UserInterface {
       }
 
       if (target != null) {
-        batch.setColor(1, 0, 0, 1);
-        batch.draw(markerTarget, selectorX - markerTarget.getRegionWidth() / 2, selectorY - markerTarget.getRegionHeight() / 2 + 10);
+        batch.setColor(0, 0, 0, 1);
+        if (canShoot) {
+          batch.draw(markerTarget, selectorX - markerTarget.getRegionWidth() / 2, selectorY - markerTarget.getRegionHeight() / 2 + 10);
+        } else {
+          batch.draw(markerTarget, selectorX - markerTarget.getRegionWidth() / 2, selectorY - markerTarget.getRegionHeight() / 2 + 10);
+          batch.setColor(1, 0, 0, 1);
+          batch.draw(markerError, selectorX - markerError.getRegionWidth() / 2, selectorY - markerError.getRegionHeight() / 2 + 10);
+        }
         targetHealthBar.setX(selectorX);
         targetHealthBar.setY(selectorY - 45);
         targetHealthBar.setMaxValue(target.getMaxHealth());
@@ -106,8 +113,9 @@ public class UserInterface {
     this.error = error;
   }
 
-  public void setTarget(Enemy target) {
+  public void setTarget(Enemy target, boolean canShoot) {
     this.target = target;
+    this.canShoot = canShoot;
   }
 
   public void setSkip(boolean skip) {
@@ -120,9 +128,9 @@ public class UserInterface {
 
   public void showActionBar(boolean show) {
     if (show) {
-      actionBarY = 10;
+      actionBarY = visibleY;
     } else {
-      actionBarY = -SpaceMain.assets.getSprites().findRegion("apBar").getRegionHeight();
+      actionBarY = hiddenY;
     }
   }
 
@@ -146,10 +154,12 @@ public class UserInterface {
     healthBar.setX(10);
     healthBar.setY((int)camera.viewportHeight - barHeight - 10);
 
-    actionBarY = -barHeight;
-    currentActionBarY = -barHeight;
+    visibleY = (int)camera.viewportHeight - barHeight - 10;
+    hiddenY = (int) camera.viewportHeight + barHeight;
+    currentActionBarY = hiddenY;
+
     actionBar.setX((int)camera.viewportWidth - barWidth - 10);
-    actionBar.setY(currentActionBarY + 10);
+    actionBar.setY(hiddenY);
   }
 
   public TextBox getTextBox() {

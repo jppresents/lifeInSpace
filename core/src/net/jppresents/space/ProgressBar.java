@@ -69,7 +69,7 @@ public class ProgressBar {
     //cost value
     if (costValue > 0 && costRegion != null) {
       costAlpha++;
-      batch.setColor(1, 1, 1, 0.2f + 0.8f * Math.abs(MathUtils.sinDeg(costAlpha*2)));
+      batch.setColor(1, 1, 1, 0.2f + 0.6f * Math.abs(MathUtils.sinDeg(costAlpha*2)));
       int costWidth = Math.round(costRegion.getRegionWidth() * costValue / maxValue);
       int costStart = Math.round(costRegion.getRegionWidth() * (maxValue - value)/maxValue);
       batch.draw(costRegion.getTexture(), renderX + costRegion.getRegionWidth() - costWidth - costStart, renderY, costWidth, costRegion.getRegionHeight(), costRegion.getRegionX() + (costRegion.getRegionWidth() - costWidth -costStart), costRegion.getRegionY(), costWidth, costRegion.getRegionHeight(), false, false);
@@ -120,5 +120,9 @@ public class ProgressBar {
 
   public void setShowValues(boolean showValues) {
     this.showValues = showValues;
+  }
+
+  public float getY() {
+    return y;
   }
 }
