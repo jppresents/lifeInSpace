@@ -3,6 +3,7 @@ package net.jppresents.space;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -24,6 +25,8 @@ public class Assets implements Disposable {
   public enum GameMusic {MENU, GAME}
 
   private final TextureAtlas sprites;
+  private Texture starTexture;
+
   private final Map<SoundEffect, Sound> sounds;
   private final Music bgMusic;
   private final Music menuMusic;
@@ -37,6 +40,8 @@ public class Assets implements Disposable {
     System.out.println("Musik: " + musicOn + "Sound: " + soundOn);
 
     sprites = new TextureAtlas("sprites.atlas");
+    starTexture = new Texture(Gdx.files.internal("stars.png"));
+    starTexture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
 
     sounds = new HashMap<SoundEffect, Sound>(2);
     sounds.put(SoundEffect.BLASTER, Gdx.audio.newSound(Gdx.files.internal("sound/blaster.ogg")));
@@ -173,4 +178,9 @@ public class Assets implements Disposable {
       sounds.get(effect).play();
     }
   }
+
+  public Texture getStarTexture() {
+    return starTexture;
+  }
+
 }

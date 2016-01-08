@@ -2,6 +2,9 @@ package net.jppresents.space;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -18,10 +21,15 @@ public class MainMenu implements Disposable, EventListener {
   private int disableEvents = 0;
   private Table mainMenuTable;
   private Table optionMenuTable;
+  private final TextureRegion planet;
+  private final Texture stars;
 
   boolean optionsActive = false;
 
   public MainMenu() {
+    stars = SpaceMain.assets.getStarTexture();
+    planet = SpaceMain.assets.getSprites().findRegion("planet");
+
     stage = new Stage(SpaceMain.stageViewPort);
     stage.addListener(this);
     textBox = new TextBox(SpaceMain.assets.getSprites(), "textbox", false);
@@ -152,13 +160,24 @@ public class MainMenu implements Disposable, EventListener {
     }
   }
 
+  private float floatingStars = 0;
+
   public void render() {
+    floatingStars += 0.01;
     stage.act();
     if (disableEvents > 0) {
       disableEvents--;
     }
     Gdx.gl.glClearColor( 0, 0, 0, 1 );
     Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
+
+    Batch batch = stage.getBatch();
+    batch.begin();
+    batch.draw(stars, 0, 0, SpaceMain.stageViewPort.getScreenWidth(), SpaceMain.stageViewPort.getScreenHeight(), 0, 0, SpaceMain.stageViewPort.getScreenWidth(), SpaceMain.stageViewPort.getScreenHeight(), false, false);
+    batch.draw(planet, SpaceMain.stageViewPort.getScreenWidth() - planet.getRegionWidth() * 1.2f, 100);
+    batch.end();
+
+
     stage.draw();
     if (textBox.isActive()) {
       stage.getBatch().begin();
