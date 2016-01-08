@@ -160,10 +160,7 @@ public class MainMenu implements Disposable, EventListener {
     }
   }
 
-  private float floatingStars = 0;
-
   public void render() {
-    floatingStars += 0.01;
     stage.act();
     if (disableEvents > 0) {
       disableEvents--;
@@ -173,8 +170,8 @@ public class MainMenu implements Disposable, EventListener {
 
     Batch batch = stage.getBatch();
     batch.begin();
-    batch.draw(stars, 0, 0, SpaceMain.stageViewPort.getScreenWidth(), SpaceMain.stageViewPort.getScreenHeight(), 0, 0, SpaceMain.stageViewPort.getScreenWidth(), SpaceMain.stageViewPort.getScreenHeight(), false, false);
-    batch.draw(planet, SpaceMain.stageViewPort.getScreenWidth() - planet.getRegionWidth() * 1.2f, 100);
+    batch.draw(stars, 0, 0, 1280, 720, 0, 0, 1280, 720, false, false);
+    batch.draw(planet, 750, 100);
     batch.end();
 
 
