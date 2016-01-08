@@ -21,6 +21,18 @@
      id="defs5495">
     <linearGradient
        inkscape:collect="always"
+       id="linearGradient5415">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1"
+         offset="0"
+         id="stop5417" />
+      <stop
+         style="stop-color:#2a7fff;stop-opacity:1"
+         offset="1"
+         id="stop5419" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
        id="linearGradient4913">
       <stop
          style="stop-color:#000000;stop-opacity:1;"
@@ -692,6 +704,17 @@
        y2="866.6217"
        gradientUnits="userSpaceOnUse"
        gradientTransform="matrix(2.926726,0,0,2.926726,-799.45581,-1379.178)" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient5415"
+       id="radialGradient5421"
+       cx="-326.36963"
+       cy="262.59061"
+       fx="-326.36963"
+       fy="262.59061"
+       r="3.9285715"
+       gradientTransform="matrix(-0.1051704,2.883409,-1.2584219,-0.04590036,-32.981802,1220.2937)"
+       gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -700,9 +723,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.98994949"
-     inkscape:cx="226.68303"
-     inkscape:cy="-531.96554"
+     inkscape:zoom="5.6"
+     inkscape:cx="-355.7487"
+     inkscape:cy="775.11289"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -3395,5 +3418,21 @@
          id="circle4903"
          style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:url(#linearGradient4919);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0.80000001;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
     </g>
+    <path
+       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:#666666;stroke-width:2.08310175;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       d="M -369.51172 257.29688 A 33.45335 33.45335 0 0 1 -388.36133 263.11719 A 33.45335 33.45335 0 0 1 -406.7832 257.56836 C -407.47637 258.41998 -408.11995 259.31873 -408.69922 260.26758 C -408.07082 260.16067 -407.48819 260.19375 -406.98242 260.41406 C -403.91807 261.7489 -404.62366 268.90054 -408.55859 276.38672 C -409.33798 277.8695 -410.10005 279.06786 -410.8457 280.04297 C -409.21705 283.31153 -406.37836 285.62507 -402.88281 287.19727 C -401.21508 283.90042 -399.17434 281.88079 -397.28906 282.05273 C -395.13066 282.2496 -393.71615 285.27491 -393.35938 289.64648 C -391.92404 289.81107 -390.46591 289.9156 -388.99805 289.95117 C -386.55619 290.01035 -384.22486 289.82251 -382.03125 289.4082 C -381.60813 285.28607 -380.27861 282.33247 -378.29492 281.85156 C -376.56482 281.43215 -374.69318 282.98632 -373.10938 285.7793 C -369.89963 283.48712 -367.51052 280.23275 -366.2793 275.95508 C -370.79002 269.52597 -372.53697 262.91012 -370.15625 260.82617 C -369.49623 260.24842 -368.57941 260.08489 -367.50195 260.26758 C -368.07001 259.2017 -368.7504 258.2164 -369.51172 257.29688 z "
+       id="beam_body"
+       inkscape:label="#path5359"
+       inkscape:export-filename="C:\dev\gdx\lifeInSpace\art\guy\body_beam.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <ellipse
+       style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:url(#radialGradient5421);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0.80000001;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
+       id="beam"
+       cx="-329.10715"
+       cy="266.82648"
+       rx="3.9285715"
+       ry="8.3928576"
+       inkscape:label="#path5385" />
   </g>
 </svg>

@@ -55,6 +55,12 @@ public class GameLogic {
     }
   }
 
+  public void teleportIn() {
+    SpaceMain.assets.playSound(Assets.SoundEffect.TELEPORT);
+    guy.spriterPlayer.setAnimation("front_teleport_in");
+    guy.setVisible(true);
+  }
+
   private float lastPosX, lastPosY;
 
   private void handleWorldInteraction() {
@@ -250,7 +256,7 @@ public class GameLogic {
     if (state == State.PLAYERINPUT) {
       if (guy.getHealth() <= 0) {
         if (gameOverTime < lastTick - 120) {
-          reset();
+          SpaceMain.returnToMenu = true;
         }
         return;
       }
@@ -356,4 +362,9 @@ public class GameLogic {
     }
     return null;
   }
+
+  public boolean canResume() {
+    return guy.getHealth() > 0;
+  }
+
 }

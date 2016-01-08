@@ -16,6 +16,7 @@ import java.util.List;
 public class SpaceMain extends ApplicationAdapter {
   public static int tileSize = 0;
   public static boolean touchMode = false;
+  public static boolean returnToMenu;
   private World world;
 
   private SpriterDataManager spriterDataManager;
@@ -126,22 +127,38 @@ public class SpaceMain extends ApplicationAdapter {
 
   //FPSLogger fps = new FPSLogger();
 
+  public void startGame() {
+    gameLogic.reset();
+    gameLogic.teleportIn();
+  }
+
+  private boolean mainMenuWasActive;
+
   @Override
   public void render() {
     assets.fadeMusic();
 
-    if (Gdx.input.isKeyPressed(Input.Keys.BACK) ||Gdx.input.isKeyPressed(Input.Keys.ESCAPE) ){
+    if (Gdx.input.isKeyPressed(Input.Keys.BACK) ||Gdx.input.isKeyPressed(Input.Keys.ESCAPE)  || returnToMenu){
      if (!mainMenu.isActive()) {
+       returnToMenu = false;
+       mainMenu.setCanResume(gameLogic.canResume());
        mainMenu.setActive(true);
      }
     }
 
     if (mainMenu.isActive()) {
+      mainMenuWasActive = true;
       mainMenu.render();
       Gdx.input.setInputProcessor(mainMenu.getStage());
       return;
-    } else {
+    };
+
+    if (mainMenuWasActive) {
       Gdx.input.setInputProcessor(input);
+      mainMenuWasActive = false;
+      if (mainMenu.isNewGame()) {
+        startGame();
+      }
     }
 
     //fps.log();

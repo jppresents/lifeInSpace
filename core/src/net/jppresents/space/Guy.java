@@ -17,6 +17,7 @@ public class Guy extends AnimatedGameObject {
   private int gunLevel = 0;
   private boolean effectVisible;
   private int newGunLevel;
+  private boolean visible;
 
   public Guy(Entity entity, Drawer drawer, Entity effects, Drawer effectDrawer) {
     super(entity, drawer);
@@ -51,7 +52,8 @@ public class Guy extends AnimatedGameObject {
 
   @Override
   public void render(Batch batch) {
-    super.render(batch);
+    if (visible)
+      super.render(batch);
     if (effectVisible) {
       effectPlayer.setPosition(spriterPlayer.getX(), spriterPlayer.getY());
       effectDrawer.draw(effectPlayer);
@@ -68,7 +70,7 @@ public class Guy extends AnimatedGameObject {
       wasWalking = true;
     }
 
-    if (spriterPlayer.getAnimation().name.equals("front_item")) {
+    if (spriterPlayer.getAnimation().name.equals("front_item") || spriterPlayer.getAnimation().name.equals("front_teleport_in")) {
       return;
     }
 
@@ -132,12 +134,12 @@ public class Guy extends AnimatedGameObject {
       effectVisible = false;
     }
 
-    if (animation.name.equals("front_die")) {
+    if (animation.name.equals("front_die") || animation.name.equals("front_teleport_away")) {
       spriterPlayer.speed = 0;
       spriterPlayer.setTime(animation.length - 1);
     }
 
-    if (animation.name.equals("front_idle_gun_flip") || animation.name.equals("front_item")) {
+    if (animation.name.equals("front_idle_gun_flip") || animation.name.equals("front_item") || animation.name.equals("front_teleport_in")) {
       spriterPlayer.setAnimation("front_idle");
       idleAnimationCount = 0;
     }
@@ -180,10 +182,12 @@ public class Guy extends AnimatedGameObject {
 
   public void reset() {
     setCombat(false);
-    setHealth(getMaxHealth());
+    setMaxHealth(10);
+    setHealth(10);
     setGunLevel(0);
     spriterPlayer.setAnimation("front_idle");
     spriterPlayer.speed = 15;
+    visible = false;
   }
 
   public int getShotCost() {
@@ -216,4 +220,7 @@ public class Guy extends AnimatedGameObject {
     effectVisible = true;
   }
 
+  public void setVisible(boolean visible) {
+    this.visible = visible;
+  }
 }

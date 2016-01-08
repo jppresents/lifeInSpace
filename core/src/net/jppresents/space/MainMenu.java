@@ -15,6 +15,9 @@ public class MainMenu implements Disposable, EventListener {
   private final TextButton soundButton;
   private final TextButton musicButton;
   private final TextButton startButton;
+  private final TextButton resumeButton;
+  private final Cell<TextButton> resumeCell;
+  private final Cell<TextButton> startCell;
   private Stage stage;
   private boolean active = true;
   private TextBox textBox;
@@ -25,6 +28,8 @@ public class MainMenu implements Disposable, EventListener {
   private final Texture stars;
 
   boolean optionsActive = false;
+  private boolean newGame;
+  private boolean canResume = false;
 
   public MainMenu() {
     stars = SpaceMain.assets.getStarTexture();
@@ -41,19 +46,39 @@ public class MainMenu implements Disposable, EventListener {
     stage.addActor(mainMenuTable);
 
     TextButton.TextButtonStyle buttonStyle = skin.get("default", TextButton.TextButtonStyle.class);
-    startButton  = new TextButton("Start Story Mode", buttonStyle);
+
+    resumeButton = new TextButton("Resume Game", buttonStyle);
+    resumeButton.addListener(new ChangeListener() {
+      @Override
+      public void changed(ChangeEvent event, Actor actor) {
+        stage.addAction(Actions.sequence(Actions.fadeOut(0.5f), Actions.run(new Runnable() {
+          @Override
+          public void run() {
+            newGame = false; setActive(false);
+          }
+        })) );
+      }
+    });
+    resumeCell =  mainMenuTable.add(resumeButton);
+    resumeCell.width(400).spaceBottom(40).height(0);
+    mainMenuTable.row();
+    resumeButton.setVisible(false);
+
+
+    startButton  = new TextButton("New Game", buttonStyle);
     startButton.addListener( new ChangeListener() {
       @Override
       public void changed(ChangeEvent event, Actor actor) {
         stage.addAction(Actions.sequence(Actions.fadeOut(0.5f), Actions.run(new Runnable() {
           @Override
           public void run() {
-            setActive(false);
+            newGame = true; setActive(false);
           }
         })) );
       }
     });
-    mainMenuTable.add(startButton).width(400).spaceBottom(40).height(100);;
+    startCell = mainMenuTable.add(startButton);
+    startCell.width(400).spaceBottom(40).height(100);;
     mainMenuTable.row();
 
     Button button = new TextButton("Options", buttonStyle);
@@ -148,9 +173,9 @@ public class MainMenu implements Disposable, EventListener {
 
   private void updateButtonLabels() {
     if (SpaceMain.assets.isMusicOn()) {
-      musicButton.setText("Turn Muisc off");
+      musicButton.setText("Turn Music off");
     } else {
-      musicButton.setText("Turn Muisc on");
+      musicButton.setText("Turn Music on");
     }
 
     if (SpaceMain.assets.isSoundOn()) {
@@ -189,7 +214,20 @@ public class MainMenu implements Disposable, EventListener {
 
   public void setActive(boolean active) {
     if (disableEvents == 0) {
-      startButton.setText("Resume Game");
+
+      if (active) {
+        if (canResume) {
+          resumeCell.height(100);
+          startCell.height(75);
+          resumeButton.setVisible(true);
+        } else {
+          resumeCell.height(0);
+          startCell.height(100);
+          resumeButton.setVisible(false);
+        }
+        mainMenuTable.invalidate();
+      }
+
       this.active = active;
       stage.addAction(Actions.fadeIn(0.5f));
       if (active) {
@@ -220,5 +258,13 @@ public class MainMenu implements Disposable, EventListener {
       disableEvents = 10;
     }
     return false;
+  }
+
+  public boolean isNewGame() {
+    return newGame;
+  }
+
+  public void setCanResume(boolean canResume) {
+    this.canResume = canResume;
   }
 }
