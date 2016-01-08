@@ -265,7 +265,7 @@ public class GameLogic {
         return;
       }
 
-      AnimatedGameObject enemy = findActiveEnemy((int) target.x, (int) target.y);
+      Enemy enemy = findActiveEnemy((int) target.x, (int) target.y);
 
       if (enemy != null) {
         if (guy.getActionPoints() < guy.getShotCost()) {
@@ -288,6 +288,12 @@ public class GameLogic {
     }
   }
 
+  public void touchUpNoScroll() {
+    if (state == State.PLAYERMOVING ) {
+      guy.cancelMove(false);
+    }
+  }
+
   public void setAndDisplayAction(float x, float y) {
 
     if (ui.getTextBox().isActive()) {
@@ -303,10 +309,6 @@ public class GameLogic {
     if (SpaceMain.touchMode) {
       if (gameOverTime < lastTick - 120 && guy.getHealth() <= 0) {
         reset();
-      }
-      //todo nur wenn es x frames seit dem letzten neuen befehl war
-      if (state == State.PLAYERMOVING) {
-        guy.cancelMove(false);
       }
     }
 

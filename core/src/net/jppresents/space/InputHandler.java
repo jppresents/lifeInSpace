@@ -13,8 +13,8 @@ public class InputHandler implements InputProcessor {
   private Vector3 touchPoint = new Vector3(-1, -1, 0);
   private boolean touchMode = true;
   private Vector2 lastTileTouch = new Vector2(-1, -1);
-  private boolean touchModeWasUp = false;
-  private int touchModeMoveCount = 0;
+  private boolean actionOnNextUp = false;
+  private int lastTouchDownX, lastTouchDownY;
 
   public InputHandler(OrthographicCamera camera, GameLogic gameLogic, boolean touchMode) {
     Gdx.input.setInputProcessor(this);
@@ -40,30 +40,30 @@ public class InputHandler implements InputProcessor {
   @Override
   public boolean touchDragged(int screenX, int screenY, int pointer) {
     gameLogic.cameraDragged(screenX, screenY);
-
-    // If you drag on the phone, you don't want the action to execute. - but if you touch a little too long, that launches an accidental touchDragged event
-    // (if you move your finger a little)
-    // right now if you drag for less than 1/3 of a second it's handled as accidental and the action is still performed
-    // this could/should be changed to a check of how many pixels the drag distance is
-    touchModeMoveCount++;
-    if (touchModeMoveCount > 20) {
-      touchModeWasUp = false;
-    }
-
     return true;
   }
 
   @Override
   public boolean touchUp(int screenX, int screenY, int pointer, int button) {
     if (touchMode) {
-      if (!touchModeWasUp) {
-        touchModeWasUp = true;
+
+      double dragRange = Math.sqrt(Math.pow(screenX - lastTouchDownX, 2) + Math.pow(screenY - lastTouchDownY, 2));
+
+      if (dragRange  < 100) {
+        //if the drag distance was less then 50 it must we cancel movement
+        gameLogic.touchUpNoScroll();
+      }
+
+      if (!actionOnNextUp) {
+        actionOnNextUp = true;
         return true;
       }
       int x = MathUtils.floor(touchPoint.x/SpaceMain.tileSize);
       int y = MathUtils.floor(touchPoint.y/SpaceMain.tileSize);
 
-      if (lastTileTouch.x == x && lastTileTouch.y == y) {
+      //at the last down the tile was an exact match (otherwhise actionOnNextUp would be false)
+      //so now we accept even if you moved your finger one tile off - but if it has been dragged more then 100, it is not an execute
+      if (dragRange < 100 && Math.abs(lastTileTouch.x - x) <= 2 && Math.abs(lastTileTouch.y - y) <= 2) {
         gameLogic.executeAction();
         lastTileTouch.x = -1;
         lastTileTouch.y = -1;
@@ -78,7 +78,9 @@ public class InputHandler implements InputProcessor {
     camera.unproject(touchPoint.set(screenX, screenY, 0));
 
     if (touchMode) {
-      touchModeMoveCount = 0;
+      lastTouchDownX = screenX;
+      lastTouchDownY = screenY;
+
       int x = MathUtils.floor(touchPoint.x/SpaceMain.tileSize);
       int y = MathUtils.floor(touchPoint.y/SpaceMain.tileSize);
 
@@ -86,7 +88,7 @@ public class InputHandler implements InputProcessor {
       gameLogic.startCameraDrag(screenX, screenY);
 
       if (lastTileTouch.x != x || lastTileTouch.y != y) {
-        touchModeWasUp = false;
+        actionOnNextUp = false; //new tile selected
         lastTileTouch.x = x;
         lastTileTouch.y = y;
       }
