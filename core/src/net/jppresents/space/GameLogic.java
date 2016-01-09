@@ -224,10 +224,12 @@ public class GameLogic {
           guy.resetActionPoints();
           refreshUI();
         } else {
-          activeEnemy = enemies.get(nextActiveEnemyIndex);
+          do {
+            activeEnemy = enemies.get(nextActiveEnemyIndex);
+            nextActiveEnemyIndex++;
+          } while (nextActiveEnemyIndex < enemies.size() && !activeEnemy.isAggro());
           activeEnemy.resetActionPoints();
           activeEnemy.planTurn(world, guy, enemies);
-          nextActiveEnemyIndex++;
         }
       } else {
         if (activeEnemy.isIdle(tick)) {

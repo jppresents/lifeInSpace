@@ -97,9 +97,7 @@ public class InputHandler implements InputProcessor {
       if (button == com.badlogic.gdx.Input.Buttons.LEFT) {
         gameLogic.setAndDisplayAction(touchPoint.x, touchPoint.y);
         gameLogic.executeAction();
-      }
-
-      if (button == com.badlogic.gdx.Input.Buttons.RIGHT) {
+      } else {
         gameLogic.startCameraDrag(screenX, screenY);
       }
     }

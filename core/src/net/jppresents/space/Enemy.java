@@ -13,6 +13,7 @@ public class Enemy extends AnimatedGameObject {
   private float aggroRange = 6;
   private boolean wasWalking;
   private boolean attackedThisTurn = true;
+  private boolean socialAggro = false; //is permanent, because they saw a hurt alien
   private boolean social = true;
 
   public Enemy(Entity entity, Drawer drawer) {
@@ -65,7 +66,7 @@ public class Enemy extends AnimatedGameObject {
     if (aggro) {
       float distance = guy.calcDistance(this);
 
-      if (distance >= (aggroRange + 3) && getHealth() == getMaxHealth()) {
+      if (!socialAggro && distance >= (aggroRange + 3) && getHealth() == getMaxHealth()) {
         aggro = false;
         light.setColor(0.2f, 0.5f, 0.5f, 1);
       }
@@ -94,8 +95,9 @@ public class Enemy extends AnimatedGameObject {
       }
       if (social) {
         for (Enemy e : enemies) {
-          if (e.isAggro() && e.calcDistance(this) < 4) {
+          if (e.getHealth() > 0 && e.getHealth() < e.getMaxHealth() && e.calcDistance(this) < 4) {
             aggro = true;
+            socialAggro = true;
             light.setColor(0.5f, 0.2f, 0.2f, 1);
             return;
           }
@@ -134,49 +136,29 @@ public class Enemy extends AnimatedGameObject {
           break;
       }
     }
-
   }
 
   public boolean isAggro() {
     return aggro;
   }
 
-  public void setLevel(int level) {
-    setInitialHealth(3);
-    setDamage(1);
-    setMaxActionPoints(3);
-
+  public void setLook(int level) {
     if (level == 2) {
       spriterPlayer.characterMaps[0] = spriterPlayer.getEntity().getCharacterMap("SpikeLeg");
-      setDamage(2);
-      setInitialHealth(4);
     }
     if (level == 3) {
       spriterPlayer.characterMaps[0] = spriterPlayer.getEntity().getCharacterMap("SpikeHead");
-      setMaxActionPoints(4);
-      setDamage(2);
-      setInitialHealth(5);
     }
     if (level == 4) {
       spriterPlayer.characterMaps[0] = spriterPlayer.getEntity().getCharacterMap("SpikeHead");
       spriterPlayer.characterMaps[1] = spriterPlayer.getEntity().getCharacterMap("SpikeLeg");
-      setMaxActionPoints(4);
-      setDamage(3);
-      setInitialHealth(6);
     }
-    if (level == 5) {
+    if (level >= 5) {
       spriterPlayer.characterMaps[0] = spriterPlayer.getEntity().getCharacterMap("EyeHead");
-      setMaxActionPoints(5);
-      setDamage(3);
-      setInitialHealth(10);
-      aggroRange = 9;
-      social = false;
     }
   }
 
-  private void setInitialHealth(int value) {
-    setMaxHealth(value);
-    setHealth(value);
+  public void setAggroRange(int aggroRange) {
+    this.aggroRange = aggroRange;
   }
-
 }

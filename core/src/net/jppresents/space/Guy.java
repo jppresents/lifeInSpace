@@ -42,11 +42,29 @@ public class Guy extends AnimatedGameObject {
     this.gunLevel = gunLevel;
     if (gunLevel == 0) {
       spriterPlayer.characterMaps[0] = null;
-      this.setDamage(1);
+      this.setDamage(3);
     } else {
       spriterPlayer.characterMaps[0] = spriterPlayer.getEntity().getCharacterMap("gun" + gunLevel);
-      //todo damage isn't really linear to gun level, instead there should also be range upgrades (for the levels with scopes)
-      this.setDamage(gunLevel);
+      switch (gunLevel) {
+        case 1:
+          setDamage(5);
+          break;
+        case 2:
+          setDamage(8);
+          break;
+        case 3:
+          setDamage(12);
+          break;
+        case 4:
+          setDamage(20);
+          break;
+        case 5:
+          setDamage(30);
+          break;
+        case 6:
+          setDamage(40);
+          break;
+      }
     }
   }
 
@@ -75,8 +93,7 @@ public class Guy extends AnimatedGameObject {
     }
 
 
-
-    switch(getMovement()) {
+    switch (getMovement()) {
       case NONE:
         if (wasWalking) {
           spriterPlayer.setAnimation("front_idle");
@@ -130,7 +147,7 @@ public class Guy extends AnimatedGameObject {
       effectVisible = false;
     }
 
-    if (animation.name.equals("heal") || animation.name.equals("apup") || animation.name.equals("hpup") ) {
+    if (animation.name.equals("heal") || animation.name.equals("apup") || animation.name.equals("hpup")) {
       effectVisible = false;
     }
 
@@ -149,7 +166,7 @@ public class Guy extends AnimatedGameObject {
     }
 
     if (animation.name.equals("front_fire") || animation.name.equals("back_fire") ||
-        animation.name.equals("side_fire") || animation.name.equals("front_hurt") ) {
+        animation.name.equals("side_fire") || animation.name.equals("front_hurt")) {
       spriterPlayer.setAnimation("front_idle");
       setFaceRight(false);
     }

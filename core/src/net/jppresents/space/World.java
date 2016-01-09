@@ -291,11 +291,16 @@ public class World implements Disposable {
   public void loadEnemies(List<Enemy> enemies, SpriterDataManager spriterDataManager) {
     enemies.clear();
     for (MapObject object : objLayer.getObjects()) {
-      if (object.getName().equals("monster")) {
+      if (object.getName().equals("enemy")) {
         getTileCoords(((RectangleMapObject) object).getRectangle().getX(), ((RectangleMapObject) object).getRectangle().getY(), temp);
         String type = (String) object.getProperties().get("type");
         Enemy enemy = new Enemy(spriterDataManager.getEntity(type), spriterDataManager.getDrawer(type));
-        enemy.setLevel( Integer.parseInt((String) object.getProperties().get("level")));
+        enemy.setDamage( Integer.parseInt((String) object.getProperties().get("dmg")));
+        enemy.setMaxHealth(Integer.parseInt((String) object.getProperties().get("hp")));
+        enemy.setHealth(enemy.getMaxHealth());
+        enemy.setMaxActionPoints( Integer.parseInt((String) object.getProperties().get("ap")));
+        enemy.setLook( Integer.parseInt((String) object.getProperties().get("look")));
+        enemy.setAggroRange( Integer.parseInt((String) object.getProperties().get("aggro")));
         enemy.setPosition(temp.x * SpaceMain.TILE_SIZE, temp.y * SpaceMain.TILE_SIZE);
         enemies.add(enemy);
       }
