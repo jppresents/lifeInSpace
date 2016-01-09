@@ -34,9 +34,7 @@ public class Lights implements Disposable{
   }
 
   public void resetColor() {
-    ambientColor.set(defaultAmbientColor);
     targetAmbientColor.set(defaultAmbientColor);
-    globalLightStrength = 1;
     targetGlobalLightStrengh = 1;
   }
 
@@ -134,5 +132,10 @@ public class Lights implements Disposable{
     defaultAmbientColor.set(color);
     targetAmbientColor.set(color);
     ambientColor.set(color);
+  }
+
+  public void fadeIn() {
+    ambientColor.set(0, 0, 0, 0);
+    globalLightStrength = 0;
   }
 }

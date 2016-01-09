@@ -1,5 +1,6 @@
 package net.jppresents.space.desktop;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import net.jppresents.space.SpaceMain;
@@ -23,6 +24,6 @@ public class DesktopLauncher {
       config.height = 720;
     }
     config.title = "Life in space - and how to get rid of it";
-		new LwjglApplication(new SpaceMain(false), config);
+    new LwjglApplication(new SpaceMain(false), config);
 	}
 }

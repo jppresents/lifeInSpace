@@ -56,7 +56,6 @@ public class SpaceMain extends ApplicationAdapter {
     SpaceMain.touchMode = touchMode;
   }
 
-
   @Override
   public void create() {
     prefs = Gdx.app.getPreferences("life-in-space-and-how-to-get-rid-of-it");
@@ -88,6 +87,8 @@ public class SpaceMain extends ApplicationAdapter {
 
     input = new InputHandler(camera, gameLogic, touchMode);
     assets.startMusic(Assets.GameMusic.MENU);
+
+
 
     mainMenu = new MainMenu();
 

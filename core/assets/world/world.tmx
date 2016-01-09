@@ -626,7 +626,7 @@
   </object>
   <object name="event" type="text" x="3264" y="1216" width="272" height="256">
    <properties>
-    <property name="key" value="armoy"/>
+    <property name="key" value="armory"/>
    </properties>
   </object>
   <object name="event" type="text" x="2112" y="1600" width="640" height="336">
