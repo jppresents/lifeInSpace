@@ -54,6 +54,10 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
     return health;
   }
 
+  public void setMovement(Movement movement) {
+    this.movement = movement;
+  }
+
   protected enum Movement {NONE, LEFT, RIGHT, UP, DOWN}
 
   protected Player spriterPlayer;
@@ -103,6 +107,8 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
     if (instant) {
       currentPathTarget = 0;
       pathLength = 0;
+      setMovement(Movement.NONE);
+      setFaceRight(false);
     } else {
       if (currentPathTarget < pathLength - 1) {
         pathLength = currentPathTarget + 1;
@@ -155,7 +161,7 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
   }
 
   private float toWorld(float pos) {
-    return pos * SpaceMain.tileSize;
+    return pos * SpaceMain.TILE_SIZE;
   }
 
   public void setCurrentMovecostsActinPoints(boolean currentMovecostsActinPoints) {
@@ -168,7 +174,7 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
     }
 
     for (Light light : attachedLights) {
-      light.setPosition(worldPosition.x + SpaceMain.tileSize / 2, worldPosition.y);
+      light.setPosition(worldPosition.x + SpaceMain.TILE_SIZE / 2, worldPosition.y);
     }
 
     Vector2 target = null;
@@ -220,15 +226,15 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
       spriterPlayer.flipX();
     }
     updateAnimation();
-    spriterPlayer.setPosition(worldPosition.x + SpaceMain.tileSize / 2, worldPosition.y);
-    tilePosition.x = Math.round(worldPosition.x / SpaceMain.tileSize);
-    tilePosition.y = Math.round(worldPosition.y / SpaceMain.tileSize);
+    spriterPlayer.setPosition(worldPosition.x + SpaceMain.TILE_SIZE / 2, worldPosition.y);
+    tilePosition.x = Math.round(worldPosition.x / SpaceMain.TILE_SIZE);
+    tilePosition.y = Math.round(worldPosition.y / SpaceMain.TILE_SIZE);
     spriterPlayer.update();
   }
 
   public void centerCamera(OrthographicCamera camera) {
-    camera.position.x = spriterPlayer.getX();
-    camera.position.y = spriterPlayer.getY();
+    camera.position.x = worldPosition.x;
+    camera.position.y = worldPosition.y;
   }
 
 
@@ -239,20 +245,20 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
     float height = camera.viewportHeight / 2;
 
     target.set(camera.position.x, camera.position.y);
-    if (spriterPlayer.getX() - (SpaceMain.tileSize * 0.5f) < camera.position.x - width) {
-      target.x = spriterPlayer.getX() + width - (SpaceMain.tileSize * 0.5f);
+    if (worldPosition.x - (SpaceMain.TILE_SIZE * 0.5f) < camera.position.x - width) {
+      target.x = worldPosition.x + width - (SpaceMain.TILE_SIZE * 0.5f);
     }
 
-    if (spriterPlayer.getX() + (SpaceMain.tileSize * 0.5f) > camera.position.x + width) {
-      target.x = spriterPlayer.getX() - width + (SpaceMain.tileSize * 0.5f);
+    if (worldPosition.x + (SpaceMain.TILE_SIZE * 0.5f) > camera.position.x + width) {
+      target.x = worldPosition.x - width + (SpaceMain.TILE_SIZE * 0.5f);
     }
 
-    if (spriterPlayer.getY() < camera.position.y - height) {
-      target.y = spriterPlayer.getY() + height;
+    if (worldPosition.y < camera.position.y - height) {
+      target.y = worldPosition.y + height;
     }
 
-    if (spriterPlayer.getY() + (SpaceMain.tileSize * 1.6f) > camera.position.y + height) {
-      target.y = spriterPlayer.getY() - height + (SpaceMain.tileSize * 1.6f);
+    if (worldPosition.y + (SpaceMain.TILE_SIZE * 1.6f) > camera.position.y + height) {
+      target.y = worldPosition.y - height + (SpaceMain.TILE_SIZE * 1.6f);
     }
   }
 
@@ -266,8 +272,8 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
 
 
   public void moveCamera(OrthographicCamera camera) {
-    target.x = spriterPlayer.getX();
-    target.y = spriterPlayer.getY();
+    target.x = worldPosition.x;
+    target.y = worldPosition.y;
 
     if (camera.position.x < target.x) {
       camera.position.x += camSpeed;

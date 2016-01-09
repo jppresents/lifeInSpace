@@ -138,4 +138,9 @@ public class Lights implements Disposable{
     ambientColor.set(0, 0, 0, 0);
     globalLightStrength = 0;
   }
+
+  public void fadeOut() {
+    targetAmbientColor.set(0, 0, 0, 1);
+    targetGlobalLightStrengh = 0;
+  }
 }

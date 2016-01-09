@@ -63,7 +63,7 @@ public class Goody implements GameObject{
 
   @Override
   public void dispose() {
-
+    light.setOn(false);
   }
 
   public int getAmount() {
@@ -76,7 +76,7 @@ public class Goody implements GameObject{
 
   public void setPosition(float x, float y) {
     position.set(x, y);
-    sprite.setPosition(x * SpaceMain.tileSize + SpaceMain.tileSize/2 - sprite.getWidth()/2, y  * SpaceMain.tileSize + SpaceMain.tileSize/2 - sprite.getHeight()/2);
+    sprite.setPosition(x * SpaceMain.TILE_SIZE + SpaceMain.TILE_SIZE /2 - sprite.getWidth()/2, y  * SpaceMain.TILE_SIZE + SpaceMain.TILE_SIZE /2 - sprite.getHeight()/2);
     light.setPosition(sprite.getX(), sprite.getY());
   }
 

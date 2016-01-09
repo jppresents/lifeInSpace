@@ -14,7 +14,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class SpaceMain extends ApplicationAdapter {
-  public static int tileSize = 0;
+  public static final int TILE_SIZE = 64;
   public static boolean touchMode = false;
   public static boolean returnToMenu;
   private World world;
@@ -71,7 +71,6 @@ public class SpaceMain extends ApplicationAdapter {
     lights.setDefaultAmbientColor(insideColor);
 
     world = new World();
-    tileSize = world.getTileSize();
 
     assets = new Assets();
 
@@ -129,8 +128,8 @@ public class SpaceMain extends ApplicationAdapter {
   //FPSLogger fps = new FPSLogger();
 
   public void startGame() {
+    world.changeLevel("world01");
     gameLogic.reset();
-    gameLogic.teleportIn();
   }
 
   private boolean mainMenuWasActive;

@@ -217,7 +217,7 @@ public class MainMenu implements Disposable, EventListener {
       case START:
         stage.addAction(Actions.sequence(Actions.fadeOut(0.5f), Actions.run(new Runnable() {
           @Override
-          public void run() {SpaceMain.lights.fadeIn(); newGame = true; setActive(false);}
+          public void run() {newGame = true; setActive(false);}
         })) );
         break;
       case RESUME:
@@ -227,7 +227,11 @@ public class MainMenu implements Disposable, EventListener {
         })) );
         break;
       case HELP:
-        showText("help", true);
+        if (SpaceMain.touchMode) {
+          showText("helpTouch", true);
+        } else {
+          showText("help", true);
+        }
         break;
       case CREDITS:
         showText("credits", true);

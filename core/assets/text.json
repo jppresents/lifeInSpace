@@ -2,8 +2,9 @@
 	texts:
 	{
 		a:"b",
-		credits:"\nlife in space\n\nmusic by Andreas Hausladen\n\ncode & art by Jan Peter Simonsen\n\npowered by libGdx\n\nsoftware used: intellij, inkscape, spriter, tiled,\n notepad++, paint.net, chronolapse",
-		help:"life in space\n the help... todo jps :)"
-		ending:"life in space - and YOU got rid of it\n\nwelcome back to mission control\n\nthanks you for playing!"
+		credits:"\nlife in space\n\nmusic by Andreas Hausladen\n\ncode & art by Jan Peter Simonsen\n\npowered by libGdx\n\nsoftware used: intellij, inkscape, spriter, tiled,\nnotepad++, paint.net, chronolapse",
+		help:"life in space\nthe help... todo jps :)",
+		helpTouch:"life in space\n\ntouch device help.. todo",
+		win:"life in space - and YOU got rid of it\n\nmission control welcomes you back\n\nthanks you for playing!"
 	}
 }

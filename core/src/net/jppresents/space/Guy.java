@@ -70,7 +70,7 @@ public class Guy extends AnimatedGameObject {
       wasWalking = true;
     }
 
-    if (spriterPlayer.getAnimation().name.equals("front_item") || spriterPlayer.getAnimation().name.equals("front_teleport_in")) {
+    if (spriterPlayer.getAnimation().name.equals("front_item") || spriterPlayer.getAnimation().name.equals("front_teleport_in") || spriterPlayer.getAnimation().name.equals("front_teleport_away")) {
       return;
     }
 
@@ -134,7 +134,11 @@ public class Guy extends AnimatedGameObject {
       effectVisible = false;
     }
 
-    if (animation.name.equals("front_die") || animation.name.equals("front_teleport_away")) {
+    if (animation.name.equals("front_teleport_away")) {
+      visible = false;
+    }
+
+    if (animation.name.equals("front_die")) {
       spriterPlayer.speed = 0;
       spriterPlayer.setTime(animation.length - 1);
     }

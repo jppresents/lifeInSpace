@@ -373,7 +373,13 @@
 </data>
  </layer>
  <objectgroup name="objects">
-  <object name="Start" x="208" y="1680" width="32" height="32"/>
+  <object name="start" x="1680" y="976" width="32" height="32">
+   <properties>
+    <property name="ap" value="20"/>
+    <property name="gun" value="2"/>
+    <property name="hp" value="15"/>
+   </properties>
+  </object>
   <object name="monster" type="alien" x="464" y="1232" width="32" height="32">
    <properties>
     <property name="level" value="3"/>

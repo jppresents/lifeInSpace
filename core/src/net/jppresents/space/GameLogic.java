@@ -15,10 +15,13 @@ public class GameLogic {
   private Vector2 moveCam = new Vector2(0, 0);
   private boolean resetCam;
 
+
   private enum State {PLAYERINPUT, PLAYERMOVING, ENEMYTURN, COMBAT}
 
   private final UserInterface ui;
   private World world;
+  private int triggerReset = 0;
+  private String nextWorld;
   private List<GameObject> gameObjects;
   private SpriterDataManager spriterDataManager;
 
@@ -47,7 +50,6 @@ public class GameLogic {
 
     guy = new Guy(spriterDataManager.getEntity("guy"), spriterDataManager.getDrawer("guy"), spriterDataManager.getEntity("effects"), spriterDataManager.getDrawer("effects"));
     gameObjects.add(guy);
-    reset();
   }
 
   public void teleportIn() {
@@ -59,9 +61,21 @@ public class GameLogic {
   private float lastPosX, lastPosY;
 
   private void handleWorldInteraction() {
+    if (triggerReset != 0)
+      return;
+
     if (guy.getHealth() > 0 && (guy.getTilePosition().x != lastPosX || guy.getTilePosition().y != lastPosY)) {
+
       lastPosX = guy.getTilePosition().x;
       lastPosY = guy.getTilePosition().y;
+
+      //Light changes
+      if (world.getTileIndex((int)lastPosX, (int)lastPosY) == 38) {
+        SpaceMain.lights.fadeTo(SpaceMain.insideColor);
+      } else if (world.getTileIndex((int)lastPosX, (int)lastPosY) == 0 || world.getTileIndex((int)lastPosX, (int)lastPosY) == 1) {
+        SpaceMain.lights.fadeTo(SpaceMain.outsideColor);
+      }
+
       handleEvents();
 
       //Goodie pickups
@@ -95,13 +109,6 @@ public class GameLogic {
           guy.showMaxApUpAnimation();
         }
       }
-
-      //Light changes
-      if (world.getTileIndex((int)lastPosX, (int)lastPosY) == 38) {
-        SpaceMain.lights.fadeTo(SpaceMain.insideColor);
-      } else if (world.getTileIndex((int)lastPosX, (int)lastPosY) == 0) {
-        SpaceMain.lights.fadeTo(SpaceMain.outsideColor);
-      }
     }
   }
 
@@ -109,17 +116,22 @@ public class GameLogic {
   public void handleEvents() {
     Vector3 pos = guy.getTilePosition();
     for (GameEvent event: events) {
-      if (event.active && pos.x >= event.locX && pos.y <= event.locX + event.width && pos.y >= event.locY && pos.y <= event.locY + event.height) {
+      if (event.active && pos.x >= event.locX && pos.x <= event.locX + event.width && pos.y >= event.locY && pos.y <= event.locY + event.height) {
         event.active = false;
         switch(event.type) {
           case TEXT:
-            this.ui.getTextBox().setText(SpaceMain.assets.getText(event.key), false);
+            ui.getTextBox().setText(SpaceMain.assets.getText(event.key), false);
             break;
           case ENDING:
-            break;
-          case NONE:
+            SpaceMain.mainMenu.showEnding(event.key);
             break;
           case TELEPORT:
+            nextWorld = event.key;
+            triggerReset = 120;
+            guy.cancelMove(true);
+            guy.spriterPlayer.setAnimation("front_teleport_away");
+            SpaceMain.lights.fadeOut();
+            SpaceMain.assets.playSound(Assets.SoundEffect.TELEPORT);
             break;
         }
       }
@@ -128,7 +140,14 @@ public class GameLogic {
 
 
   public void update(int tick) {
-
+    if (triggerReset != 0) {
+      triggerReset--;
+      if (triggerReset == 0) {
+        world.changeLevel(nextWorld);
+        reset();
+        return;
+      }
+    }
     handleWorldInteraction();
 
     lastTick = tick;
@@ -215,10 +234,12 @@ public class GameLogic {
       if (obj != guy)
         obj.dispose();
     }
+    triggerReset = 0;
+    nextWorld = null;
     gameObjects.clear();
     gameObjects.add(guy);
     guy.reset();
-    world.applyPlayerPosition(guy, "Start");
+    world.applyPlayerData(guy);
     world.loadEnemies(enemies, spriterDataManager);
     world.loadGameEvents(events);
     gameObjects.addAll(enemies);
@@ -229,18 +250,25 @@ public class GameLogic {
     resetCam = true;
     state = State.PLAYERINPUT;
     activeEnemy = null;
+    guy.cancelMove(true);
+    teleportIn();
+    SpaceMain.lights.fadeIn();
   }
 
 
   public void controlCamera(OrthographicCamera camera, int tick) {
     if (resetCam) {
       guy.centerCamera(camera);
+      world.restrictCamera(camera);
+      moveCam.set(0, 0);
       resetCam = false;
     }
+
     if (ui.getTextBox().isActive()) {
       moveCam.set(0, 0);
       return;
     }
+
     camera.translate(moveCam.x * camera.viewportWidth/SpaceMain.viewport.getScreenWidth(), moveCam.y * camera.viewportHeight/SpaceMain.viewport.getScreenHeight());
     moveCam.set(0, 0);
 
@@ -264,6 +292,9 @@ public class GameLogic {
   }
 
   public void executeAction() {
+    if (!world.isLoaded())
+      return;
+
     if (ui.getTextBox().isActive()) {
       if (ui.getTextBox().isDone()) {
         ui.getTextBox().hide();
@@ -324,7 +355,8 @@ public class GameLogic {
   }
 
   public void setAndDisplayAction(float x, float y) {
-
+    if (!world.isLoaded())
+      return;
     if (ui.getTextBox().isActive()) {
       if (SpaceMain.touchMode) {
         if (ui.getTextBox().isDone()) {
@@ -349,7 +381,7 @@ public class GameLogic {
       world.getTileCoords(x, y, temp);
       target.x = (int) temp.x;
       target.y = (int) temp.y;
-      ui.setSelectorPos((int) temp.x * SpaceMain.tileSize + SpaceMain.tileSize / 2, (int) temp.y * SpaceMain.tileSize + SpaceMain.tileSize / 2);
+      ui.setSelectorPos((int) temp.x * SpaceMain.TILE_SIZE + SpaceMain.TILE_SIZE / 2, (int) temp.y * SpaceMain.TILE_SIZE + SpaceMain.TILE_SIZE / 2);
       ui.setError(world.isTileBlocking((int) target.x, (int) target.y));
       Enemy activeEnemy = findActiveEnemy((int) target.x, (int) target.y);
       ui.setTarget(activeEnemy, guy.getActionPoints() >= guy.getShotCost());

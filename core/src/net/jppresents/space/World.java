@@ -22,13 +22,11 @@ public class World implements Disposable {
   private TmxMapLoader mapLoader;
   private TiledMapTileLayer mainLayer;
   private MapLayer objLayer;
-
   private int[][] pathMap; //y,x
 
 
   public World() {
     mapLoader = new TmxMapLoader();
-    changeLevel("world");
   }
 
   public void changeLevel(String filename) {
@@ -59,11 +57,15 @@ public class World implements Disposable {
     }
   }
 
-  public void applyPlayerPosition(SetPosition guy, String name) {
+  public void applyPlayerData(Guy guy) {
     for (MapObject object : objLayer.getObjects()) {
-      if (object.getName().equals(name)) {
+      if (object.getName().equals("start")) {
         getTileCoords(((RectangleMapObject) object).getRectangle().getX(), ((RectangleMapObject) object).getRectangle().getY(), temp);
-        guy.setPosition(temp.x * SpaceMain.tileSize, temp.y * SpaceMain.tileSize);
+        guy.setPosition(temp.x * SpaceMain.TILE_SIZE, temp.y * SpaceMain.TILE_SIZE);
+        guy.setMaxHealth(Integer.parseInt((String) object.getProperties().get("hp")));
+        guy.setHealth(guy.getMaxHealth());
+        guy.setMaxActionPoints(Integer.parseInt((String) object.getProperties().get("ap")));
+        guy.setGunLevel(Integer.parseInt((String) object.getProperties().get("gun")));
       }
     }
   }
@@ -79,10 +81,6 @@ public class World implements Disposable {
   public boolean isTileBlocking(int x, int y) {
     TiledMapTileLayer.Cell cell = mainLayer.getCell(x, y);
     return cell == null || cell.getTile().getProperties().containsKey("b") && cell.getTile().getProperties().get("b").equals("1");
-  }
-
-  public int getTileSize() {
-    return (int) mainLayer.getTileWidth();
   }
 
   @Override
@@ -296,7 +294,7 @@ public class World implements Disposable {
         String type = (String) object.getProperties().get("type");
         Enemy enemy = new Enemy(spriterDataManager.getEntity(type), spriterDataManager.getDrawer(type));
         enemy.setLevel( Integer.parseInt((String) object.getProperties().get("level")));
-        enemy.setPosition(temp.x * SpaceMain.tileSize, temp.y * SpaceMain.tileSize);
+        enemy.setPosition(temp.x * SpaceMain.TILE_SIZE, temp.y * SpaceMain.TILE_SIZE);
         enemies.add(enemy);
       }
     }
@@ -332,13 +330,13 @@ public class World implements Disposable {
   }
 
   public boolean hasLineOfSight(int x, int y, int x2, int y2) {
-    ray.set(x * SpaceMain.tileSize + SpaceMain.tileSize/2, y * SpaceMain.tileSize + SpaceMain.tileSize/2);
+    ray.set(x * SpaceMain.TILE_SIZE + SpaceMain.TILE_SIZE /2, y * SpaceMain.TILE_SIZE + SpaceMain.TILE_SIZE /2);
     vel.set(x2 - x, y2 - y);
-    vel.nor().scl(SpaceMain.tileSize/4);
-    float tx = x2 * SpaceMain.tileSize + SpaceMain.tileSize/2;
-    float ty = y2 * SpaceMain.tileSize + SpaceMain.tileSize/2;
+    vel.nor().scl(SpaceMain.TILE_SIZE /4);
+    float tx = x2 * SpaceMain.TILE_SIZE + SpaceMain.TILE_SIZE /2;
+    float ty = y2 * SpaceMain.TILE_SIZE + SpaceMain.TILE_SIZE /2;
 
-    while (!hit(tx, ty, ray, SpaceMain.tileSize/4)) {
+    while (!hit(tx, ty, ray, SpaceMain.TILE_SIZE /4)) {
       ray.add(vel);
       getTileCoords(ray.x, ray.y, checkCoords);
       if (isTileBlocking((int)checkCoords.x, (int)checkCoords.y)) {
@@ -346,5 +344,9 @@ public class World implements Disposable {
       }
     }
     return true;
+  }
+
+  public boolean isLoaded() {
+    return map != null;
   }
 }

@@ -373,7 +373,13 @@
 </data>
  </layer>
  <objectgroup name="objects">
-  <object name="Start" x="2704" y="1232" width="32" height="32"/>
+  <object name="start" x="2704" y="1232" width="32" height="32">
+   <properties>
+    <property name="ap" value="2"/>
+    <property name="gun" value="0"/>
+    <property name="hp" value="10"/>
+   </properties>
+  </object>
   <object name="monster" type="alien" x="400" y="528" width="32" height="32">
    <properties>
     <property name="level" value="1"/>
@@ -634,9 +640,9 @@
     <property name="key" value="wrongway"/>
    </properties>
   </object>
-  <object name="event" type="teleport" x="3248" y="688" width="176" height="336">
+  <object name="event" type="teleport" x="2880" y="1472" width="128" height="256">
    <properties>
-    <property name="key" value="world2"/>
+    <property name="key" value="world02"/>
    </properties>
   </object>
  </objectgroup>

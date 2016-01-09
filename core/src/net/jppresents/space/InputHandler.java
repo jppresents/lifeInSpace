@@ -58,8 +58,8 @@ public class InputHandler implements InputProcessor {
         actionOnNextUp = true;
         return true;
       }
-      int x = MathUtils.floor(touchPoint.x/SpaceMain.tileSize);
-      int y = MathUtils.floor(touchPoint.y/SpaceMain.tileSize);
+      int x = MathUtils.floor(touchPoint.x/SpaceMain.TILE_SIZE);
+      int y = MathUtils.floor(touchPoint.y/SpaceMain.TILE_SIZE);
 
       //at the last down the tile was an exact match (otherwhise actionOnNextUp would be false)
       //so now we accept even if you moved your finger one tile off - but if it has been dragged more then 100, it is not an execute
@@ -81,8 +81,8 @@ public class InputHandler implements InputProcessor {
       lastTouchDownX = screenX;
       lastTouchDownY = screenY;
 
-      int x = MathUtils.floor(touchPoint.x/SpaceMain.tileSize);
-      int y = MathUtils.floor(touchPoint.y/SpaceMain.tileSize);
+      int x = MathUtils.floor(touchPoint.x/SpaceMain.TILE_SIZE);
+      int y = MathUtils.floor(touchPoint.y/SpaceMain.TILE_SIZE);
 
       gameLogic.setAndDisplayAction(touchPoint.x, touchPoint.y);
       gameLogic.startCameraDrag(screenX, screenY);

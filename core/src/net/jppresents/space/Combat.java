@@ -29,11 +29,11 @@ public class Combat {
     }
 
     public int getTileX() {
-      return (int) (sprite.getX() + sprite.getWidth() / 2) / SpaceMain.tileSize;
+      return (int) (sprite.getX() + sprite.getWidth() / 2) / SpaceMain.TILE_SIZE;
     }
 
     public int getTileY() {
-      return (int) (sprite.getY() + sprite.getHeight() / 2) / SpaceMain.tileSize;
+      return (int) (sprite.getY() + sprite.getHeight() / 2) / SpaceMain.TILE_SIZE;
     }
 
     public void setPos(float x, float y) {
@@ -106,7 +106,7 @@ public class Combat {
     Shot shot = getShot();
     shot.damage = damage;
     shot.active = true;
-    shot.setPos(tilePosFrom.x * SpaceMain.tileSize + SpaceMain.tileSize / 2, tilePosFrom.y * SpaceMain.tileSize + SpaceMain.tileSize / 2);
+    shot.setPos(tilePosFrom.x * SpaceMain.TILE_SIZE + SpaceMain.TILE_SIZE / 2, tilePosFrom.y * SpaceMain.TILE_SIZE + SpaceMain.TILE_SIZE / 2);
     shot.velocity.set(tilePosTo.x - tilePosFrom.x, tilePosTo.y - tilePosFrom.y);
     shot.velocity.nor().scl(22);
     shot.sprite.setRotation(MathUtils.atan2(shot.velocity.y, shot.velocity.x) * MathUtils.radDeg + 180);
