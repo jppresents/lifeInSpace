@@ -14,6 +14,7 @@ public class GameLogic {
   private Vector2 dragFrom = new Vector2(0, 0);
   private Vector2 moveCam = new Vector2(0, 0);
   private boolean resetCam;
+  private String nextEnding;
 
 
   private enum State {PLAYERINPUT, PLAYERMOVING, ENEMYTURN, COMBAT}
@@ -123,7 +124,12 @@ public class GameLogic {
             ui.getTextBox().setText(SpaceMain.assets.getText(event.key), false);
             break;
           case ENDING:
-            SpaceMain.mainMenu.showEnding(event.key);
+            triggerReset = 120;
+            guy.cancelMove(true);
+            nextEnding = event.key;
+            guy.spriterPlayer.setAnimation("front_teleport_away");
+            SpaceMain.lights.fadeOut();
+            SpaceMain.assets.playSound(Assets.SoundEffect.TELEPORT);
             break;
           case TELEPORT:
             nextWorld = event.key;
@@ -143,8 +149,13 @@ public class GameLogic {
     if (triggerReset != 0) {
       triggerReset--;
       if (triggerReset == 0) {
-        world.changeLevel(nextWorld);
-        reset();
+        if (nextWorld != null) {
+          world.changeLevel(nextWorld);
+          reset();
+        }
+        if (nextEnding!= null) {
+          SpaceMain.mainMenu.showEnding(nextEnding);
+        }
         return;
       }
     }
