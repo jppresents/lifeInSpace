@@ -1,5 +1,6 @@
 package net.jppresents.space;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
@@ -254,6 +255,37 @@ public class World implements Disposable {
       }
     }
     return flooded;
+  }
+
+  public void loadGameEvents(List<GameEvent> events) {
+    events.clear();
+    for (MapObject object : objLayer.getObjects()) {
+      if (object.getName().equals("event")) {
+        getTileCoords(((RectangleMapObject) object).getRectangle().getX(), ((RectangleMapObject) object).getRectangle().getY(), temp);
+        int x = (int)temp.x;
+        int y = (int)temp.y;
+        getTileCoords(((RectangleMapObject) object).getRectangle().getWidth(), ((RectangleMapObject) object).getRectangle().getHeight(), temp);
+        int width = (int)temp.x;
+        int height = (int)temp.y;
+
+        String key = (String) object.getProperties().get("key");
+        String type = (String) object.getProperties().get("type");
+        GameEvent.EventType eventType = GameEvent.EventType.NONE;
+        if ("end".equals(type))
+         eventType = GameEvent.EventType.ENDING;
+        if ("text".equals(type))
+          eventType = GameEvent.EventType.TEXT;
+        if ("teleport".equals(type))
+          eventType = GameEvent.EventType.TELEPORT;
+
+        if (eventType != GameEvent.EventType.NONE) {
+          GameEvent event = new GameEvent(x, y, width, height, eventType, key);
+          events.add(event);
+        } else {
+          Gdx.app.log("ERROR", "Unknown Event Type in Map: " + type);
+        }
+      }
+    }
   }
 
   public void loadEnemies(List<Enemy> enemies, SpriterDataManager spriterDataManager) {

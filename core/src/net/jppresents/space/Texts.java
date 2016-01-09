@@ -8,6 +8,6 @@ public class Texts {
   public String getText(String key) {
     if (texts.containsKey(key))
       return texts.get(key);
-    return "";
+    return "Error :(\nText " + key + " not found";
   }
 }

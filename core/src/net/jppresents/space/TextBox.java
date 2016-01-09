@@ -9,7 +9,9 @@ public class TextBox {
   String text = "";
   BitmapFont font;
   int alpha = 0;
+  int textPos = 0;
   boolean fullSize = false;
+  private boolean quick;
 
   public TextBox(TextureAtlas textureAtlas, String name) {
     if (ninePatch == null) {
@@ -27,6 +29,15 @@ public class TextBox {
       alpha += 5;
     }
 
+    if (textPos < text.length()) {
+      textPos++;
+      if (quick)
+        textPos += 3;
+      if (textPos > text.length()) {
+        textPos = text.length();
+      }
+    }
+
     float left = camera.position.x - camera.viewportWidth/2 + camera.viewportWidth * 0.1f;
     float bottom = camera.position.y - camera.viewportHeight/2;
     batch.setColor(1, 1, 1, alpha/255f);
@@ -38,7 +49,11 @@ public class TextBox {
     }
     ninePatch.draw(batch, left, bottom, camera.viewportWidth * 0.8f, height);
     font.setColor(102/255f, 1, 0, alpha/255f);
-    font.draw(batch, text, left + 50, bottom + height - 50, camera.viewportWidth * 0.8f - 100, Align.left, true);
+    font.draw(batch, getTextPart(), left + 50, bottom + height - 50, camera.viewportWidth * 0.8f - 100, Align.left, true);
+  }
+
+  private String getTextPart() {
+    return text.substring(0, textPos);
   }
 
   public void hide() {
@@ -47,15 +62,21 @@ public class TextBox {
 
   public void setText(String text, boolean fullSize) {
     alpha = 0;
+    textPos = 0;
+    quick = false;
     this.fullSize = fullSize;
     this.text = text;
   }
 
   boolean isDone() {
-    return alpha == 255;
+    return alpha == 255 && textPos == text.length();
   }
 
   boolean isActive() {
     return text.length() != 0;
+  }
+
+  public void setQuick(boolean quick) {
+    this.quick = quick;
   }
 }

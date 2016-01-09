@@ -70,7 +70,7 @@ public class Enemy extends AnimatedGameObject {
         light.setColor(0.2f, 0.5f, 0.5f, 1);
       }
 
-      if (getSecondarySortAttrib() > 0 && getActionPoints() > 0 && isIdle(tick) && distance < 2 && !attackedThisTurn) {
+      if (getHealth() > 0 && getActionPoints() > 0 && isIdle(tick) && distance < 2 && !attackedThisTurn) {
         if (guy.getX() < getX()) {
           spriterPlayer.setAnimation("side_attack");
         } else if (guy.getX() > getX()) {
@@ -87,7 +87,7 @@ public class Enemy extends AnimatedGameObject {
       }
 
     } else {
-      if (getSecondarySortAttrib() < getMaxHealth()) {
+      if (getHealth() < getMaxHealth()) {
         aggro = true;
         light.setColor(0.5f, 0.2f, 0.2f, 1);
         return;
@@ -116,7 +116,7 @@ public class Enemy extends AnimatedGameObject {
 
   @Override
   protected void updateAnimation() {
-    if (getSecondarySortAttrib() > 0) {
+    if (getHealth() > 0) {
 
       if (getMovement() != Movement.NONE) {
         wasWalking = true;

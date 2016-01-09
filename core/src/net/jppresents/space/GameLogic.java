@@ -32,6 +32,7 @@ public class GameLogic {
   private Guy guy;
   private List<Enemy> enemies = new ArrayList<Enemy>(20);
   private List<Goody> goodies = new ArrayList<Goody>(20);
+  private List<GameEvent> events = new ArrayList<GameEvent>(20);
 
 
   private int gameOverTime = 0;
@@ -61,6 +62,7 @@ public class GameLogic {
     if (guy.getHealth() > 0 && (guy.getTilePosition().x != lastPosX || guy.getTilePosition().y != lastPosY)) {
       lastPosX = guy.getTilePosition().x;
       lastPosY = guy.getTilePosition().y;
+      handleEvents();
 
       //Goodie pickups
       Goody goody = findActiveGoody((int)lastPosX, (int)lastPosY);
@@ -102,6 +104,28 @@ public class GameLogic {
       }
     }
   }
+
+
+  public void handleEvents() {
+    Vector3 pos = guy.getTilePosition();
+    for (GameEvent event: events) {
+      if (event.active && pos.x >= event.locX && pos.y <= event.locX + event.width && pos.y >= event.locY && pos.y <= event.locY + event.height) {
+        event.active = false;
+        switch(event.type) {
+          case TEXT:
+            this.ui.getTextBox().setText(SpaceMain.assets.getText(event.key), false);
+            break;
+          case ENDING:
+            break;
+          case NONE:
+            break;
+          case TELEPORT:
+            break;
+        }
+      }
+    }
+  }
+
 
   public void update(int tick) {
 
@@ -196,12 +220,15 @@ public class GameLogic {
     guy.reset();
     world.applyPlayerPosition(guy, "Start");
     world.loadEnemies(enemies, spriterDataManager);
+    world.loadGameEvents(events);
     gameObjects.addAll(enemies);
     world.loadGoodies(goodies);
     gameObjects.addAll(goodies);
     SpaceMain.lights.resetColor();
     gameOverTime = 0;
     resetCam = true;
+    state = State.PLAYERINPUT;
+    activeEnemy = null;
   }
 
 
@@ -242,6 +269,8 @@ public class GameLogic {
         ui.getTextBox().hide();
         dragFrom.set(-1, -1);
         moveCam.set(0, 0);
+      } else {
+        ui.getTextBox().setQuick(true);
       }
       return;
     }
@@ -300,6 +329,8 @@ public class GameLogic {
       if (SpaceMain.touchMode) {
         if (ui.getTextBox().isDone()) {
           ui.getTextBox().hide();
+        } else {
+          ui.getTextBox().setQuick(true);
         }
       }
       return; //no actions until textbox is done

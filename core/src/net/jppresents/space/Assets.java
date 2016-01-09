@@ -74,7 +74,7 @@ public class Assets implements Disposable {
   }
 
   public String getText(String key) {
-    return texts.getText(key);
+   return texts.getText(key);
   }
 
   @Override

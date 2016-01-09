@@ -163,7 +163,7 @@ public class Guy extends AnimatedGameObject {
   @Override
   public boolean isIdle(int tick) {
     if (super.isIdle(tick)) {
-      return !spriterPlayer.getAnimation().name.equals("front_item");
+      return !(spriterPlayer.getAnimation().name.equals("front_item") || spriterPlayer.getAnimation().name.equals("front_teleport_in") || spriterPlayer.getAnimation().name.equals("front_teleport_away"));
     }
     return false;
   }
