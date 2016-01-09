@@ -44,9 +44,12 @@ public class SpaceMain extends ApplicationAdapter {
   public static Viewport stageViewPort;
 
   public static Preferences prefs;
-  class Prefs {
+
+  class Pref {
     final static String SOUND = "soundOn";
     final static String MUSIC = "musicOn";
+    final static String WIN = "win";
+    final static String BEAT_UP_TO = "beat_level_up_to_"; // level name without .tmx is concatenated
   }
 
   public SpaceMain() {
@@ -127,8 +130,8 @@ public class SpaceMain extends ApplicationAdapter {
 
   //FPSLogger fps = new FPSLogger();
 
-  public void startGame() {
-    world.changeLevel("world01");
+  public void startGame(String nextWorld) {
+    world.changeLevel(nextWorld);
     gameLogic.reset();
   }
 
@@ -157,7 +160,7 @@ public class SpaceMain extends ApplicationAdapter {
       Gdx.input.setInputProcessor(input);
       mainMenuWasActive = false;
       if (mainMenu.isNewGame()) {
-        startGame();
+        startGame(mainMenu.getNextWorld());
       }
     }
 

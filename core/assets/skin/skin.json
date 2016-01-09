@@ -2,9 +2,9 @@
 com.badlogic.gdx.graphics.g2d.BitmapFont: { default-font: { file: font.fnt } },
 com.badlogic.gdx.graphics.Color: {
 	white: { a: 1, b: 1, g: 1, r: 1 },
+	grey: { a: 1, b: 0.2, g: 0.2, r: 0.2 },
 },
 com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
-	default: { down: default-round-down, up: default-round, font: default-font, fontColor: white },
-	toggle: { down: default-round-down, up: default-round, checked: default-round-down, font: default-font, fontColor: white }
+	default: { down: default-round-down, up: default-round, font: default-font, fontColor: white, disabledFontColor: grey, disabled: default-disabled },
 },
 }

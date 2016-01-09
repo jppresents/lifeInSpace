@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Json;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,11 +33,11 @@ public class Assets implements Disposable {
   private final Music menuMusic;
   private final BitmapFont font;
   private final Skin skin;
-  private final Texts texts;
+  private final TextResources textResources;
 
   public Assets() {
-    soundOn = SpaceMain.prefs.getBoolean(SpaceMain.Prefs.SOUND, true);
-    musicOn = SpaceMain.prefs.getBoolean(SpaceMain.Prefs.MUSIC, true);
+    soundOn = SpaceMain.prefs.getBoolean(SpaceMain.Pref.SOUND, true);
+    musicOn = SpaceMain.prefs.getBoolean(SpaceMain.Pref.MUSIC, true);
 
     sprites = new TextureAtlas("sprites.atlas");
     starTexture = new Texture(Gdx.files.internal("stars.png"));
@@ -66,7 +67,7 @@ public class Assets implements Disposable {
     font = skin.getFont("default-font");
 
     Json json = new Json();
-    texts = json.fromJson(Texts.class, Gdx.files.internal("text.json"));
+    textResources = json.fromJson(TextResources.class, Gdx.files.internal("gamedata.json"));
   }
 
   public Skin getSkin() {
@@ -74,7 +75,11 @@ public class Assets implements Disposable {
   }
 
   public String getText(String key) {
-   return texts.getText(key);
+   return textResources.getText(key);
+  }
+
+  public ArrayList<String> getWorlds() {
+    return textResources.getWorlds();
   }
 
   @Override
@@ -131,7 +136,7 @@ public class Assets implements Disposable {
 
   private void setSoundOn(boolean soundOn) {
     if (this.soundOn != soundOn) {
-      SpaceMain.prefs.putBoolean(SpaceMain.Prefs.SOUND, soundOn);
+      SpaceMain.prefs.putBoolean(SpaceMain.Pref.SOUND, soundOn);
       SpaceMain.prefs.flush();
       this.soundOn = soundOn;
     }
@@ -139,7 +144,7 @@ public class Assets implements Disposable {
 
   private void setMusicOn(boolean musicOn) {
     if (this.musicOn != musicOn) {
-      SpaceMain.prefs.putBoolean(SpaceMain.Prefs.MUSIC, musicOn);
+      SpaceMain.prefs.putBoolean(SpaceMain.Pref.MUSIC, musicOn);
       SpaceMain.prefs.flush();
       this.musicOn = musicOn;
       if (musicOn) {

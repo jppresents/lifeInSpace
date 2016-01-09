@@ -1,5 +1,7 @@
 {
-	texts:
+  worlds: ["world01", "world02", "world01", "world03"],
+
+  texts:
 	{
 		a:"b",
 		credits:"\nlife in space\n\nmusic by Andreas Hausladen\n\ncode & art by Jan Peter Simonsen\n\npowered by libGdx\n\nsoftware used: intellij, inkscape, spriter, tiled,\nnotepad++, paint.net, chronolapse",

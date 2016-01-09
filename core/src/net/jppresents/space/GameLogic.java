@@ -124,6 +124,8 @@ public class GameLogic {
             ui.getTextBox().setText(SpaceMain.assets.getText(event.key), false);
             break;
           case ENDING:
+            SpaceMain.prefs.putBoolean(SpaceMain.Pref.WIN, true);
+            SpaceMain.prefs.flush();
             triggerReset = 120;
             guy.cancelMove(true);
             nextEnding = event.key;
@@ -133,6 +135,8 @@ public class GameLogic {
             break;
           case TELEPORT:
             nextWorld = event.key;
+            SpaceMain.prefs.putBoolean(SpaceMain.Pref.BEAT_UP_TO + event.key, true);
+            SpaceMain.prefs.flush();
             triggerReset = 120;
             guy.cancelMove(true);
             guy.spriterPlayer.setAnimation("front_teleport_away");

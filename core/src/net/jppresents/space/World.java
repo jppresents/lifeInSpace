@@ -85,8 +85,10 @@ public class World implements Disposable {
 
   @Override
   public void dispose() {
-    map.dispose();
-    mapRenderer.dispose();
+    if (map != null)
+      map.dispose();
+    if (mapRenderer != null)
+      mapRenderer.dispose();
   }
 
   public void render(OrthographicCamera camera) {
