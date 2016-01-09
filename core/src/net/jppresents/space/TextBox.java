@@ -11,12 +11,12 @@ public class TextBox {
   int alpha = 0;
   boolean fullSize = false;
 
-  public TextBox(TextureAtlas textureAtlas, String name, boolean fullSize) {
+  public TextBox(TextureAtlas textureAtlas, String name) {
     if (ninePatch == null) {
       ninePatch = textureAtlas.createPatch(name);
     }
     font = SpaceMain.assets.getFont();
-    this.fullSize = fullSize;
+    this.fullSize = false;
   }
 
   public void render(Batch batch, Camera camera) {
@@ -32,9 +32,9 @@ public class TextBox {
     batch.setColor(1, 1, 1, alpha/255f);
     float height;
     if (fullSize) {
-      height = camera.viewportHeight/2;
-    } else {
       height = camera.viewportHeight;
+    } else {
+      height = camera.viewportHeight/2;
     }
     ninePatch.draw(batch, left, bottom, camera.viewportWidth * 0.8f, height);
     font.setColor(102/255f, 1, 0, alpha/255f);
@@ -42,11 +42,12 @@ public class TextBox {
   }
 
   public void hide() {
-    setText("");
+    setText("", fullSize);
   }
 
-  public void setText(String text) {
+  public void setText(String text, boolean fullSize) {
     alpha = 0;
+    this.fullSize = fullSize;
     this.text = text;
   }
 

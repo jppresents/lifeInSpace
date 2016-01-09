@@ -47,12 +47,6 @@ public class GameLogic {
     guy = new Guy(spriterDataManager.getEntity("guy"), spriterDataManager.getDrawer("guy"), spriterDataManager.getEntity("effects"), spriterDataManager.getDrawer("effects"));
     gameObjects.add(guy);
     reset();
-    //todo maybe read texts from file
-    if (SpaceMain.touchMode) {
-      this.ui.getTextBox().setText("\"life in space and how to get rid of it\"\n\nControls:\ndrag to move the camera\ntouch to see action, touch again to execute the action");
-    } else {
-      this.ui.getTextBox().setText("\"life in space and how to get rid of it\"\n\nControls:\nhold mouse right to move the camera\nclick mouse left to move and shoot");
-    }
   }
 
   public void teleportIn() {

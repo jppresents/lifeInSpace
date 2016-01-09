@@ -14,10 +14,10 @@ import com.badlogic.gdx.utils.Disposable;
 public class MainMenu implements Disposable, EventListener {
   private final TextButton soundButton;
   private final TextButton musicButton;
-  private final TextButton startButton;
   private final TextButton resumeButton;
   private final Cell<TextButton> resumeCell;
   private final Cell<TextButton> startCell;
+  private final TextButton endingButton;
   private Stage stage;
   private boolean active = true;
   private TextBox textBox;
@@ -25,19 +25,24 @@ public class MainMenu implements Disposable, EventListener {
   private Table mainMenuTable;
   private Table optionMenuTable;
   private final TextureRegion planet;
+  private final TextureRegion deco1, deco2, ending;
   private final Texture stars;
 
   boolean optionsActive = false;
   private boolean newGame;
   private boolean canResume = false;
+  private boolean endingActive;
 
   public MainMenu() {
     stars = SpaceMain.assets.getStarTexture();
     planet = SpaceMain.assets.getSprites().findRegion("planet");
+    deco1 = SpaceMain.assets.getSprites().findRegion("planetDeco1");
+    deco2 = SpaceMain.assets.getSprites().findRegion("planetDeco2");
+    ending = SpaceMain.assets.getSprites().findRegion("ending");
 
     stage = new Stage(SpaceMain.stageViewPort);
     stage.addListener(this);
-    textBox = new TextBox(SpaceMain.assets.getSprites(), "textbox", false);
+    textBox = new TextBox(SpaceMain.assets.getSprites(), "textbox");
 
     Skin skin = SpaceMain.assets.getSkin();
 
@@ -65,8 +70,8 @@ public class MainMenu implements Disposable, EventListener {
     resumeButton.setVisible(false);
 
 
-    startButton  = new TextButton("New Game", buttonStyle);
-    startButton.addListener( new ChangeListener() {
+    TextButton startButton = new TextButton("New Game", buttonStyle);
+    startButton.addListener(new ChangeListener() {
       @Override
       public void changed(ChangeEvent event, Actor actor) {
         stage.addAction(Actions.sequence(Actions.fadeOut(0.5f), Actions.run(new Runnable() {
@@ -78,7 +83,7 @@ public class MainMenu implements Disposable, EventListener {
       }
     });
     startCell = mainMenuTable.add(startButton);
-    startCell.width(400).spaceBottom(40).height(100);;
+    startCell.width(400).spaceBottom(40).height(100);
     mainMenuTable.row();
 
     Button button = new TextButton("Options", buttonStyle);
@@ -92,24 +97,24 @@ public class MainMenu implements Disposable, EventListener {
         }
       }
     });
-    mainMenuTable.add(button).width(400).spaceBottom(40).height(75);;
+    mainMenuTable.add(button).width(400).spaceBottom(40).height(75);
     mainMenuTable.row();
 
     button = new TextButton("Help", buttonStyle);
     button.addListener(new ChangeListener() {
       @Override
       public void changed (ChangeEvent event, Actor actor) {
-        SpaceMain.mainMenu.showText("help");
+        SpaceMain.mainMenu.showText("help", true);
       }
     });
-    mainMenuTable.add(button).width(400).spaceBottom(40).height(50);;
+    mainMenuTable.add(button).width(400).spaceBottom(40).height(50);
     mainMenuTable.row();
 
     button = new TextButton("Credits", buttonStyle);
     button.addListener(new ChangeListener() {
       @Override
       public void changed (ChangeEvent event, Actor actor) {
-        SpaceMain.mainMenu.showText("credits");
+        SpaceMain.mainMenu.showText("credits", true);
       }
     });
     mainMenuTable.add(button).width(400).spaceBottom(80).height(50);
@@ -161,7 +166,6 @@ public class MainMenu implements Disposable, EventListener {
           mainMenuTable.addAction(Actions.moveBy(1280, 0, 0.75f));
           optionsActive = false;
         }
-
       }
     });
     optionMenuTable.add(button).width(400).spaceBottom(40).height(100);
@@ -169,6 +173,23 @@ public class MainMenu implements Disposable, EventListener {
 
     stage.addActor(optionMenuTable);
     updateButtonLabels();
+
+    endingButton = new TextButton("Back to Menu", buttonStyle);
+    endingButton.addListener( new ChangeListener() {
+      @Override
+      public void changed(ChangeEvent event, Actor actor) {
+        if (endingActive) {
+          optionMenuTable.addAction(Actions.moveBy(-1280, 0, 0.75f));
+          mainMenuTable.addAction(Actions.moveBy(-1280, 0, 0.75f));
+          endingButton.addAction(Actions.moveBy(-1280, 0, 0.75f));
+          endingActive = false;
+        }
+      }
+    });
+    stage.addActor(endingButton);
+    endingButton.setHeight(75);
+    endingButton.setWidth(400);
+    endingButton.setPosition(-1280 + 1280/2 - endingButton.getWidth()/2, 700 - endingButton.getHeight());
   }
 
   private void updateButtonLabels() {
@@ -185,18 +206,47 @@ public class MainMenu implements Disposable, EventListener {
     }
   }
 
+  public void showEnding(String textKey) {
+    if (!endingActive) {
+      canResume = false;
+      planetOffset = 300;
+      endingActive = true;
+      optionMenuTable.addAction(Actions.moveBy(1280, 0));
+      mainMenuTable.addAction(Actions.moveBy(1280, 0));
+      endingButton.addAction(Actions.moveBy(1280, 0));
+      showText(textKey, false);
+      setActive(true);
+    }
+  }
+
+  private int planetOffset = 0;
+
   public void render() {
     stage.act();
     if (disableEvents > 0) {
       disableEvents--;
     }
+    if (!endingActive && planetOffset > 0) {
+      planetOffset--;
+    }
+
     Gdx.gl.glClearColor( 0, 0, 0, 1 );
     Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
 
     Batch batch = stage.getBatch();
     batch.begin();
+    batch.setColor(1, 1, 1, 1);
     batch.draw(stars, 0, 0, 1280, 720, 0, 0, 1280, 720, false, false);
-    batch.draw(planet, 750, 100);
+    batch.draw(planet, 770, planetOffset + 80);
+
+    if (planetOffset > 0) {
+      batch.draw(deco2, 750 + planet.getRegionWidth() / 3, planetOffset + 100 + planet.getRegionHeight() / 1.5f);
+      batch.setColor(1, 1, 1, planetOffset/300f);
+      batch.draw(ending, 160, 400, 0, 0, ending.getRegionWidth(), ending.getRegionHeight(), 1, 1, 30);
+    } else {
+      batch.draw(deco1, 750 + planet.getRegionWidth() / 3, planetOffset + 100 + planet.getRegionHeight() / 1.5f);
+    }
+
     batch.end();
 
 
@@ -242,9 +292,9 @@ public class MainMenu implements Disposable, EventListener {
     stage.dispose();
   }
 
-  public void showText(String key) {
+  public void showText(String key, boolean fullSize) {
     if (disableEvents == 0)
-      textBox.setText(SpaceMain.assets.getText(key));
+      textBox.setText(SpaceMain.assets.getText(key), fullSize);
   }
 
   public Stage getStage() {

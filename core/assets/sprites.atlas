@@ -1,138 +1,159 @@
 
 sprites.png
-size: 512,512
+size: 1024,512
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 apBar
   rotate: false
-  xy: 2, 455
+  xy: 290, 466
   size: 400, 39
   orig: 400, 39
   offset: 0, 0
   index: -1
 apBarFill
   rotate: false
-  xy: 2, 414
+  xy: 290, 425
   size: 400, 39
   orig: 400, 39
   offset: 0, 0
   index: -1
 apBarIndicator
   rotate: false
-  xy: 2, 373
+  xy: 290, 384
   size: 400, 39
   orig: 400, 39
   offset: 0, 0
   index: -1
 apkit
   rotate: false
-  xy: 462, 344
+  xy: 2, 2
   size: 48, 32
   orig: 48, 32
   offset: 0, 0
   index: -1
+ending
+  rotate: false
+  xy: 692, 346
+  size: 199, 159
+  orig: 199, 159
+  offset: 0, 0
+  index: -1
 hpBar
   rotate: false
-  xy: 2, 332
+  xy: 290, 343
   size: 400, 39
   orig: 400, 39
   offset: 0, 0
   index: -1
 hpBarFill
   rotate: false
-  xy: 2, 291
+  xy: 290, 302
   size: 400, 39
   orig: 400, 39
   offset: 0, 0
   index: -1
 hpBarFillSmall
   rotate: false
-  xy: 404, 414
+  xy: 290, 220
   size: 60, 6
   orig: 60, 6
   offset: 0, 0
   index: -1
 hpBarSmall
   rotate: false
-  xy: 404, 406
+  xy: 422, 260
   size: 60, 6
   orig: 60, 6
   offset: 0, 0
   index: -1
 hpkit
   rotate: false
-  xy: 404, 327
+  xy: 893, 426
   size: 48, 32
   orig: 48, 32
   offset: 0, 0
   index: -1
 marker
   rotate: false
-  xy: 478, 425
+  xy: 364, 232
   size: 23, 23
   orig: 23, 23
   offset: 0, 0
   index: -1
 markerError
   rotate: false
-  xy: 478, 450
+  xy: 979, 474
   size: 31, 31
   orig: 31, 31
   offset: 0, 0
   index: -1
 markerNext
   rotate: false
-  xy: 290, 29
+  xy: 786, 315
   size: 45, 29
   orig: 45, 29
   offset: 0, 0
   index: -1
 markerSkip
   rotate: false
-  xy: 404, 361
+  xy: 364, 257
   size: 56, 43
   orig: 56, 43
   offset: 0, 0
   index: -1
 markerTarget
   rotate: false
-  xy: 466, 378
+  xy: 692, 302
   size: 42, 42
   orig: 42, 42
   offset: 0, 0
   index: -1
 medkit
   rotate: false
-  xy: 454, 310
+  xy: 205, 144
   size: 48, 32
   orig: 48, 32
   offset: 0, 0
   index: -1
 planet
   rotate: false
-  xy: 2, 2
+  xy: 2, 218
   size: 286, 287
   orig: 286, 287
   offset: 0, 0
   index: -1
+planetDeco1
+  rotate: false
+  xy: 893, 460
+  size: 84, 45
+  orig: 84, 45
+  offset: 0, 0
+  index: -1
+planetDeco2
+  rotate: false
+  xy: 205, 178
+  size: 79, 38
+  orig: 79, 38
+  offset: 0, 0
+  index: -1
 selector
   rotate: false
-  xy: 404, 422
+  xy: 290, 228
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 shot
   rotate: false
-  xy: 478, 483
+  xy: 943, 447
   size: 32, 11
   orig: 32, 11
   offset: 0, 0
   index: -1
 textbox
   rotate: false
-  xy: 290, 60
+  xy: 2, 36
   size: 201, 180
   split: 80, 79, 76, 81
   pad: 81, 80, 69, 73
@@ -141,42 +162,42 @@ textbox
   index: -1
 weaponkit1
   rotate: false
-  xy: 404, 293
+  xy: 422, 268
   size: 48, 32
   orig: 48, 32
   offset: 0, 0
   index: -1
 weaponkit2
   rotate: false
-  xy: 454, 276
+  xy: 736, 312
   size: 48, 32
   orig: 48, 32
   offset: 0, 0
   index: -1
 weaponkit3
   rotate: false
-  xy: 404, 259
+  xy: 52, 2
   size: 48, 32
   orig: 48, 32
   offset: 0, 0
   index: -1
 weaponkit4
   rotate: false
-  xy: 454, 242
+  xy: 893, 392
   size: 48, 32
   orig: 48, 32
   offset: 0, 0
   index: -1
 weaponkit5
   rotate: false
-  xy: 290, 257
+  xy: 205, 110
   size: 48, 32
   orig: 48, 32
   offset: 0, 0
   index: -1
 weaponkit6
   rotate: false
-  xy: 340, 257
+  xy: 472, 268
   size: 48, 32
   orig: 48, 32
   offset: 0, 0

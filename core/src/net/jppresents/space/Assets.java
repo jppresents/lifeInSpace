@@ -37,7 +37,6 @@ public class Assets implements Disposable {
   public Assets() {
     soundOn = SpaceMain.prefs.getBoolean(SpaceMain.Prefs.SOUND, true);
     musicOn = SpaceMain.prefs.getBoolean(SpaceMain.Prefs.MUSIC, true);
-    System.out.println("Musik: " + musicOn + "Sound: " + soundOn);
 
     sprites = new TextureAtlas("sprites.atlas");
     starTexture = new Texture(Gdx.files.internal("stars.png"));
