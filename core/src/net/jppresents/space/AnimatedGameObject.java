@@ -26,6 +26,10 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
     return actionPoints;
   }
 
+  public int setActionPoints(int points) {
+    return 0;
+  }
+
   public void resetActionPoints() {
     actionPoints = maxActionPoints;
   }
@@ -95,8 +99,8 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
     this.maxActionPoints = maxActionPoints;
   }
 
-  protected void setIdleIn(int timeInMs, int currentTick) {
-    idleTick = (int) ((float) timeInMs / 1000 * 60) + currentTick;
+  protected void setIdleIn(int idleTime, int currentTick) {
+    idleTick = idleTime + currentTick;
   }
 
   public boolean isIdle(int tick) {

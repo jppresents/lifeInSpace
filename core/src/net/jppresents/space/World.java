@@ -284,14 +284,21 @@ public class World implements Disposable {
       if (object.getName().equals("enemy")) {
         getTileCoords(((RectangleMapObject) object).getRectangle().getX(), ((RectangleMapObject) object).getRectangle().getY(), temp);
         String type = (String) object.getProperties().get("type");
-        Enemy enemy = new Enemy(spriterDataManager.getEntity(type), spriterDataManager.getDrawer(type));
+        Enemy enemy = new Enemy(spriterDataManager.getEntity("alien", type), spriterDataManager.getDrawer("alien"));
         enemy.setDamage( Integer.parseInt((String) object.getProperties().get("dmg")));
         enemy.setMaxHealth(Integer.parseInt((String) object.getProperties().get("hp")));
         enemy.setHealth(enemy.getMaxHealth());
         enemy.setMaxActionPoints( Integer.parseInt((String) object.getProperties().get("ap")));
         enemy.setLook( Integer.parseInt((String) object.getProperties().get("look")));
+        String gunDamage = (String) object.getProperties().get("gun");
+        int gunDamageInt = 0;
+        if (gunDamage != null) {
+          gunDamageInt = Integer.parseInt(gunDamage);
+        }
+        enemy.setGunDamage(gunDamageInt);
         enemy.setAggroRange( Integer.parseInt((String) object.getProperties().get("aggro")));
         enemy.setPosition(temp.x * SpaceMain.TILE_SIZE, temp.y * SpaceMain.TILE_SIZE);
+        enemy.setTurret(type.equals("turret"));
         enemies.add(enemy);
       }
     }
@@ -329,6 +336,11 @@ public class World implements Disposable {
 
   private boolean hit(float targetx, float targety, Vector2 vec, int tolarance) {
     return Math.abs(targetx - vec.x) < tolarance && Math.abs(targety - vec.y) < tolarance;
+  }
+
+
+  public boolean hasLineOfSight(float x, float y, float x2, float y2) {
+    return hasLineOfSight((int)x, (int)y, (int) x2, (int) y2);
   }
 
   public boolean hasLineOfSight(int x, int y, int x2, int y2) {

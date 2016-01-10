@@ -26,7 +26,7 @@ public class Assets implements Disposable {
   private long currentRadioSoundId;
   private float fadeCurrentRadio;
 
-  public enum SoundEffect {BLASTER, ALIEN_HURT, ALIEN_DIE, GUY_HURT, GUY_HURT2, FIZZLE, POWERUP, HEAL, ERROR, DOOR, PICKUP, TELEPORT}
+  public enum SoundEffect {BLASTER, ALIEN_HURT, ALIEN_DIE, GUY_HURT, GUY_HURT2, FIZZLE, POWERUP, HEAL, ERROR, DOOR, PICKUP, ENEMY_BLASTER, TURRET_HIT, TURRET_DIE, TELEPORT}
   public enum GameMusic {MENU, GAME}
 
   private final TextureAtlas sprites;
@@ -61,6 +61,12 @@ public class Assets implements Disposable {
     sounds.put(SoundEffect.TELEPORT, Gdx.audio.newSound(Gdx.files.internal("sound/teleport.ogg")));
     sounds.put(SoundEffect.DOOR, Gdx.audio.newSound(Gdx.files.internal("sound/door.ogg")));
     sounds.put(SoundEffect.PICKUP, Gdx.audio.newSound(Gdx.files.internal("sound/pickup.ogg")));
+    sounds.put(SoundEffect.ENEMY_BLASTER, Gdx.audio.newSound(Gdx.files.internal("sound/enemyBlaster.ogg")));
+
+    //jps todo:
+    sounds.put(SoundEffect.TURRET_HIT, Gdx.audio.newSound(Gdx.files.internal("sound/fizzle.ogg")));
+    sounds.put(SoundEffect.TURRET_DIE, Gdx.audio.newSound(Gdx.files.internal("sound/fizzle.ogg")));
+
 
     menuMusic = Gdx.audio.newMusic(Gdx.files.internal("music/menuMusic.ogg"));
     menuMusic.setLooping(true);
@@ -191,7 +197,7 @@ public class Assets implements Disposable {
           currentRadioSoundId = currentRadioSound.play();
         }
       }else {
-        FileHandle file = Gdx.files.internal("sound/" + radioFile + ".ogg");
+        FileHandle file = Gdx.files.internal("sound/radio/" + radioFile + ".ogg");
         currentRadioSound = Gdx.audio.newSound(file);
         currentRadioSoundId = currentRadioSound.play();
         radioSounds.put(radioFile, currentRadioSound);

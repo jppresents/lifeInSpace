@@ -336,9 +336,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="4"
-     inkscape:cx="394.44918"
-     inkscape:cy="-334.80437"
+     inkscape:zoom="1"
+     inkscape:cx="366.84139"
+     inkscape:cy="-210.62586"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -6952,7 +6952,10 @@
     </g>
     <g
        id="67"
-       inkscape:label="#g8744">
+       inkscape:label="#g8744"
+       inkscape:export-filename="C:\dev\gdx\lifeInSpace\art\ground\tiles\67.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
       <g
          id="g8663"
          transform="translate(31.999997,480.00001)"

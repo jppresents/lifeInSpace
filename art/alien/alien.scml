@@ -9,6 +9,18 @@
         <file id="5" name="alien_head2.png" width="59" height="52" pivot_x="0" pivot_y="1"/>
         <file id="6" name="alien_legspike.png" width="14" height="27" pivot_x="0.502674" pivot_y="0.873"/>
         <file id="7" name="alien_head3.png" width="58" height="51" pivot_x="0" pivot_y="1"/>
+        <file id="8" name="turretHead.png" width="52" height="28" pivot_x="0.903846" pivot_y="0.44"/>
+        <file id="9" name="turretBody.png" width="69" height="69" pivot_x="0" pivot_y="1"/>
+        <file id="10" name="turretBlink.png" width="21" height="18" pivot_x="0" pivot_y="1"/>
+        <file id="11" name="alienHeadShot.png" width="43" height="34" pivot_x="0" pivot_y="1"/>
+        <file id="12" name="headBlue.png" width="58" height="51" pivot_x="0" pivot_y="1"/>
+        <file id="13" name="bodyBlue.png" width="60" height="43" pivot_x="0" pivot_y="1"/>
+        <file id="14" name="legBlue.png" width="14" height="27" pivot_x="0.502674" pivot_y="0.873"/>
+        <file id="15" name="muzzleFlashBlue.png" width="79" height="57" pivot_x="0" pivot_y="1"/>
+        <file id="16" name="turretPart2.png" width="31" height="53" pivot_x="0.258065" pivot_y="0.018868"/>
+        <file id="17" name="turretPart1.png" width="64" height="69" pivot_x="0.84375" pivot_y="0.057971"/>
+        <file id="18" name="turretHeadPart1.png" width="49" height="26" pivot_x="0.653061" pivot_y="0.769231"/>
+        <file id="19" name="turretHeadPart2.png" width="49" height="19" pivot_x="0.571429" pivot_y="0.421053"/>
     </folder>
     <entity id="0" name="alien">
         <character_map id="0" name="SpikeHead">
@@ -19,6 +31,11 @@
         </character_map>
         <character_map id="2" name="EyeHead">
             <map folder="0" file="2" target_folder="0" target_file="7"/>
+        </character_map>
+        <character_map id="3" name="Blue">
+            <map folder="0" file="2" target_folder="0" target_file="12"/>
+            <map folder="0" file="1" target_folder="0" target_file="13"/>
+            <map folder="0" file="0" target_folder="0" target_file="14"/>
         </character_map>
         <animation id="0" name="front_none" length="1000" interval="100">
             <mainline>
@@ -68,7 +85,87 @@
                 </key>
             </timeline>
         </animation>
-        <animation id="1" name="front_attack" length="400" interval="100">
+        <animation id="1" name="front_shoot" length="1000" interval="100">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="0" z_index="1"/>
+                    <object_ref id="2" timeline="2" key="0" z_index="2"/>
+                    <object_ref id="3" timeline="3" key="0" z_index="3"/>
+                    <object_ref id="4" timeline="4" key="0" z_index="4"/>
+                    <object_ref id="5" timeline="5" key="0" z_index="5"/>
+                    <object_ref id="6" timeline="7" key="0" z_index="6"/>
+                    <object_ref id="7" timeline="6" key="0" z_index="7"/>
+                </key>
+                <key id="1" time="300">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="0" z_index="1"/>
+                    <object_ref id="2" timeline="2" key="0" z_index="2"/>
+                    <object_ref id="3" timeline="3" key="0" z_index="3"/>
+                    <object_ref id="4" timeline="4" key="0" z_index="4"/>
+                    <object_ref id="5" timeline="5" key="0" z_index="5"/>
+                    <object_ref id="6" timeline="7" key="1" z_index="6"/>
+                    <object_ref id="7" timeline="6" key="0" z_index="7"/>
+                </key>
+                <key id="2" time="600">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="0" z_index="1"/>
+                    <object_ref id="2" timeline="2" key="0" z_index="2"/>
+                    <object_ref id="3" timeline="3" key="0" z_index="3"/>
+                    <object_ref id="4" timeline="4" key="0" z_index="4"/>
+                    <object_ref id="5" timeline="5" key="0" z_index="5"/>
+                    <object_ref id="6" timeline="7" key="2" z_index="6"/>
+                    <object_ref id="7" timeline="6" key="0" z_index="7"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="alien_body">
+                <key id="0" spin="0">
+                    <object folder="0" file="1" x="-29.144385" y="56.149733" angle="0"/>
+                </key>
+            </timeline>
+            <timeline id="1" name="alien_head">
+                <key id="0" spin="0">
+                    <object folder="0" file="2" x="-29.144385" y="88.502674" angle="0"/>
+                </key>
+            </timeline>
+            <timeline id="2" name="alien_leg_000">
+                <key id="0" spin="0">
+                    <object folder="0" file="0" x="-8.02139" y="21.657754" angle="0"/>
+                </key>
+            </timeline>
+            <timeline id="3" name="alien_leg_001">
+                <key id="0" spin="0">
+                    <object folder="0" file="0" x="-19.251337" y="23.262032" angle="341.24135"/>
+                </key>
+            </timeline>
+            <timeline id="4" name="alien_leg_002">
+                <key id="0" spin="0">
+                    <object folder="0" file="0" x="5.614973" y="21.390374" angle="10.885527"/>
+                </key>
+            </timeline>
+            <timeline id="5" name="alien_leg_003">
+                <key id="0" spin="0">
+                    <object folder="0" file="0" x="18.983957" y="22.994652" angle="19.179008"/>
+                </key>
+            </timeline>
+            <timeline id="6" name="alien_eyeball">
+                <key id="0" spin="0">
+                    <object folder="0" file="3" x="-4.278074" y="65.775401" angle="0"/>
+                </key>
+            </timeline>
+            <timeline id="7" name="alienHeadShot">
+                <key id="0" spin="0">
+                    <object folder="0" file="11" x="-22.192513" y="81.818182" angle="0" a="0"/>
+                </key>
+                <key id="1" time="300" spin="0">
+                    <object folder="0" file="11" x="-22.192513" y="81.818182" angle="0"/>
+                </key>
+                <key id="2" time="600" spin="0">
+                    <object folder="0" file="11" x="-30.556302" y="88.235294" angle="0" scale_x="1.384723" scale_y="1.389887"/>
+                </key>
+            </timeline>
+        </animation>
+        <animation id="2" name="front_attack" length="400" interval="100">
             <mainline>
                 <key id="0">
                     <object_ref id="0" timeline="0" key="0" z_index="0"/>
@@ -102,7 +199,7 @@
                     <object folder="0" file="2" x="-29.144385" y="88.502674" angle="0"/>
                 </key>
                 <key id="1" time="200">
-                    <object folder="0" file="2" x="-17.991969" y="76.97851" angle="347.371988" scale_x="1"/>
+                    <object folder="0" file="2" x="-17.991969" y="76.97851" angle="347.371988"/>
                 </key>
             </timeline>
             <timeline id="2" name="alien_leg_000">
@@ -142,11 +239,11 @@
                     <object folder="0" file="3" x="-2.941176" y="62.834225" angle="0"/>
                 </key>
                 <key id="1" time="200">
-                    <object folder="0" file="3" x="1.96574" y="46.202427" angle="347.371988" scale_x="1"/>
+                    <object folder="0" file="3" x="1.96574" y="46.202427" angle="347.371988"/>
                 </key>
             </timeline>
         </animation>
-        <animation id="2" name="side_attack" length="400" interval="100">
+        <animation id="3" name="side_attack" length="400" interval="100">
             <mainline>
                 <key id="0">
                     <object_ref id="0" timeline="0" key="0" z_index="0"/>
@@ -261,12 +358,12 @@
                 <key id="2" time="285">
                     <object folder="0" file="3" x="-6.59747" y="65.717046" angle="347.163461"/>
                 </key>
-                <key id="3" time="400">
-                    <object folder="0" file="3" x="-4.799912" y="64.321214"/>
+                <key id="3" time="400" spin="0">
+                    <object folder="0" file="3" x="-4.799912" y="64.321214" angle="0"/>
                 </key>
             </timeline>
         </animation>
-        <animation id="3" name="back_attack" length="400" interval="100">
+        <animation id="4" name="back_attack" length="400" interval="100">
             <mainline>
                 <key id="0">
                     <object_ref id="0" timeline="0" key="0" z_index="0"/>
@@ -308,7 +405,7 @@
                     <object folder="0" file="0" x="-8.02139" y="21.657754" angle="0"/>
                 </key>
                 <key id="1" time="200">
-                    <object folder="0" file="0" x="-8.764884" y="43.219092" angle="337.66602" scale_y="1"/>
+                    <object folder="0" file="0" x="-8.764884" y="43.219092" angle="337.66602"/>
                 </key>
             </timeline>
             <timeline id="3" name="alien_leg_001">
@@ -316,7 +413,7 @@
                     <object folder="0" file="0" x="-19.251337" y="23.262032" angle="341.24135"/>
                 </key>
                 <key id="1" time="200">
-                    <object folder="0" file="0" x="-19.994831" y="44.82337" angle="306.519866" scale_x="1"/>
+                    <object folder="0" file="0" x="-19.994831" y="44.82337" angle="306.519866"/>
                 </key>
             </timeline>
             <timeline id="4" name="alien_leg_002">
@@ -324,7 +421,7 @@
                     <object folder="0" file="0" x="5.614973" y="21.390374" angle="10.885527"/>
                 </key>
                 <key id="1" time="200" spin="-1">
-                    <object folder="0" file="0" x="4.871479" y="42.951712" angle="23.636026" scale_x="1" scale_y="1"/>
+                    <object folder="0" file="0" x="4.871479" y="42.951712" angle="23.636026"/>
                 </key>
             </timeline>
             <timeline id="5" name="alien_leg_003">
@@ -332,7 +429,7 @@
                     <object folder="0" file="0" x="18.983957" y="22.994652" angle="19.179008"/>
                 </key>
                 <key id="1" time="200" spin="-1">
-                    <object folder="0" file="0" x="18.240463" y="44.55599" angle="45.855887" scale_x="1" scale_y="1"/>
+                    <object folder="0" file="0" x="18.240463" y="44.55599" angle="45.855887"/>
                 </key>
             </timeline>
             <timeline id="6" name="alien_eyeball">
@@ -344,7 +441,7 @@
                 </key>
             </timeline>
         </animation>
-        <animation id="4" name="front_hurt" length="400" interval="100">
+        <animation id="5" name="front_hurt" length="400" interval="100">
             <mainline>
                 <key id="0">
                     <object_ref id="0" timeline="0" key="0" z_index="0"/>
@@ -434,7 +531,7 @@
                 </key>
             </timeline>
         </animation>
-        <animation id="5" name="front_die" length="400" interval="100" looping="false">
+        <animation id="6" name="front_die" length="400" interval="100" looping="false">
             <mainline>
                 <key id="0">
                     <object_ref id="0" timeline="0" key="0" z_index="0"/>
@@ -512,7 +609,7 @@
                 </key>
             </timeline>
         </animation>
-        <animation id="6" name="front_walk" length="400" interval="100">
+        <animation id="7" name="front_walk" length="400" interval="100">
             <mainline>
                 <key id="0">
                     <object_ref id="0" timeline="0" key="0" z_index="0"/>
@@ -590,7 +687,7 @@
                 </key>
             </timeline>
         </animation>
-        <animation id="7" name="front_idle" length="1600" interval="100">
+        <animation id="8" name="front_idle" length="1600" interval="100">
             <mainline>
                 <key id="0">
                     <object_ref id="0" timeline="0" key="0" z_index="0"/>
@@ -698,6 +795,373 @@
                 </key>
                 <key id="3" time="1200" spin="0">
                     <object folder="0" file="3" x="1.841432" y="63.671239" angle="0"/>
+                </key>
+            </timeline>
+        </animation>
+    </entity>
+    <entity id="1" name="turret">
+        <animation id="0" name="front_none" length="1000" interval="100">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="0" z_index="1"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="turretBody">
+                <key id="0" spin="0">
+                    <object folder="0" file="9" x="-30.855019" y="68.401487" angle="0"/>
+                </key>
+            </timeline>
+            <timeline id="1" name="turretHead">
+                <key id="0" spin="0">
+                    <object folder="0" file="8" x="3.730394" y="63.477327" angle="0"/>
+                </key>
+            </timeline>
+        </animation>
+        <animation id="1" name="front_hurt" length="400" interval="100">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="0" z_index="1"/>
+                </key>
+                <key id="1" time="200">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="1" z_index="1"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="turretBody">
+                <key id="0" spin="0">
+                    <object folder="0" file="9" x="-30.855019" y="68.401487" angle="0"/>
+                </key>
+            </timeline>
+            <timeline id="1" name="turretHead">
+                <key id="0">
+                    <object folder="0" file="8" x="3.730394" y="63.477327" angle="0"/>
+                </key>
+                <key id="1" time="200" spin="-1">
+                    <object folder="0" file="8" x="3.730394" y="63.477327" angle="49.09461" scale_x="1" scale_y="1"/>
+                </key>
+            </timeline>
+        </animation>
+        <animation id="2" name="front_die" length="1000" interval="100">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" timeline="3" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="2" key="0" z_index="1"/>
+                    <object_ref id="2" timeline="0" key="0" z_index="2"/>
+                    <object_ref id="3" timeline="1" key="0" z_index="3"/>
+                </key>
+                <key id="1" time="300">
+                    <object_ref id="0" timeline="3" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="2" key="0" z_index="1"/>
+                    <object_ref id="2" timeline="0" key="1" z_index="2"/>
+                    <object_ref id="3" timeline="1" key="1" z_index="3"/>
+                </key>
+                <key id="2" time="301">
+                    <object_ref id="0" timeline="3" key="1" z_index="0"/>
+                    <object_ref id="1" timeline="2" key="0" z_index="1"/>
+                    <object_ref id="2" timeline="0" key="1" z_index="2"/>
+                    <object_ref id="3" timeline="1" key="1" z_index="3"/>
+                </key>
+                <key id="3" time="400">
+                    <object_ref id="0" timeline="3" key="1" z_index="0"/>
+                    <object_ref id="1" timeline="2" key="1" z_index="1"/>
+                    <object_ref id="2" timeline="0" key="1" z_index="2"/>
+                    <object_ref id="3" timeline="1" key="1" z_index="3"/>
+                </key>
+                <key id="4" time="600">
+                    <object_ref id="0" timeline="3" key="2" z_index="0"/>
+                    <object_ref id="1" timeline="2" key="2" z_index="1"/>
+                    <object_ref id="2" timeline="0" key="2" z_index="2"/>
+                    <object_ref id="3" timeline="1" key="2" z_index="3"/>
+                </key>
+                <key id="5" time="800">
+                    <object_ref id="0" timeline="3" key="3" z_index="0"/>
+                    <object_ref id="1" timeline="2" key="3" z_index="1"/>
+                    <object_ref id="2" timeline="0" key="3" z_index="2"/>
+                    <object_ref id="3" timeline="1" key="3" z_index="3"/>
+                </key>
+                <key id="6" time="1000">
+                    <object_ref id="0" timeline="3" key="4" z_index="0"/>
+                    <object_ref id="1" timeline="2" key="4" z_index="1"/>
+                    <object_ref id="2" timeline="0" key="4" z_index="2"/>
+                    <object_ref id="3" timeline="1" key="4" z_index="3"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="turretHeadPart1">
+                <key id="0" spin="-1">
+                    <object folder="0" file="18" x="-6.896552" y="71.034483"/>
+                </key>
+                <key id="1" time="300" spin="-1">
+                    <object folder="0" file="18" x="65.172414" y="90.689655" angle="265.502848" scale_x="1" scale_y="1"/>
+                </key>
+                <key id="2" time="600" spin="-1">
+                    <object folder="0" file="18" x="99.1133" y="3.64532" angle="198.67899" scale_x="1" scale_y="1"/>
+                </key>
+                <key id="3" time="800">
+                    <object folder="0" file="18" x="99.1133" y="3.64532" angle="168.228015" scale_x="1" scale_y="1"/>
+                </key>
+                <key id="4" time="1000">
+                    <object folder="0" file="18" x="99.1133" y="3.64532" angle="208.903371" scale_x="1" scale_y="1"/>
+                </key>
+            </timeline>
+            <timeline id="1" name="turretHeadPart2">
+                <key id="0" spin="-1">
+                    <object folder="0" file="19" x="-10.689655" y="58.965517"/>
+                </key>
+                <key id="1" time="300">
+                    <object folder="0" file="19" x="-78.62069" y="68.275862" angle="246.801409" scale_x="1"/>
+                </key>
+                <key id="2" time="600">
+                    <object folder="0" file="19" x="-122.610837" y="3.596059" angle="338.668401" scale_x="1" scale_y="1"/>
+                </key>
+                <key id="3" time="800" spin="-1">
+                    <object folder="0" file="19" x="-122.610837" y="3.596059" angle="13.334411" scale_y="1"/>
+                </key>
+                <key id="4" time="1000">
+                    <object folder="0" file="19" x="-122.610837" y="3.596059" angle="359.054611" scale_y="1"/>
+                </key>
+            </timeline>
+            <timeline id="2" name="turretPart1">
+                <key id="0">
+                    <object folder="0" file="17" x="28.275862" y="3.448276"/>
+                </key>
+                <key id="1" time="400" spin="-1">
+                    <object folder="0" file="17" x="28.275862" y="3.448276" angle="61.44038"/>
+                </key>
+                <key id="2" time="600" spin="0">
+                    <object folder="0" file="17" x="28.275862" y="3.793103" angle="60.439646"/>
+                </key>
+                <key id="3" time="800" spin="0">
+                    <object folder="0" file="17" x="28.275862" y="3.793103" angle="60.439646"/>
+                </key>
+                <key id="4" time="1000" spin="-1">
+                    <object folder="0" file="17" x="28.275862" y="3.793103" angle="60.439646"/>
+                </key>
+            </timeline>
+            <timeline id="3" name="turretPart2">
+                <key id="0" spin="-1">
+                    <object folder="0" file="16" x="-21.724138" y="1.37931"/>
+                </key>
+                <key id="1" time="301" spin="-1">
+                    <object folder="0" file="16" x="-21.724138" y="1.37931" angle="292.567009"/>
+                </key>
+                <key id="2" time="600" spin="0">
+                    <object folder="0" file="16" x="-21.724138" y="1.37931" angle="289.358994" scale_y="1"/>
+                </key>
+                <key id="3" time="800" spin="0">
+                    <object folder="0" file="16" x="-21.724138" y="1.37931" angle="289.358994" scale_y="1"/>
+                </key>
+                <key id="4" time="1000">
+                    <object folder="0" file="16" x="-21.724138" y="1.37931" angle="289.358994" scale_y="1"/>
+                </key>
+            </timeline>
+        </animation>
+        <animation id="3" name="front_idle" length="800" interval="100">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="0" z_index="1"/>
+                    <object_ref id="2" timeline="2" key="0" z_index="2"/>
+                </key>
+                <key id="1" time="400">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="0" z_index="1"/>
+                    <object_ref id="2" timeline="2" key="1" z_index="2"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="turretBody">
+                <key id="0" spin="0">
+                    <object folder="0" file="9" x="-30.855019" y="68.401487" angle="0"/>
+                </key>
+            </timeline>
+            <timeline id="1" name="turretHead">
+                <key id="0" spin="0">
+                    <object folder="0" file="8" x="3.091267" y="63.581695" angle="359.053049"/>
+                </key>
+            </timeline>
+            <timeline id="2" name="turretBlink">
+                <key id="0" spin="0">
+                    <object folder="0" file="10" x="-21.390374" y="86.631016" angle="0"/>
+                </key>
+                <key id="1" time="400" spin="0">
+                    <object folder="0" file="10" x="-21.390374" y="86.631016" angle="0" a="0"/>
+                </key>
+            </timeline>
+        </animation>
+        <animation id="4" name="side_shoot" length="800" interval="100">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="0" z_index="1"/>
+                    <object_ref id="2" timeline="2" key="0" z_index="2"/>
+                    <object_ref id="3" timeline="3" key="0" z_index="3"/>
+                </key>
+                <key id="1" time="200">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="1" z_index="1"/>
+                    <object_ref id="2" timeline="2" key="1" z_index="2"/>
+                    <object_ref id="3" timeline="3" key="1" z_index="3"/>
+                </key>
+                <key id="2" time="299">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="1" z_index="1"/>
+                    <object_ref id="2" timeline="2" key="2" z_index="2"/>
+                    <object_ref id="3" timeline="3" key="1" z_index="3"/>
+                </key>
+                <key id="3" time="400">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="1" z_index="1"/>
+                    <object_ref id="2" timeline="2" key="3" z_index="2"/>
+                    <object_ref id="3" timeline="3" key="2" z_index="3"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="turretBody">
+                <key id="0" spin="0">
+                    <object folder="0" file="9" x="-30.855019" y="68.401487" angle="0"/>
+                </key>
+            </timeline>
+            <timeline id="1" name="turretHead">
+                <key id="0" spin="0">
+                    <object folder="0" file="8" x="3.091267" y="63.581695" angle="359.053049"/>
+                </key>
+                <key id="1" time="200" spin="0">
+                    <object folder="0" file="8" x="8.438861" y="63.314315" angle="359.053049"/>
+                </key>
+            </timeline>
+            <timeline id="2" name="turretBlink">
+                <key id="0" spin="0">
+                    <object folder="0" file="10" x="-21.390374" y="86.631016" angle="0"/>
+                </key>
+                <key id="1" time="200" spin="0">
+                    <object folder="0" file="10" x="-16.31016" y="86.631016" angle="0" a="0.5"/>
+                </key>
+                <key id="2" time="299" spin="0">
+                    <object folder="0" file="10" x="-16.418449" y="86.363636" angle="0" a="0.2525"/>
+                </key>
+                <key id="3" time="400" spin="0">
+                    <object folder="0" file="10" x="-17.175815" y="85.864732" angle="0" a="0"/>
+                </key>
+            </timeline>
+            <timeline id="3" name="muzzleFlashBlue_002">
+                <key id="0" curve_type="instant">
+                    <object folder="0" file="15" x="-105.517241" y="91.724138" a="0"/>
+                </key>
+                <key id="1" time="200" spin="0">
+                    <object folder="0" file="15" x="-105.517241" y="91.724138"/>
+                </key>
+                <key id="2" time="400" spin="0">
+                    <object folder="0" file="15" x="-105.517241" y="91.724138" a="0"/>
+                </key>
+            </timeline>
+        </animation>
+        <animation id="5" name="front_shoot" length="800" interval="100">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="0" z_index="1"/>
+                    <object_ref id="2" timeline="3" key="0" z_index="2"/>
+                </key>
+                <key id="1" time="200">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="1" z_index="1"/>
+                    <object_ref id="2" timeline="3" key="1" z_index="2"/>
+                </key>
+                <key id="2" time="299">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="2" z_index="1"/>
+                    <object_ref id="2" timeline="3" key="2" z_index="2"/>
+                </key>
+                <key id="3" time="400">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="2" z_index="1"/>
+                    <object_ref id="2" timeline="3" key="3" z_index="2"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="turretBody">
+                <key id="0" spin="0">
+                    <object folder="0" file="9" x="-30.855019" y="68.401487" angle="0"/>
+                </key>
+            </timeline>
+            <timeline id="1" name="turretHead">
+                <key id="0">
+                    <object folder="0" file="8" x="3.091267" y="63.581695" angle="359.053049"/>
+                </key>
+                <key id="1" time="200" spin="-1">
+                    <object folder="0" file="8" x="-0.721444" y="62.550956" angle="90.055624"/>
+                </key>
+                <key id="2" time="299" spin="-1">
+                    <object folder="0" file="8" x="-0.092347" y="62.721028" angle="89.696469"/>
+                </key>
+            </timeline>
+            <timeline id="2" name="turretBlink">
+                <key id="0" time="400" spin="0">
+                    <object folder="0" file="10" x="-17.175815" y="85.864732" angle="0" a="0"/>
+                </key>
+            </timeline>
+            <timeline id="3" name="muzzleFlashBlue_001">
+                <key id="0" curve_type="instant">
+                    <object folder="0" file="15" x="-28.62069" y="-52.413793" angle="90" a="0"/>
+                </key>
+                <key id="1" time="200" spin="0">
+                    <object folder="0" file="15" x="-28.62069" y="-52.413793" angle="90"/>
+                </key>
+                <key id="2" time="299" spin="0">
+                    <object folder="0" file="15" x="-28.62069" y="-52.413793" angle="90"/>
+                </key>
+                <key id="3" time="400" spin="0">
+                    <object folder="0" file="15" x="-28.62069" y="-52.413793" angle="90" a="0"/>
+                </key>
+            </timeline>
+        </animation>
+        <animation id="6" name="back_shoot" length="800" interval="100">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="0" z_index="1"/>
+                    <object_ref id="2" timeline="2" key="0" z_index="2"/>
+                </key>
+                <key id="1" time="200">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="1" z_index="1"/>
+                    <object_ref id="2" timeline="2" key="1" z_index="2"/>
+                </key>
+                <key id="2" time="299">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="2" z_index="1"/>
+                    <object_ref id="2" timeline="2" key="1" z_index="2"/>
+                </key>
+                <key id="3" time="400">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="2" z_index="1"/>
+                    <object_ref id="2" timeline="2" key="2" z_index="2"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="turretBody">
+                <key id="0" spin="0">
+                    <object folder="0" file="9" x="-30.855019" y="68.401487" angle="0"/>
+                </key>
+            </timeline>
+            <timeline id="1" name="turretHead">
+                <key id="0" spin="-1">
+                    <object folder="0" file="8" x="3.091267" y="63.581695" angle="359.053049"/>
+                </key>
+                <key id="1" time="200">
+                    <object folder="0" file="8" x="-0.721444" y="62.550956" angle="269.901509"/>
+                </key>
+                <key id="2" time="299">
+                    <object folder="0" file="8" x="-0.092347" y="62.721028" angle="270.358332" scale_x="1" scale_y="1"/>
+                </key>
+            </timeline>
+            <timeline id="2" name="muzzleFlashBlue">
+                <key id="0" curve_type="instant">
+                    <object folder="0" file="15" x="27.241379" y="177.241379" angle="269.75619" scale_x="1" a="0"/>
+                </key>
+                <key id="1" time="200" spin="0">
+                    <object folder="0" file="15" x="27.241379" y="177.241379" angle="269.75619" scale_x="1"/>
+                </key>
+                <key id="2" time="400" spin="0">
+                    <object folder="0" file="15" x="27.241379" y="177.241379" angle="269.75619" scale_x="1" a="0"/>
                 </key>
             </timeline>
         </animation>

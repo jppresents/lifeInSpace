@@ -403,11 +403,11 @@
 </data>
  </layer>
  <objectgroup name="objects">
-  <object name="start" x="2512" y="144" width="32" height="32">
+  <object name="start" x="2768" y="1424" width="32" height="32">
    <properties>
-    <property name="ap" value="20"/>
-    <property name="gun" value="2"/>
-    <property name="hp" value="15"/>
+    <property name="ap" value="4"/>
+    <property name="gun" value="1"/>
+    <property name="hp" value="14"/>
    </properties>
   </object>
   <object name="monster" type="alien" x="464" y="1232" width="32" height="32">
@@ -432,5 +432,15 @@
   </object>
   <object name="goody" type="keycard" x="2640" y="80" width="32" height="32"/>
   <object name="goody" type="keycard" x="2704" y="80" width="32" height="32"/>
+  <object name="enemy" type="turret" x="3088" y="1296" width="32" height="32">
+   <properties>
+    <property name="aggro" value="8"/>
+    <property name="ap" value="0"/>
+    <property name="dmg" value="1"/>
+    <property name="gun" value="2"/>
+    <property name="hp" value="25"/>
+    <property name="look" value="0"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

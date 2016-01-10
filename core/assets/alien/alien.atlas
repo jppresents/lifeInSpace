@@ -1,62 +1,146 @@
 
 alien.png
-size: 512,64
+size: 512,128
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+alienHeadShot
+  rotate: false
+  xy: 336, 39
+  size: 43, 34
+  orig: 43, 34
+  offset: 0, 0
+  index: -1
 alien_body
   rotate: false
-  xy: 183, 18
+  xy: 35, 12
   size: 60, 43
   orig: 60, 43
   offset: 0, 0
   index: -1
 alien_eyeball
   rotate: false
-  xy: 2, 2
+  xy: 35, 5
   size: 5, 5
   orig: 5, 5
   offset: 0, 0
   index: -1
 alien_head
   rotate: false
-  xy: 63, 10
+  xy: 281, 75
   size: 58, 51
   orig: 58, 51
   offset: 0, 0
   index: -1
 alien_head2
   rotate: false
-  xy: 2, 9
+  xy: 220, 74
   size: 59, 52
   orig: 59, 52
   offset: 0, 0
   index: -1
 alien_head3
   rotate: false
-  xy: 123, 10
+  xy: 341, 75
   size: 58, 51
   orig: 58, 51
   offset: 0, 0
   index: -1
 alien_leg
   rotate: false
-  xy: 245, 34
+  xy: 381, 46
   size: 14, 27
   orig: 14, 27
   offset: 0, 0
   index: -1
 alien_legspike
   rotate: false
-  xy: 261, 34
+  xy: 397, 46
   size: 14, 27
   orig: 14, 27
   offset: 0, 0
   index: -1
+bodyBlue
+  rotate: false
+  xy: 220, 29
+  size: 60, 43
+  orig: 60, 43
+  offset: 0, 0
+  index: -1
 deadEyeball
   rotate: false
-  xy: 245, 22
+  xy: 73, 57
   size: 13, 10
   orig: 13, 10
+  offset: 0, 0
+  index: -1
+headBlue
+  rotate: false
+  xy: 401, 75
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1
+legBlue
+  rotate: false
+  xy: 413, 46
+  size: 14, 27
+  orig: 14, 27
+  offset: 0, 0
+  index: -1
+muzzleFlashBlue
+  rotate: false
+  xy: 73, 69
+  size: 79, 57
+  orig: 79, 57
+  offset: 0, 0
+  index: -1
+turretBlink
+  rotate: false
+  xy: 429, 55
+  size: 21, 18
+  orig: 21, 18
+  offset: 0, 0
+  index: -1
+turretBody
+  rotate: false
+  xy: 2, 57
+  size: 69, 69
+  orig: 69, 69
+  offset: 0, 0
+  index: -1
+turretHead
+  rotate: false
+  xy: 282, 45
+  size: 52, 28
+  orig: 52, 28
+  offset: 0, 0
+  index: -1
+turretHeadPart1
+  rotate: false
+  xy: 461, 100
+  size: 49, 26
+  orig: 49, 26
+  offset: 0, 0
+  index: -1
+turretHeadPart2
+  rotate: false
+  xy: 461, 79
+  size: 49, 19
+  orig: 49, 19
+  offset: 0, 0
+  index: -1
+turretPart1
+  rotate: false
+  xy: 154, 57
+  size: 64, 69
+  orig: 64, 69
+  offset: 0, 0
+  index: -1
+turretPart2
+  rotate: false
+  xy: 2, 2
+  size: 31, 53
+  orig: 31, 53
   offset: 0, 0
   index: -1

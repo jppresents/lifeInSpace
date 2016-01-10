@@ -49,7 +49,7 @@ public class GameLogic {
     this.spriterDataManager = spriterDataManager;
     this.combat = combat;
 
-    guy = new Guy(spriterDataManager.getEntity("guy"), spriterDataManager.getDrawer("guy"), spriterDataManager.getEntity("effects"), spriterDataManager.getDrawer("effects"));
+    guy = new Guy(spriterDataManager.getEntity("guy", "guy"), spriterDataManager.getDrawer("guy"), spriterDataManager.getEntity("effects", "effects"), spriterDataManager.getDrawer("effects"));
     gameObjects.add(guy);
   }
 
@@ -58,8 +58,6 @@ public class GameLogic {
     guy.spriterPlayer.setAnimation("front_teleport_in");
     guy.setVisible(true);
   }
-
-
 
   private int doorTimer = 0;
 
@@ -222,7 +220,7 @@ public class GameLogic {
     }
 
     for (Enemy enemy : enemies) {
-      enemy.updateEnemy(guy, tick, world, enemies);
+      enemy.updateEnemy(guy, tick, world, enemies, combat);
     }
 
     if (!guy.inCombat()) {
@@ -288,7 +286,7 @@ public class GameLogic {
       }
     }
 
-    combat.update(world, enemies);
+    combat.update(world, enemies, guy);
     ui.setActionPoints(guy.getActionPoints());
     ui.setMaxActionPoints(guy.getMaxActionPoints());
     ui.setHealthPoints(guy.getHealth());
@@ -403,7 +401,7 @@ public class GameLogic {
         }
         guy.decActionPoints(guy.getShotCost());
         guy.setCurrentMovecostsActinPoints(true);
-        combat.shoot(guy.getTilePosition(), enemy.getTilePosition(), guy.getDamage());
+        combat.shoot(guy.getTilePosition(), enemy.getTilePosition(), guy.getDamage(), guy, Combat.ShotType.GUY);
         state = State.COMBAT;
         ui.hideSelector();
         guy.activateShootAnimation(enemy.getX(), enemy.getY());

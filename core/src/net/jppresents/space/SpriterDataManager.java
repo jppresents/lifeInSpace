@@ -39,8 +39,8 @@ public class SpriterDataManager implements Disposable{
     return spriterData.get(filename);
   }
 
-  Entity getEntity(String filename) {
-    return spriterData.get(filename).getEntity(filename);
+  Entity getEntity(String filename, String entity) {
+    return spriterData.get(filename).getEntity(entity);
   }
 
 

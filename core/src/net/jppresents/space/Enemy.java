@@ -13,8 +13,11 @@ public class Enemy extends AnimatedGameObject {
   private float aggroRange = 6;
   private boolean wasWalking;
   private boolean attackedThisTurn = true;
+  private boolean shootThisTurn = false;
   private boolean socialAggro = false; //is permanent, because they saw a hurt alien
   private boolean social = true;
+  private int gunDamage = 0;
+  private boolean turret;
 
   public Enemy(Entity entity, Drawer drawer) {
     super(entity, drawer);
@@ -27,20 +30,31 @@ public class Enemy extends AnimatedGameObject {
 
   @Override
   protected void hurt() {
-    SpaceMain.assets.playSound(Assets.SoundEffect.ALIEN_HURT);
+    if (turret) {
+      SpaceMain.assets.playSound(Assets.SoundEffect.TURRET_HIT);
+    } else {
+      SpaceMain.assets.playSound(Assets.SoundEffect.ALIEN_HURT);
+    }
+
     spriterPlayer.setAnimation("front_hurt");
   }
 
   @Override
   protected void die() {
-    SpaceMain.assets.playSound(Assets.SoundEffect.ALIEN_DIE);
+    if (turret) {
+      SpaceMain.assets.playSound(Assets.SoundEffect.TURRET_DIE);
+    } else {
+      SpaceMain.assets.playSound(Assets.SoundEffect.ALIEN_DIE);
+    }
     spriterPlayer.setAnimation("front_die");
     fadeAllLights(0.1f);
   }
 
   @Override
   public void animationFinished(Animation animation) {
-    if (animation.name.equals("front_hurt") || animation.name.equals("side_attack") || animation.name.equals("front_attack") || animation.name.equals("back_attack")) {
+    if (animation.name.equals("front_hurt") || animation.name.equals("side_attack") || animation.name.equals("front_attack")
+        || animation.name.equals("back_attack") || animation.name.equals("front_shoot")|| animation.name.equals("side_shoot")
+        || animation.name.equals("back_shoot")) {
       setFaceRight(false);
       spriterPlayer.setAnimation("front_idle");
     }
@@ -55,20 +69,68 @@ public class Enemy extends AnimatedGameObject {
     if (getHealth() <= 0)
       return;
     if (isAggro()) {
-      attackedThisTurn = false;
-      world.calcPath(this, this.getTilePosition(), guy.getTilePosition(), 1, enemies);
+      if (gunDamage > 0) {
+        shootThisTurn = world.hasLineOfSight(guy.getTilePosition().x, guy.getTilePosition().y, getTilePosition().x, getTilePosition().y);
+        attackedThisTurn = true;
+      } else {
+        attackedThisTurn = false;
+      }
+      if (!shootThisTurn) {
+        //either has no gun, or no line of sight so this turn move
+        if (getActionPoints() > 0) {
+          world.calcPath(this, getTilePosition(), guy.getTilePosition(), 1, enemies);
+        } else {
+          setAggro(false);
+        }
+      }
     }
   }
 
   private int lastGuyPosX, lastGuyPosY;
 
-  public void updateEnemy(AnimatedGameObject guy, int tick, World world, List<Enemy> enemies) {
+  private void setAggro(boolean value) {
+    aggro = value;
+    if (aggro) {
+      light.setColor(0.5f, 0.2f, 0.2f, 1);
+    } else {
+      light.setColor(0.2f, 0.5f, 0.5f, 1);
+    }
+  }
+
+  public void updateEnemy(AnimatedGameObject guy, int tick, World world, List<Enemy> enemies, Combat combat) {
     if (aggro) {
       float distance = guy.calcDistance(this);
 
       if (!socialAggro && distance >= (aggroRange + 3) && getHealth() == getMaxHealth()) {
-        aggro = false;
-        light.setColor(0.2f, 0.5f, 0.5f, 1);
+        setAggro(false);
+      }
+
+      if (shootThisTurn) {
+        SpaceMain.assets.playSound(Assets.SoundEffect.ENEMY_BLASTER);
+
+
+        if (turret) {
+          combat.shoot(getTilePosition(), guy.getTilePosition(), gunDamage, this, Combat.ShotType.TURRET);
+          if ( Math.abs(guy.getX() - getX()) > Math.abs(guy.getY() - getY()) ) {
+            if (guy.getX() < getX()) {
+              spriterPlayer.setAnimation("side_shoot");
+            } else if (guy.getX() > getX()) {
+              spriterPlayer.setAnimation("side_shoot");
+              setFaceRight(true);
+            }
+          } else {
+            if (guy.getY() > getY()) {
+              spriterPlayer.setAnimation("back_shoot");
+            } else {
+              spriterPlayer.setAnimation("front_shoot");
+            }
+          }
+        } else {
+          combat.shoot(getTilePosition(), guy.getTilePosition(), gunDamage, this, Combat.ShotType.ALIEN);
+          spriterPlayer.setAnimation("front_shoot");
+        }
+        shootThisTurn = false;
+        setIdleIn(35, tick);
       }
 
       if (getHealth() > 0 && getActionPoints() > 0 && isIdle(tick) && distance < 2 && !attackedThisTurn) {
@@ -83,22 +145,20 @@ public class Enemy extends AnimatedGameObject {
           spriterPlayer.setAnimation("front_attack");
         }
         guy.hit(getDamage());
-        setIdleIn(600, tick);
+        setIdleIn(35, tick);
         attackedThisTurn = true;
       }
 
     } else {
-      if (getHealth() < getMaxHealth()) {
-        aggro = true;
-        light.setColor(0.5f, 0.2f, 0.2f, 1);
+      if (getHealth() < getMaxHealth() && getActionPoints() > 0) {
+        setAggro(true);
         return;
       }
       if (social) {
         for (Enemy e : enemies) {
-          if (e.getHealth() > 0 && e.getHealth() < e.getMaxHealth() && e.calcDistance(this) < 4) {
-            aggro = true;
+          if (e != this && e.getHealth() > 0 && e.getHealth() < e.getMaxHealth() && e.calcDistance(this) < 4) {
             socialAggro = true;
-            light.setColor(0.5f, 0.2f, 0.2f, 1);
+            setAggro(true);
             return;
           }
         }
@@ -107,10 +167,8 @@ public class Enemy extends AnimatedGameObject {
         lastGuyPosX = (int) guy.getTilePosition().x;
         lastGuyPosY = (int) guy.getTilePosition().y;
         if ((guy.calcDistance(this) <= aggroRange
-            && world.hasLineOfSight((int) getTilePosition().x, (int) getTilePosition().y, (int) guy.getTilePosition().x, (int) guy.getTilePosition().y))
-            || getSecondarySortAttrib() < getMaxHealth()) {
-          aggro = true;
-          light.setColor(0.5f, 0.2f, 0.2f, 1);
+            && world.hasLineOfSight((int) getTilePosition().x, (int) getTilePosition().y, (int) guy.getTilePosition().x, (int) guy.getTilePosition().y))) {
+          setAggro(true);
         }
       }
     }
@@ -142,23 +200,35 @@ public class Enemy extends AnimatedGameObject {
     return aggro;
   }
 
-  public void setLook(int level) {
-    if (level == 2) {
+  public void setLook(int look) {
+    if (look == 2) {
       spriterPlayer.characterMaps[0] = spriterPlayer.getEntity().getCharacterMap("SpikeLeg");
     }
-    if (level == 3) {
+    if (look == 3) {
       spriterPlayer.characterMaps[0] = spriterPlayer.getEntity().getCharacterMap("SpikeHead");
     }
-    if (level == 4) {
+    if (look == 4) {
       spriterPlayer.characterMaps[0] = spriterPlayer.getEntity().getCharacterMap("SpikeHead");
       spriterPlayer.characterMaps[1] = spriterPlayer.getEntity().getCharacterMap("SpikeLeg");
     }
-    if (level >= 5) {
+    if (look >= 5) {
       spriterPlayer.characterMaps[0] = spriterPlayer.getEntity().getCharacterMap("EyeHead");
+    }
+    if (look == -1) {
+      spriterPlayer.characterMaps[0] = spriterPlayer.getEntity().getCharacterMap("Blue");
     }
   }
 
   public void setAggroRange(int aggroRange) {
     this.aggroRange = aggroRange;
+  }
+
+  public void setGunDamage(int gunDamage) {
+    this.gunDamage = gunDamage;
+  }
+
+  public void setTurret(boolean turret) {
+    this.turret = turret;
+    setMaxActionPoints(0); //turrets don't walk - I don't care what the level data says.
   }
 }

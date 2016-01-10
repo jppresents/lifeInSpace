@@ -10,6 +10,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Combat {
+  public enum ShotType {GUY, TURRET, ALIEN}
+
+  private static int GUY_START = 19;
+  private static int GUY_VISIBLE = 23;
+
+  private static int TURRET_START = 19;
+  private static int TURRET_VISIBLE = 23;
+
+  private static int ALIEN_START = 25;
+  private static int ALIEN_VISIBLE = 27;
+
   private class Shot {
     private Light light;
     private Sprite sprite;
@@ -19,12 +30,11 @@ public class Combat {
     private int startTick = 19;
     private int visibleTick = 23;
     private int damage = 0;
+    public AnimatedGameObject shooter;
 
     public Shot() {
       sprite = new Sprite(SpaceMain.assets.getSprites().findRegion("shot"));
-      sprite.setColor(1, 0.3f, 0.3f, 1);
       light = new Light(0, 0, (int) sprite.getWidth() / 2, (int) sprite.getHeight() / 2, 150, SpaceMain.lights);
-      light.setColor(0.9f, 0.4f, 0.4f, 1.0f);
       light.setOn(false);
     }
 
@@ -43,7 +53,7 @@ public class Combat {
 
     private Enemy findTarget(List<Enemy> enemies, int x, int y) {
       for (Enemy enemy : enemies) {
-        if (enemy.getTilePosition().x == x && enemy.getTilePosition().y == y && enemy.getSecondarySortAttrib() > 0) {
+        if (enemy.getTilePosition().x == x && enemy.getTilePosition().y == y && enemy.getHealth() > 0) {
           return enemy;
         }
       }
@@ -51,7 +61,7 @@ public class Combat {
     }
 
 
-    private void update(int tick, World world, List<Enemy> enemies) {
+    private void update(int tick, World world, List<Enemy> enemies, Guy guy) {
       sprite.setPosition(sprite.getX() + velocity.x, sprite.getY() + velocity.y);
       light.setPosition(sprite.getX(), sprite.getY());
 
@@ -65,8 +75,14 @@ public class Combat {
       }
 
       if (active) {
+        if (guy != shooter && guy.getTilePosition().x == getTileX() && guy.getTilePosition().y == getTileY()) {
+          guy.hit(damage);
+          active = false;
+          light.setOn(false);
+        }
+
         Enemy enemy = findTarget(enemies, getTileX(), getTileY());
-        if (enemy != null) {
+        if (enemy != null && enemy != shooter) {
           enemy.hit(damage);
           active = false;
           light.setOn(false);
@@ -80,9 +96,28 @@ public class Combat {
       }
 
     }
+
+    public void setShotType(ShotType type) {
+      if (type == ShotType.GUY) {
+        sprite.setColor(1, 0.3f, 0.3f, 1);
+        light.setColor(0.9f, 0.4f, 0.4f, 1.0f);
+        visibleTick = GUY_VISIBLE;
+        startTick = GUY_START;
+      } else {
+        sprite.setColor(0.3f, 0.3f, 1, 1);
+        light.setColor(0.4f, 0.4f, 0.9f, 1.0f);
+        if (type == ShotType.TURRET) {
+          visibleTick = TURRET_VISIBLE;
+          startTick = TURRET_START;
+        } else {
+          visibleTick = ALIEN_VISIBLE;
+          startTick = ALIEN_START;
+        }
+      }
+    }
   }
 
-  private List<Shot> shots = new ArrayList<Shot>(10);
+  private List<Shot> shots = new ArrayList<Shot>(2);
 
   private boolean active = false;
 
@@ -102,9 +137,11 @@ public class Combat {
   }
 
 
-  public void shoot(Vector3 tilePosFrom, Vector3 tilePosTo, int damage) {
+  public void shoot(Vector3 tilePosFrom, Vector3 tilePosTo, int damage, AnimatedGameObject shooter, ShotType color) {
     Shot shot = getShot();
+    shot.setShotType(color);
     shot.damage = damage;
+    shot.shooter = shooter;
     shot.active = true;
     shot.setPos(tilePosFrom.x * SpaceMain.TILE_SIZE + SpaceMain.TILE_SIZE / 2, tilePosFrom.y * SpaceMain.TILE_SIZE + SpaceMain.TILE_SIZE / 2);
     shot.velocity.set(tilePosTo.x - tilePosFrom.x, tilePosTo.y - tilePosFrom.y);
@@ -114,7 +151,7 @@ public class Combat {
     tick = 0;
   }
 
-  public void update(World world, List<Enemy> enemies) {
+  public void update(World world, List<Enemy> enemies, Guy guy) {
     tick++;
     boolean any = false;
     for (Shot shot : shots) {
@@ -123,7 +160,7 @@ public class Combat {
           SpaceMain.assets.playSound(Assets.SoundEffect.BLASTER);
         }
         if (tick > shot.startTick) {
-          shot.update(tick, world, enemies);
+          shot.update(tick, world, enemies, guy);
         }
         any = true;
       }
