@@ -139,7 +139,7 @@ public class SpaceMain extends ApplicationAdapter {
 
   @Override
   public void render() {
-    assets.fadeMusic();
+    assets.update();
 
     if (Gdx.input.isKeyPressed(Input.Keys.BACK) ||Gdx.input.isKeyPressed(Input.Keys.ESCAPE)  || returnToMenu){
      if (!mainMenu.isActive()) {

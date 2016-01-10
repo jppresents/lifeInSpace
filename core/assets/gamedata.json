@@ -19,5 +19,7 @@
         world01_throughFirstBase:"you made it through the first base\nnow you have to reach the extraction point\nit is to the north west",
         world01_upgrade_south:"this is mission control\nour scanners show another upgrade to the south",
         world01_apdouble:"you now have 4 action points\nthis is enough to shoot twice per round\nthat is if you don't move that round",
-	}
+	},
+
+  audio: ["world01_intro"]
 }

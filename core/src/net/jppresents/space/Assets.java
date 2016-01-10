@@ -3,6 +3,7 @@ package net.jppresents.space;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -21,8 +22,11 @@ public class Assets implements Disposable {
   private Music playingMusic;
   private static final float TARGET_VOLUMNE = 0.3f;
   private float currentVolume;
+  private Sound currentRadioSound;
+  private long currentRadioSoundId;
+  private float fadeCurrentRadio;
 
-  public enum SoundEffect {BLASTER, ALIEN_HURT, ALIEN_DIE, GUY_HURT, GUY_HURT2, FIZZLE, POWERUP, HEAL, ERROR, TELEPORT}
+  public enum SoundEffect {BLASTER, ALIEN_HURT, ALIEN_DIE, GUY_HURT, GUY_HURT2, FIZZLE, POWERUP, HEAL, ERROR, DOOR, PICKUP, TELEPORT}
   public enum GameMusic {MENU, GAME}
 
   private final TextureAtlas sprites;
@@ -34,6 +38,7 @@ public class Assets implements Disposable {
   private final BitmapFont font;
   private final Skin skin;
   private final TextResources textResources;
+  private final Map<String, Sound> radioSounds = new HashMap<String, Sound>();
 
   public Assets() {
     soundOn = SpaceMain.prefs.getBoolean(SpaceMain.Pref.SOUND, true);
@@ -54,6 +59,8 @@ public class Assets implements Disposable {
     sounds.put(SoundEffect.HEAL, Gdx.audio.newSound(Gdx.files.internal("sound/heal.ogg")));
     sounds.put(SoundEffect.ERROR, Gdx.audio.newSound(Gdx.files.internal("sound/error.ogg")));
     sounds.put(SoundEffect.TELEPORT, Gdx.audio.newSound(Gdx.files.internal("sound/teleport.ogg")));
+    sounds.put(SoundEffect.DOOR, Gdx.audio.newSound(Gdx.files.internal("sound/door.ogg")));
+    sounds.put(SoundEffect.PICKUP, Gdx.audio.newSound(Gdx.files.internal("sound/pickup.ogg")));
 
     menuMusic = Gdx.audio.newMusic(Gdx.files.internal("music/menuMusic.ogg"));
     menuMusic.setLooping(true);
@@ -89,6 +96,10 @@ public class Assets implements Disposable {
     for (Sound sound: sounds.values()) {
       sound.dispose();
     }
+    for (Sound sound: radioSounds.values()) {
+      sound.dispose();
+    }
+    radioSounds.clear();
   }
 
   public void startMusic(GameMusic music) {
@@ -105,7 +116,13 @@ public class Assets implements Disposable {
     return bgMusic;
   }
 
-  public void fadeMusic() {
+  public void update() {
+    if (fadeCurrentRadio > 0) {
+      fadeCurrentRadio -= 0.01;
+      if (currentRadioSound != null) {
+        currentRadioSound.setVolume(currentRadioSoundId, fadeCurrentRadio);
+      }
+    }
 
     if (musicOn) {
       if (playingMusic == null) {
@@ -154,6 +171,34 @@ public class Assets implements Disposable {
       }
     }
   }
+
+  public void fadeOutCurrentRadio() {
+    fadeCurrentRadio = 1.0f;
+  }
+
+
+  public void playRadioIfAvailable(String radioFile) {
+    if (currentRadioSound != null) {
+      currentRadioSound.stop(currentRadioSoundId);
+      fadeCurrentRadio = 0;
+      currentRadioSound = null;
+      currentRadioSoundId = 0;
+    }
+    if (soundOn && textResources.isAudioAvailable(radioFile)) {
+      if (radioSounds.containsKey(radioFile)) {
+        currentRadioSound = radioSounds.get(radioFile);
+        if (currentRadioSound != null) {
+          currentRadioSoundId = currentRadioSound.play();
+        }
+      }else {
+        FileHandle file = Gdx.files.internal("sound/" + radioFile + ".ogg");
+        currentRadioSound = Gdx.audio.newSound(file);
+        currentRadioSoundId = currentRadioSound.play();
+        radioSounds.put(radioFile, currentRadioSound);
+      }
+    }
+  }
+
 
   public void toggleSound() {
     setSoundOn(!soundOn);

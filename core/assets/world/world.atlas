@@ -417,3 +417,59 @@ repeat: none
   orig: 64, 64
   offset: 0, 0
   index: -1
+60
+  rotate: false
+  xy: 954, 206
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+61
+  rotate: false
+  xy: 2, 274
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+62
+  rotate: false
+  xy: 70, 274
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+63
+  rotate: false
+  xy: 138, 274
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+64
+  rotate: false
+  xy: 206, 274
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+65
+  rotate: false
+  xy: 274, 274
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+66
+  rotate: false
+  xy: 342, 274
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+67
+  rotate: false
+  xy: 410, 274
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1

@@ -18,6 +18,7 @@ public class Guy extends AnimatedGameObject {
   private boolean effectVisible;
   private int newGunLevel;
   private boolean visible;
+  private int keyCardCount;
 
   public Guy(Entity entity, Drawer drawer, Entity effects, Drawer effectDrawer) {
     super(entity, drawer);
@@ -209,6 +210,7 @@ public class Guy extends AnimatedGameObject {
     spriterPlayer.setAnimation("front_idle");
     spriterPlayer.speed = 15;
     visible = false;
+    keyCardCount = 0;
   }
 
   public int getShotCost() {
@@ -244,4 +246,17 @@ public class Guy extends AnimatedGameObject {
   public void setVisible(boolean visible) {
     this.visible = visible;
   }
+
+  public boolean hasKeyCard() {
+    return keyCardCount > 0;
+  }
+
+  public int getKeyCardCount() {
+    return keyCardCount;
+  }
+
+  public void setKeyCardCount(int keyCardCount) {
+    this.keyCardCount = keyCardCount;
+  }
+
 }

@@ -59,16 +59,59 @@ public class GameLogic {
     guy.setVisible(true);
   }
 
+
+
+  private int doorTimer = 0;
+
+  private void handleDoor(int x, int y, boolean fullyOpen) {
+    if (!fullyOpen) {
+      if (world.getTileIndex(x, y) == 61 || world.getTileIndex(x, y) == 63) {
+        if (!guy.hasKeyCard()) {
+          SpaceMain.assets.playSound(Assets.SoundEffect.ERROR);
+          return;
+        }
+        SpaceMain.assets.playSound(Assets.SoundEffect.DOOR);
+        if (world.getTileIndex(x, y) == 61) {
+          world.setTileIndex(x, y, 62);
+        } else if (world.getTileIndex(x, y) == 63) {
+          world.setTileIndex(x, y, 64);
+        }
+        doorTimer = 30;
+        guy.setKeyCardCount(guy.getKeyCardCount() - 1);
+      }
+    } else {
+      if (world.getTileIndex(x, y) == 62) {
+        world.setTileIndex(x, y, 0);
+        world.updateCollision();
+      }
+      if (world.getTileIndex(x, y) == 64) {
+        world.setTileIndex(x, y, 38);
+        world.updateCollision();
+      }
+    }
+  }
+
   private float lastPosX, lastPosY;
 
   private void handleWorldInteraction() {
     if (triggerReset != 0)
       return;
 
+    if (doorTimer > 0) {
+      doorTimer--;
+      if (doorTimer == 0) {
+        handleDoor((int)lastPosX, (int)lastPosY + 1, true);
+        handleDoor((int)lastPosX, (int)lastPosY - 1, true);
+      }
+    }
+
     if (guy.getHealth() > 0 && (guy.getTilePosition().x != lastPosX || guy.getTilePosition().y != lastPosY)) {
 
       lastPosX = guy.getTilePosition().x;
       lastPosY = guy.getTilePosition().y;
+
+      handleDoor((int)lastPosX, (int)lastPosY + 1, false);
+      handleDoor((int)lastPosX, (int)lastPosY - 1, false);
 
       //Light changes
       if (world.getTileIndex((int)lastPosX, (int)lastPosY) == 38) {
@@ -109,9 +152,15 @@ public class GameLogic {
           guy.setMaxActionPoints(guy.getMaxActionPoints() + goody.getAmount());
           guy.showMaxApUpAnimation();
         }
+        if ("keycard".equals(goody.getType())) {
+          SpaceMain.assets.playSound(Assets.SoundEffect.PICKUP);
+          goody.setActive(false);
+          guy.setKeyCardCount(guy.getKeyCardCount() + 1);
+        }
       }
     }
   }
+
 
 
   public void handleEvents() {
@@ -122,6 +171,7 @@ public class GameLogic {
         switch(event.type) {
           case TEXT:
             ui.getTextBox().setText(SpaceMain.assets.getText(event.key), false);
+            SpaceMain.assets.playRadioIfAvailable(event.key);
             break;
           case ENDING:
             SpaceMain.prefs.putBoolean(SpaceMain.Pref.WIN, true);
@@ -242,6 +292,7 @@ public class GameLogic {
     ui.setActionPoints(guy.getActionPoints());
     ui.setMaxActionPoints(guy.getMaxActionPoints());
     ui.setHealthPoints(guy.getHealth());
+    ui.setKeyCardCount(guy.getKeyCardCount());
     ui.setMaxHealthPoints(guy.getMaxHealth());
     ui.showActionBar(guy.inCombat());
   }
@@ -315,6 +366,7 @@ public class GameLogic {
     if (ui.getTextBox().isActive()) {
       if (ui.getTextBox().isDone()) {
         ui.getTextBox().hide();
+        SpaceMain.assets.fadeOutCurrentRadio();
         dragFrom.set(-1, -1);
         moveCam.set(0, 0);
       } else {

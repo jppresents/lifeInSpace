@@ -10,7 +10,9 @@ public class UserInterface {
   private final TextureAtlas.AtlasRegion selector;
   private final TextureAtlas.AtlasRegion markerTarget;
   private final TextureAtlas.AtlasRegion markerSkip;
+  private final TextureAtlas.AtlasRegion keyCard;
   private final int barHeight, barWidth;
+
 
   private boolean error = false;
   private Enemy target = null;
@@ -28,6 +30,7 @@ public class UserInterface {
   private int hiddenY;
   private int visibleY;
   private boolean canShoot;
+  private int keyCardCount;
 
   public UserInterface() {
     marker = SpaceMain.assets.getSprites().findRegion("marker");
@@ -45,6 +48,7 @@ public class UserInterface {
     targetHealthBar.setFixedToCamera(false);
     targetHealthBar.setShowValues(false);
     textBox = new TextBox(SpaceMain.assets.getSprites(), "textbox");
+    keyCard = SpaceMain.assets.getSprites().findRegion("keycard");
   }
 
   public void render(SpriteBatch batch, Camera camera) {
@@ -95,6 +99,16 @@ public class UserInterface {
     }
     actionBar.setY(currentActionBarY);
     actionBar.render(batch, camera);
+
+    if (keyCardCount > 0) {
+      float x = camera.position.x - camera.viewportWidth / 2 + 10;
+      float y= camera.position.y - camera.viewportHeight / 2 + camera.viewportHeight - 10 - barHeight - 10 - keyCard.getRegionHeight();
+      batch.draw(keyCard, x, y);
+      if (keyCardCount > 1) {
+        SpaceMain.assets.getFont().setColor(1, 1, 1, 1);
+        SpaceMain.assets.getFont().draw(batch, "x " + keyCardCount, x + keyCard.getRegionWidth() + 10, y + keyCard.getRegionHeight() + 5);
+      }
+    }
 
     textBox.render(batch, camera);
   }
@@ -148,6 +162,10 @@ public class UserInterface {
 
   public void setHealthPoints(int healthPoints) {
     this.healthBar.setValue(healthPoints);
+  }
+
+  public void setKeyCardCount(int keyCardCount) {
+    this.keyCardCount = keyCardCount;
   }
 
   public void resize(Camera camera) {

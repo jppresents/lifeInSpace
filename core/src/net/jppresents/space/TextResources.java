@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class TextResources {
+  private ArrayList<String> audio;
   private ArrayList<String> worlds;
   private HashMap<String, String> texts;
 
@@ -15,5 +16,9 @@ public class TextResources {
 
   public ArrayList<String> getWorlds() {
     return worlds;
+  }
+
+  public boolean isAudioAvailable(String radioFile) {
+    return audio.contains(radioFile);
   }
 }

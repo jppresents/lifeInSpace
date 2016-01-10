@@ -33,7 +33,12 @@ public class Goody implements GameObject{
     sprite = new Sprite(region);
     blink = !this.type.equals("medkit");
     light = new Light(0, 0, (int)sprite.getWidth()/2, (int)sprite.getHeight()/2, 200, SpaceMain.lights);
-    light.setColor(0.3f, 0.2f, 1, 1);
+
+    if (this.type.equals("keycard")) {
+      light.setColor(0.6f, 0.6f, 0.6f, 1);
+    } else {
+      light.setColor(0.3f, 0.2f, 1, 1);
+    }
   }
 
 

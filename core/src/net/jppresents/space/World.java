@@ -44,17 +44,7 @@ public class World implements Disposable {
     mainLayer = (TiledMapTileLayer) (map.getLayers().get("world"));
     objLayer = map.getLayers().get("objects");
     mapRenderer = new OrthogonalTiledMapRenderer(map, 1);
-    pathMap = new int[mainLayer.getHeight()][];
-    for (int y = 0; y < mainLayer.getHeight(); y++) {
-      pathMap[y] = new int[mainLayer.getWidth()];
-      for (int x = 0; x < pathMap[y].length; x++) {
-        if (isTileBlocking(x, y)) {
-          pathMap[y][x] = Integer.MIN_VALUE;
-        } else {
-          pathMap[y][x] = 0;
-        }
-      }
-    }
+    updateCollision();
   }
 
   public void applyPlayerData(Guy guy) {
@@ -313,7 +303,12 @@ public class World implements Disposable {
       if (object.getName().equals("goody")) {
         getTileCoords(((RectangleMapObject) object).getRectangle().getX(), ((RectangleMapObject) object).getRectangle().getY(), temp);
         String type = (String) object.getProperties().get("type");
-        Goody goody = new Goody(type, Integer.parseInt((String) object.getProperties().get("amount")));
+        String amount = (String) object.getProperties().get("amount");
+        int amountInt = 0;
+        if (amount != null) {
+          amountInt = Integer.parseInt(amount);
+        }
+        Goody goody = new Goody(type, amountInt);
         goody.setPosition(temp.x, temp.y);
         goodies.add(goody);
       }
@@ -355,5 +350,30 @@ public class World implements Disposable {
 
   public boolean isLoaded() {
     return map != null;
+  }
+
+  public void setTileIndex(int x, int y, int index) {
+    TiledMapTileLayer.Cell cell = mainLayer.getCell(x, y);
+    if (cell != null) {
+      cell.setTile(map.getTileSets().getTile(index + 1));
+    }
+  }
+
+  public void updateCollision() {
+    if (pathMap == null || pathMap.length != mainLayer.getHeight()) {
+      pathMap = new int[mainLayer.getHeight()][];
+    }
+    for (int y = 0; y < mainLayer.getHeight(); y++) {
+      if (pathMap[y] == null || pathMap[y].length != mainLayer.getWidth()) {
+        pathMap[y] = new int[mainLayer.getWidth()];
+      }
+      for (int x = 0; x < pathMap[y].length; x++) {
+        if (isTileBlocking(x, y)) {
+          pathMap[y][x] = Integer.MIN_VALUE;
+        } else {
+          pathMap[y][x] = 0;
+        }
+      }
+    }
   }
 }

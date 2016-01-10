@@ -74,9 +74,16 @@ hpkit
   orig: 48, 32
   offset: 0, 0
   index: -1
-marker
+keycard
   rotate: false
   xy: 364, 232
+  size: 34, 23
+  orig: 34, 23
+  offset: 0, 0
+  index: -1
+marker
+  rotate: false
+  xy: 943, 435
   size: 23, 23
   orig: 23, 23
   offset: 0, 0
@@ -146,7 +153,7 @@ selector
   index: -1
 shot
   rotate: false
-  xy: 943, 447
+  xy: 102, 23
   size: 32, 11
   orig: 32, 11
   offset: 0, 0
