@@ -229,6 +229,8 @@ public class Enemy extends AnimatedGameObject {
 
   public void setTurret(boolean turret) {
     this.turret = turret;
-    setMaxActionPoints(0); //turrets don't walk - I don't care what the level data says.
+    if (turret) {
+      setMaxActionPoints(0); //turrets don't walk - I don't care what the level data says.
+    }
   }
 }

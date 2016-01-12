@@ -1,5 +1,6 @@
 package net.jppresents.space;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -10,11 +11,11 @@ import java.util.List;
 public class GameLogic {
   private final Combat combat;
 
-  private Vector2 lastMouse = new Vector2(0, 0);
   private Vector2 dragFrom = new Vector2(0, 0);
   private Vector2 moveCam = new Vector2(0, 0);
   private boolean resetCam;
   private String nextEnding;
+  private boolean needRefreshUi;
 
 
   private enum State {PLAYERINPUT, PLAYERMOVING, ENEMYTURN, COMBAT}
@@ -322,7 +323,18 @@ public class GameLogic {
   }
 
 
+  Vector3 unproject = new Vector3();
   public void controlCamera(OrthographicCamera camera, int tick) {
+    if (needRefreshUi) {
+      if (!SpaceMain.touchMode) {
+        unproject.x = Gdx.input.getX();
+        unproject.y = Gdx.input.getY();
+        camera.unproject(unproject);
+        setAndDisplayAction(unproject.x, unproject.y);
+      }
+      needRefreshUi = false;
+    }
+
     if (resetCam) {
       guy.centerCamera(camera);
       world.restrictCamera(camera);
@@ -443,8 +455,6 @@ public class GameLogic {
     }
 
     if (state == State.PLAYERINPUT) {
-      lastMouse.x = x;
-      lastMouse.y = y;
       world.getTileCoords(x, y, temp);
       target.x = (int) temp.x;
       target.y = (int) temp.y;
@@ -462,9 +472,7 @@ public class GameLogic {
   }
 
   private void refreshUI() {
-    if (!SpaceMain.touchMode) {
-      setAndDisplayAction(lastMouse.x, lastMouse.y);
-    }
+    needRefreshUi = true;
   }
 
   private Goody findActiveGoody(int x, int y) {
