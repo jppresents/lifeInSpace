@@ -190,7 +190,7 @@ public class MainMenu implements Disposable, EventListener {
     levelSelectTable.setSize(1280, 720);
     levelSelectTable.addAction(Actions.moveBy(0, -720));
 
-    ArrayList<String> worlds = SpaceMain.assets.getWorlds();
+    java.util.List<String> worlds = SpaceMain.assets.getWorlds();
     int i = 0;
     for (String world: worlds) {
       i++;

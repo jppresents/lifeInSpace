@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Json;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Assets implements Disposable {
@@ -91,7 +92,7 @@ public class Assets implements Disposable {
    return textResources.getText(key);
   }
 
-  public ArrayList<String> getWorlds() {
+  public List<String> getWorlds() {
     return textResources.getWorlds();
   }
 

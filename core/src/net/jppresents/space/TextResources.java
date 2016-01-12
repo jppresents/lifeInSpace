@@ -1,11 +1,10 @@
 package net.jppresents.space;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 
 public class TextResources {
   private ArrayList<String> audio;
-  private ArrayList<String> worlds;
+  private ArrayList<String>  worlds;
   private HashMap<String, String> texts;
 
   public String getText(String key) {
@@ -14,7 +13,7 @@ public class TextResources {
     return "Error :(\nText " + key + " not found";
   }
 
-  public ArrayList<String> getWorlds() {
+  public List<String> getWorlds() {
     return worlds;
   }
 
