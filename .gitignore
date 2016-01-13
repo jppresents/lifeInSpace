@@ -63,4 +63,3 @@ build/
 ## OS Specific
 .DS_Store
 gradle
-/art/ground/tiles

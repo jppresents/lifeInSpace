@@ -410,9 +410,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.35355339"
-     inkscape:cx="599.91393"
-     inkscape:cy="-64.431428"
+     inkscape:zoom="0.5"
+     inkscape:cx="256.82318"
+     inkscape:cy="133.45994"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -476,19 +476,19 @@
        x="32"
        height="64"
        width="64"
-       id="000"
+       id="00"
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#e17003;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
        inkscape:label="#rect5089" />
     <rect
        style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#bb5d02;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
-       id="001"
+       id="01"
        width="64"
        height="64"
        x="162.52231"
        y="161.03436"
        inkscape:label="#rect5085" />
     <g
-       id="003"
+       id="03"
        transform="translate(2082.5223,196.67216)"
        inkscape:label="#g5173">
       <rect
@@ -508,7 +508,7 @@
          clip-path="url(#clipPath5169)" />
     </g>
     <g
-       id="004"
+       id="04"
        transform="translate(2146.5223,196.67216)"
        inkscape:label="#g5183">
       <rect
@@ -527,7 +527,7 @@
          style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#bb5d02;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
     </g>
     <g
-       id="002"
+       id="02"
        transform="matrix(-1,0,0,1,-1245.4777,196.67216)"
        inkscape:label="#g5187">
       <rect
@@ -546,7 +546,7 @@
          clip-path="url(#clipPath5179)" />
     </g>
     <g
-       id="008"
+       id="08"
        transform="matrix(-1,0,0,-1,-1181.4777,269.39657)"
        inkscape:label="#g5193">
       <rect
@@ -567,7 +567,7 @@
     </g>
     <g
        transform="matrix(1,0,0,-1,2146.5223,269.39657)"
-       id="009"
+       id="09"
        inkscape:label="#g5205">
       <rect
          y="-35.637787"
@@ -585,7 +585,7 @@
          style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#bb5d02;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
     </g>
     <g
-       id="006"
+       id="06"
        transform="matrix(0,1,-1,0,190.88453,1905.0342)"
        inkscape:label="#g5211">
       <rect
@@ -606,7 +606,7 @@
     </g>
     <g
        transform="matrix(0,1,1,0,70.160131,1905.0342)"
-       id="005"
+       id="05"
        inkscape:label="#g5217">
       <rect
          style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#e17003;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -626,7 +626,7 @@
     </g>
     <g
        transform="matrix(-1,0,0,-1,-1245.4777,269.39657)"
-       id="007"
+       id="07"
        inkscape:label="#g5275">
       <rect
          y="-35.637787"
@@ -645,7 +645,7 @@
     </g>
     <g
        transform="matrix(-1,0,0,-1,-1501.4777,349.39657)"
-       id="010"
+       id="10"
        inkscape:label="#g5287">
       <rect
          style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#e17003;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -663,7 +663,7 @@
          clip-path="url(#clipPath5179)" />
     </g>
     <g
-       id="011"
+       id="11"
        transform="matrix(1,0,0,-1,1762.5223,349.39657)"
        inkscape:label="#g5291">
       <rect
@@ -683,7 +683,7 @@
     </g>
     <g
        transform="translate(1890.5223,356.67217)"
-       id="012"
+       id="12"
        inkscape:label="#g5297">
       <rect
          style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#e17003;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate"
@@ -701,7 +701,7 @@
          clip-path="url(#clipPath5179)" />
     </g>
     <g
-       id="013"
+       id="13"
        transform="matrix(-1,0,0,1,-1117.4777,356.67217)"
        inkscape:label="#g5303">
       <rect
@@ -720,7 +720,7 @@
          style="color:#000000;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;fill:#bb5d02;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" />
     </g>
     <g
-       id="014"
+       id="14"
        inkscape:label="#g4882"
        transform="translate(2105.3588,352.98832)"
        style="fill:#552200">
@@ -737,7 +737,7 @@
       </g>
     </g>
     <g
-       id="015"
+       id="15"
        inkscape:label="#g4895"
        transform="translate(2094.7522,349.82966)">
       <g
@@ -808,7 +808,7 @@
          inkscape:connector-curvature="0" />
     </g>
     <g
-       id="016"
+       id="16"
        inkscape:label="#g4908"
        transform="translate(2094.7522,349.82966)">
       <g
@@ -874,7 +874,7 @@
          inkscape:connector-curvature="0" />
     </g>
     <g
-       id="017"
+       id="17"
        inkscape:label="#g4920"
        transform="translate(2094.7522,349.82966)">
       <g
@@ -954,7 +954,7 @@
          inkscape:connector-curvature="0" />
     </g>
     <g
-       id="022"
+       id="22"
        inkscape:label="#g4935"
        transform="translate(2094.7522,349.82966)">
       <g
@@ -1035,7 +1035,7 @@
          inkscape:connector-curvature="0" />
     </g>
     <g
-       id="021"
+       id="21"
        inkscape:label="#g4950"
        transform="translate(2094.7522,349.82966)">
       <g
@@ -1094,7 +1094,7 @@
          style="fill:#1a1a1a;fill-rule:evenodd;stroke:#333333;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
     </g>
     <g
-       id="020"
+       id="20"
        inkscape:label="#g4984"
        transform="translate(2094.7522,349.82966)">
       <g
@@ -1165,7 +1165,7 @@
          inkscape:connector-curvature="0" />
     </g>
     <g
-       id="019"
+       id="19"
        inkscape:label="#g4997"
        transform="translate(2094.7522,349.82966)">
       <g
@@ -1224,7 +1224,7 @@
          inkscape:connector-curvature="0" />
     </g>
     <g
-       id="018"
+       id="18"
        inkscape:label="#g5030"
        transform="translate(2094.7522,349.82966)">
       <g
@@ -1284,7 +1284,7 @@
          inkscape:connector-curvature="0" />
     </g>
     <g
-       id="023"
+       id="23"
        inkscape:label="#g5019"
        transform="translate(2094.7522,349.82966)">
       <g
@@ -1342,7 +1342,7 @@
          sodipodi:nodetypes="ccccc" />
     </g>
     <g
-       id="024"
+       id="24"
        inkscape:label="#g5008"
        transform="translate(2094.7522,349.82966)">
       <g
@@ -1399,7 +1399,7 @@
          sodipodi:nodetypes="ccccc" />
     </g>
     <g
-       id="025"
+       id="25"
        inkscape:label="#g4972"
        transform="translate(2094.7522,349.82966)">
       <g
@@ -1463,7 +1463,7 @@
          sodipodi:nodetypes="ccccc" />
     </g>
     <g
-       id="026"
+       id="26"
        inkscape:label="#g4961"
        transform="matrix(1,0,0,-1,2094.7522,1078.5541)"
        inkscape:export-xdpi="90"
@@ -1523,7 +1523,7 @@
     </g>
     <g
        inkscape:label="#g4882"
-       id="027"
+       id="27"
        transform="translate(2478.822,574.186)">
       <g
          id="g5043">
@@ -1556,7 +1556,7 @@
     </g>
     <g
        transform="translate(2579.229,571.1984)"
-       id="028"
+       id="28"
        inkscape:label="#g4882">
       <g
          id="g5067">
@@ -1599,7 +1599,7 @@
       </g>
     </g>
     <g
-       id="029"
+       id="29"
        inkscape:label="#g5167"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90"
