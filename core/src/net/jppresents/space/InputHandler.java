@@ -49,8 +49,7 @@ public class InputHandler implements InputProcessor {
 
       double dragRange = Math.sqrt(Math.pow(screenX - lastTouchDownX, 2) + Math.pow(screenY - lastTouchDownY, 2));
 
-      if (dragRange  < 100) {
-        //if the drag distance was less then 50 it must we cancel movement
+      if (dragRange  < 200) {
         gameLogic.touchUpNoScroll();
       }
 
@@ -62,8 +61,8 @@ public class InputHandler implements InputProcessor {
       int y = MathUtils.floor(touchPoint.y/SpaceMain.TILE_SIZE);
 
       //at the last down the tile was an exact match (otherwhise actionOnNextUp would be false)
-      //so now we accept even if you moved your finger one tile off - but if it has been dragged more then 100, it is not an execute
-      if (dragRange < 100 && Math.abs(lastTileTouch.x - x) <= 2 && Math.abs(lastTileTouch.y - y) <= 2) {
+      //so now we accept even if you moved your finger one tile off - but if it has been dragged more then 200, it is not an execute
+      if (dragRange < 200 && Math.abs(lastTileTouch.x - x) <= 2 && Math.abs(lastTileTouch.y - y) <= 2) {
         gameLogic.executeAction();
         lastTileTouch.x = -1;
         lastTileTouch.y = -1;

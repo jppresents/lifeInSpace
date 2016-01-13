@@ -342,8 +342,8 @@
   <data encoding="csv">
 15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,29,29,30,30,29,29,15,30,29,15,28,30,15,29,29,29,28,28,15,15,15,15,15,15,15,15,15,15,15,
 15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,30,29,15,28,29,15,15,15,15,28,30,30,28,28,15,15,28,30,15,16,17,17,17,18,15,15,15,15,15,15,
-15,15,15,15,15,15,15,15,15,15,31,32,32,32,34,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,28,15,16,17,18,29,28,15,28,28,28,15,15,28,28,19,12,9,11,20,15,15,15,15,15,15,
-15,15,15,15,15,15,15,15,15,15,37,42,42,44,36,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,30,29,30,28,15,19,1,27,18,28,15,15,15,29,15,15,28,28,19,7,2,6,20,15,15,15,15,15,15,
+15,15,15,15,15,15,15,15,15,15,31,32,32,32,34,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,28,15,16,17,18,29,28,15,28,28,28,15,15,28,28,19,12,9,68,20,15,15,15,15,15,15,
+15,15,15,15,15,15,15,15,15,15,37,42,42,44,36,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,30,29,30,28,15,19,1,27,18,28,15,15,15,29,15,15,28,28,19,7,2,69,20,15,15,15,15,15,15,
 15,15,15,15,15,15,15,15,15,15,37,39,39,41,36,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,29,28,15,30,29,16,26,1,1,27,18,15,28,15,15,30,15,28,16,26,13,4,14,20,15,15,15,15,15,15,
 15,15,15,15,15,15,15,15,15,15,37,39,39,41,36,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,28,30,30,29,28,19,1,1,1,1,20,28,15,15,29,30,29,15,19,1,1,25,22,23,15,15,15,15,15,15,
 15,15,15,15,15,15,15,15,15,15,37,66,64,67,36,15,15,15,15,15,15,15,15,15,15,15,15,15,16,17,17,17,17,18,29,19,1,12,9,11,27,17,18,15,15,15,15,15,19,1,1,20,15,15,15,15,15,15,15,15,
@@ -407,7 +407,7 @@
    <properties>
     <property name="ap" value="4"/>
     <property name="gun" value="1"/>
-    <property name="hp" value="14"/>
+    <property name="hp" value="18"/>
    </properties>
   </object>
   <object name="event" type="text" x="240" y="928" width="224" height="256">
@@ -453,7 +453,7 @@
    </properties>
   </object>
   <object name="goody" type="keycard" x="2128" y="1936" width="32" height="32"/>
-  <object name="event" type="teleport" x="3200" y="128" width="192" height="128">
+  <object name="event" type="teleport" x="3328" y="128" width="48" height="112">
    <properties>
     <property name="key" value="world03"/>
    </properties>
@@ -484,6 +484,172 @@
    </properties>
   </object>
   <object name="enemy" type="turret" x="3408" y="1360" width="32" height="32">
+   <properties>
+    <property name="aggro" value="8"/>
+    <property name="ap" value="0"/>
+    <property name="dmg" value="1"/>
+    <property name="gun" value="2"/>
+    <property name="hp" value="25"/>
+    <property name="look" value="0"/>
+   </properties>
+  </object>
+  <object name="enemy" type="alien" x="1552" y="848" width="32" height="32">
+   <properties>
+    <property name="aggro" value="8"/>
+    <property name="ap" value="3"/>
+    <property name="dmg" value="1"/>
+    <property name="hp" value="15"/>
+    <property name="look" value="2"/>
+   </properties>
+  </object>
+  <object name="enemy" type="alien" x="1872" y="656" width="32" height="32">
+   <properties>
+    <property name="aggro" value="8"/>
+    <property name="ap" value="3"/>
+    <property name="dmg" value="1"/>
+    <property name="hp" value="15"/>
+    <property name="look" value="2"/>
+   </properties>
+  </object>
+  <object name="enemy" type="alien" x="2256" y="592" width="32" height="32">
+   <properties>
+    <property name="aggro" value="8"/>
+    <property name="ap" value="3"/>
+    <property name="dmg" value="1"/>
+    <property name="hp" value="15"/>
+    <property name="look" value="2"/>
+   </properties>
+  </object>
+  <object name="enemy" type="alien" x="2640" y="464" width="32" height="32">
+   <properties>
+    <property name="aggro" value="8"/>
+    <property name="ap" value="3"/>
+    <property name="dmg" value="1"/>
+    <property name="hp" value="15"/>
+    <property name="look" value="2"/>
+   </properties>
+  </object>
+  <object name="enemy" type="alien" x="784" y="1808" width="32" height="32">
+   <properties>
+    <property name="aggro" value="8"/>
+    <property name="ap" value="3"/>
+    <property name="dmg" value="1"/>
+    <property name="hp" value="25"/>
+    <property name="look" value="3"/>
+   </properties>
+  </object>
+  <object name="enemy" type="alien" x="1168" y="1808" width="32" height="32">
+   <properties>
+    <property name="aggro" value="8"/>
+    <property name="ap" value="3"/>
+    <property name="dmg" value="1"/>
+    <property name="hp" value="25"/>
+    <property name="look" value="3"/>
+   </properties>
+  </object>
+  <object name="enemy" type="alien" x="784" y="2192" width="32" height="32">
+   <properties>
+    <property name="aggro" value="8"/>
+    <property name="ap" value="3"/>
+    <property name="dmg" value="1"/>
+    <property name="hp" value="25"/>
+    <property name="look" value="3"/>
+   </properties>
+  </object>
+  <object name="enemy" type="alien" x="784" y="208" width="32" height="32">
+   <properties>
+    <property name="aggro" value="8"/>
+    <property name="ap" value="3"/>
+    <property name="dmg" value="1"/>
+    <property name="hp" value="15"/>
+    <property name="look" value="2"/>
+   </properties>
+  </object>
+  <object name="enemy" type="alien" x="784" y="656" width="32" height="32">
+   <properties>
+    <property name="aggro" value="8"/>
+    <property name="ap" value="3"/>
+    <property name="dmg" value="1"/>
+    <property name="hp" value="15"/>
+    <property name="look" value="2"/>
+   </properties>
+  </object>
+  <object name="goody" type="medkit" x="1168" y="656" width="32" height="32">
+   <properties>
+    <property name="amount" value="2"/>
+   </properties>
+  </object>
+  <object name="goody" type="medkit" x="1872" y="464" width="32" height="32">
+   <properties>
+    <property name="amount" value="2"/>
+   </properties>
+  </object>
+  <object name="goody" type="medkit" x="2512" y="336" width="32" height="32">
+   <properties>
+    <property name="amount" value="2"/>
+   </properties>
+  </object>
+  <object name="goody" type="medkit" x="400" y="1808" width="32" height="32">
+   <properties>
+    <property name="amount" value="2"/>
+   </properties>
+  </object>
+  <object name="goody" type="medkit" x="464" y="1808" width="32" height="32">
+   <properties>
+    <property name="amount" value="2"/>
+   </properties>
+  </object>
+  <object name="goody" type="hpkit" x="208" y="1936" width="32" height="32">
+   <properties>
+    <property name="amount" value="2"/>
+   </properties>
+  </object>
+  <object name="enemy" type="alien" x="272" y="1872" width="32" height="32">
+   <properties>
+    <property name="aggro" value="8"/>
+    <property name="ap" value="4"/>
+    <property name="dmg" value="1"/>
+    <property name="hp" value="35"/>
+    <property name="look" value="4"/>
+   </properties>
+  </object>
+  <object name="enemy" type="alien" x="1040" y="2704" width="32" height="32">
+   <properties>
+    <property name="aggro" value="8"/>
+    <property name="ap" value="3"/>
+    <property name="dmg" value="1"/>
+    <property name="hp" value="25"/>
+    <property name="look" value="3"/>
+   </properties>
+  </object>
+  <object name="enemy" type="alien" x="1360" y="2512" width="32" height="32">
+   <properties>
+    <property name="aggro" value="8"/>
+    <property name="ap" value="3"/>
+    <property name="dmg" value="1"/>
+    <property name="hp" value="25"/>
+    <property name="look" value="3"/>
+   </properties>
+  </object>
+  <object name="enemy" type="alien" x="336" y="3344" width="32" height="32">
+   <properties>
+    <property name="aggro" value="8"/>
+    <property name="ap" value="4"/>
+    <property name="dmg" value="1"/>
+    <property name="hp" value="35"/>
+    <property name="look" value="4"/>
+   </properties>
+  </object>
+  <object name="enemy" type="alien" x="1168" y="3600" width="32" height="32">
+   <properties>
+    <property name="aggro" value="8"/>
+    <property name="ap" value="4"/>
+    <property name="dmg" value="1"/>
+    <property name="hp" value="35"/>
+    <property name="look" value="4"/>
+   </properties>
+  </object>
+  <object name="enemy" type="turret" x="2960" y="1552" width="32" height="32">
    <properties>
     <property name="aggro" value="8"/>
     <property name="ap" value="0"/>

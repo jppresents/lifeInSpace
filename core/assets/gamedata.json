@@ -4,8 +4,8 @@
   texts:
 	{
 		credits:"\nlife in space\n\nmusic by Andreas Hausladen\n\ncode & art by Jan Peter Simonsen\n\npowered by libGdx\n\nsoftware used: intellij, inkscape, spriter, tiled,\nnotepad++, paint.net, chronolapse",
-		help:"life in space\n\nthis is a top-down round based alien shooter\nthere are multiple mission, after each mission progress is saved.\n\nControls:\nLeft mouse executes an action (move, shoot)\nRight mouse scrolls the visible area\n\nGood luck on mars!",
-		helpTouch:"life in space\n\nthis is a top-down round based alien shooter\nthere are multiple mission, after each mission progress is saved.\n\nControls:\nTouch an area to show the available action (move, shoot)\ntouch the same area again to execute the action\nDrag the screen to scroll the visible area\n\nGood luck on mars!",
+		help:"life in space\n\nthis is a top-down round based alien shooter\nthere are multiple mission, after each mission progress is saved.\n\nControls:\nLeft mouse executes an action (move, shoot)\nRight mouse scrolls the visible area\nWhen in combat you can skip the rest of your\nturn by clicking on yourself.\n\nGood luck on mars!",
+		helpTouch:"life in space\n\nthis is a top-down round based alien shooter\nthere are multiple mission, after each mission progress is saved.\n\nControls:\nTouch an area to show the available action (move, shoot)\ntouch the same area again to execute the action\nDrag the screen to scroll the visible area\nWhen in combat you can skip the rest of your\nturn by tapping on yourself.\n\nGood luck on mars!",
 		win:"life in space - and YOU got rid of it\n\nmission control welcomes you back\n\nthanks you for playing!",
 
         world01_intro:"this is mission control\nyou are now on mars\nyour first mission: get rid of all life in this area\nstart exploring to the south\nour scanners detect multiple aliens there",
@@ -14,11 +14,11 @@
         world01_foundTheBase:"our scanner show a new weapon in your direct\nvicinity defeat all enemies and pick it up",
         world01_weaponFound:"this weapon almost doubles your damage output\nbe advised that you have so far encountered only the weakest of the aliens\nlook for subtle changes to spot bigger threats",
         world01_goWestFirst:"our scanners show an important upgrades west\nof your location.\nSecure the upgrade before continuing to the north",
-        world01_actionPoint:"your suit has been upgraded\nyou have now 3 action points in combat\nfor example you can shoot and still move once\nto shoot twice per round you will need another ap upgrade",
+        world01_actionPoint:"your suit has been upgraded\nyou have now 4 action points in combat\nfor example you can shoot and still move\nor shoot twice per turn",
         world01_hpUp:"your maximum health has increased by two",
         world01_throughFirstBase:"you made it through the first base\nnow you have to reach the extraction point\nit is to the north west",
         world01_upgrade_south:"this is mission control\nour scanners show another upgrade to the south",
-        world01_apdouble:"you now have 4 action points\nthis is enough to shoot twice per round\nthat is if you don't move that round",
+        world01_apdouble:"your maximum health has been upgraded again\nfind the teleporter in the north western corner now\nto proceed to the next mission",
 	},
 
   audio: []

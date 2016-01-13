@@ -473,3 +473,17 @@ repeat: none
   orig: 64, 64
   offset: 0, 0
   index: -1
+68
+  rotate: false
+  xy: 478, 274
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+69
+  rotate: false
+  xy: 546, 274
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1

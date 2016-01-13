@@ -10,8 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Disposable;
-
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MainMenu implements Disposable, EventListener {
   private final TextButton soundButton;
@@ -40,6 +39,8 @@ public class MainMenu implements Disposable, EventListener {
   private boolean canResume = false;
   private boolean endingActive;
   private boolean disableButtons = false;
+
+  private HashMap<String, TextButton> worldButtons = new HashMap<String, TextButton>(12);
 
 
   public MainMenu() {
@@ -195,7 +196,9 @@ public class MainMenu implements Disposable, EventListener {
     for (String world: worlds) {
       i++;
       WorldButton worldButton = new WorldButton("Level " + i, skin, world);
-      worldButton.setDisabled(i > 1 && !SpaceMain.prefs.getBoolean(SpaceMain.Pref.BEAT_UP_TO + world, false));
+      if (i > 1) { //first button is always enabled
+        worldButtons.put(world, worldButton);
+      }
 
       worldButton.addListener(new ChangeListener() {
         @Override
@@ -223,6 +226,13 @@ public class MainMenu implements Disposable, EventListener {
     levelSelectTable.row();
     levelSelectTable.add(button).width(800).spaceBottom(40).height(75).colspan(3);
     stage.addActor(levelSelectTable);
+  }
+
+  private void updateLevelButtonStates() {
+    for (String world : SpaceMain.assets.getWorlds()) {
+      TextButton worldButton = worldButtons.get(world);
+      worldButton.setDisabled(!SpaceMain.prefs.getBoolean(SpaceMain.Pref.BEAT_UP_TO + world, false));
+    }
   }
 
   private void updateButtonLabels() {
@@ -290,6 +300,7 @@ public class MainMenu implements Disposable, EventListener {
         break;
       case LEVELSELECT:
         if (!levelSelectActive) {
+          updateLevelButtonStates();
           levelSelectTable.addAction(Actions.moveBy(0, 720, 0.75f));
           mainMenuTable.addAction(Actions.moveBy(0, 720, 0.75f));
           levelSelectActive = true;
