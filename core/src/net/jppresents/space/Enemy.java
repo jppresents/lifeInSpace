@@ -18,6 +18,7 @@ public class Enemy extends AnimatedGameObject {
   private boolean social = true;
   private int gunDamage = 0;
   private boolean turret;
+  private int noSocialTick = 0;
 
   public Enemy(Entity entity, Drawer drawer) {
     super(entity, drawer);
@@ -155,11 +156,19 @@ public class Enemy extends AnimatedGameObject {
         return;
       }
       if (social) {
-        for (Enemy e : enemies) {
-          if (e != this && e.getHealth() > 0 && e.getHealth() < e.getMaxHealth() && e.calcDistance(this) < 4) {
-            socialAggro = true;
-            setAggro(true);
-            return;
+        if (noSocialTick > 0 ) {
+          noSocialTick--;
+        } else {
+          for (Enemy e : enemies) {
+            if (e != this && e.getHealth() > 0 && e.getHealth() < e.getMaxHealth() && e.calcDistance(this) < 4){
+              if (world.hasLineOfSight(e.getTilePosition().x, e.getTilePosition().y, this.getTilePosition().x, this.getTilePosition().y)) {
+                socialAggro = true;
+                setAggro(true);
+              } else {
+                noSocialTick = 60;
+              }
+              return;
+            }
           }
         }
       }

@@ -231,7 +231,9 @@ public class MainMenu implements Disposable, EventListener {
   private void updateLevelButtonStates() {
     for (String world : SpaceMain.assets.getWorlds()) {
       TextButton worldButton = worldButtons.get(world);
-      worldButton.setDisabled(!SpaceMain.prefs.getBoolean(SpaceMain.Pref.BEAT_UP_TO + world, false));
+      if (worldButton != null) {
+        worldButton.setDisabled(!SpaceMain.prefs.getBoolean(SpaceMain.Pref.BEAT_UP_TO + world, false));
+      }
     }
   }
 

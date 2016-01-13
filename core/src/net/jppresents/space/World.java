@@ -204,7 +204,7 @@ public class World implements Disposable {
       }
     }
     for (Enemy enemy : enemies) {
-      if (enemy.getSecondarySortAttrib() > 0) {
+      if (enemy.getHealth() > 0) {
         pathMap[(int) enemy.getTilePosition().y][(int) enemy.getTilePosition().x] = Integer.MIN_VALUE + 1;
       }
     }

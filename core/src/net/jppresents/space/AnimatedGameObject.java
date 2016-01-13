@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AnimatedGameObject implements SetPosition, Player.PlayerListener, SetPath, GameObject {
+  private final int CAMSPEED = 5;
+  private final int SPEED = 5;
+
   private int actionPoints = 3;
   private int maxActionPoints = 3;
   private boolean combat;
@@ -79,7 +82,7 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
   private int idleTick;
 
   public int getSecondarySortAttrib() {
-    return health;
+    return health * 2 ;
   }
 
   public int getMaxHealth() {
@@ -187,7 +190,7 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
     }
 
     if (target != null) {
-      if (Math.abs(worldPosition.x - toWorld(target.x)) <= 10 && Math.abs(worldPosition.y - toWorld(target.y)) <= 10) {
+      if (Math.abs(worldPosition.x - toWorld(target.x)) <= SPEED * 2 && Math.abs(worldPosition.y - toWorld(target.y)) <= SPEED * 2) {
         worldPosition.x = toWorld(target.x);
         worldPosition.y = toWorld(target.y);
         currentPathTarget++;
@@ -207,17 +210,17 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
           this.movement = Movement.NONE;
         }
       } else {
-        if (worldPosition.x - toWorld(target.x) < -5) {
-          worldPosition.x += 5;
+        if (worldPosition.x - toWorld(target.x) < -SPEED) {
+          worldPosition.x += SPEED;
           movement = Movement.RIGHT;
-        } else if (worldPosition.x - toWorld(target.x) > 5) {
-          worldPosition.x -= 5;
+        } else if (worldPosition.x - toWorld(target.x) > SPEED) {
+          worldPosition.x -= SPEED;
           movement = Movement.LEFT;
-        } else if (worldPosition.y - toWorld(target.y) < -5) {
-          worldPosition.y += 5;
+        } else if (worldPosition.y - toWorld(target.y) < -SPEED) {
+          worldPosition.y += SPEED;
           movement = Movement.UP;
-        } else if (worldPosition.y - toWorld(target.y) > 5) {
-          worldPosition.y -= 5;
+        } else if (worldPosition.y - toWorld(target.y) > SPEED) {
+          worldPosition.y -= SPEED;
           movement = Movement.DOWN;
         }
       }
@@ -272,7 +275,7 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
     camera.position.y = target.y;
   }
 
-  private final int camSpeed = 5;
+
 
 
   public void moveCamera(OrthographicCamera camera) {
@@ -280,23 +283,23 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
     target.y = worldPosition.y;
 
     if (camera.position.x < target.x) {
-      camera.position.x += camSpeed;
+      camera.position.x += CAMSPEED;
     }
     if (camera.position.x > target.x) {
-      camera.position.x -= camSpeed;
+      camera.position.x -= CAMSPEED;
     }
     if (camera.position.y < target.y) {
-      camera.position.y += camSpeed;
+      camera.position.y += CAMSPEED;
     }
     if (camera.position.y > target.y) {
-      camera.position.y -= camSpeed;
+      camera.position.y -= CAMSPEED;
     }
 
-    if (Math.abs(camera.position.y - target.y) < camSpeed) {
+    if (Math.abs(camera.position.y - target.y) < CAMSPEED) {
       camera.position.y = target.y;
     }
 
-    if (Math.abs(camera.position.x - target.x) < camSpeed) {
+    if (Math.abs(camera.position.x - target.x) < CAMSPEED) {
       camera.position.x = target.x;
     }
   }

@@ -96,7 +96,7 @@ public class Goody implements GameObject{
 
   @Override
   public int getSecondarySortAttrib() {
-    return -1;
+    return 1;
   }
 
   public String getType() {

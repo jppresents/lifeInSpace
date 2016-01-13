@@ -54,16 +54,16 @@ public class Guy extends AnimatedGameObject {
           setDamage(8);
           break;
         case 3:
-          setDamage(12);
+          setDamage(14);
           break;
         case 4:
-          setDamage(20);
+          setDamage(22);
           break;
         case 5:
-          setDamage(30);
+          setDamage(34);
           break;
         case 6:
-          setDamage(40);
+          setDamage(46);
           break;
       }
     }
