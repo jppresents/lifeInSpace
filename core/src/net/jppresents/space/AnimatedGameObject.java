@@ -12,7 +12,6 @@ import java.util.List;
 
 public class AnimatedGameObject implements SetPosition, Player.PlayerListener, SetPath, GameObject {
   private final int CAMSPEED = 5;
-  private final int SPEED = 5;
 
   private int actionPoints = 3;
   private int maxActionPoints = 3;
@@ -190,7 +189,7 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
     }
 
     if (target != null) {
-      if (Math.abs(worldPosition.x - toWorld(target.x)) <= SPEED * 2 && Math.abs(worldPosition.y - toWorld(target.y)) <= SPEED * 2) {
+      if (Math.abs(worldPosition.x - toWorld(target.x)) <= SpaceMain.MOVE_SPEED * 2 && Math.abs(worldPosition.y - toWorld(target.y)) <= SpaceMain.MOVE_SPEED * 2) {
         worldPosition.x = toWorld(target.x);
         worldPosition.y = toWorld(target.y);
         currentPathTarget++;
@@ -210,17 +209,17 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
           this.movement = Movement.NONE;
         }
       } else {
-        if (worldPosition.x - toWorld(target.x) < -SPEED) {
-          worldPosition.x += SPEED;
+        if (worldPosition.x - toWorld(target.x) < -SpaceMain.MOVE_SPEED) {
+          worldPosition.x += SpaceMain.MOVE_SPEED;
           movement = Movement.RIGHT;
-        } else if (worldPosition.x - toWorld(target.x) > SPEED) {
-          worldPosition.x -= SPEED;
+        } else if (worldPosition.x - toWorld(target.x) > SpaceMain.MOVE_SPEED) {
+          worldPosition.x -= SpaceMain.MOVE_SPEED;
           movement = Movement.LEFT;
-        } else if (worldPosition.y - toWorld(target.y) < -SPEED) {
-          worldPosition.y += SPEED;
+        } else if (worldPosition.y - toWorld(target.y) < -SpaceMain.MOVE_SPEED) {
+          worldPosition.y += SpaceMain.MOVE_SPEED;
           movement = Movement.UP;
-        } else if (worldPosition.y - toWorld(target.y) > SPEED) {
-          worldPosition.y -= SPEED;
+        } else if (worldPosition.y - toWorld(target.y) > SpaceMain.MOVE_SPEED) {
+          worldPosition.y -= SpaceMain.MOVE_SPEED;
           movement = Movement.DOWN;
         }
       }

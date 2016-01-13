@@ -545,7 +545,7 @@
     <property name="look" value="1"/>
    </properties>
   </object>
-  <object name="goody" type="medkit" x="272" y="2448" width="32" height="32">
+  <object name="goody" type="medkit" x="144" y="2976" width="32" height="32">
    <properties>
     <property name="amount" value="2"/>
    </properties>
@@ -983,18 +983,9 @@
     <property name="amount" value="2"/>
    </properties>
   </object>
-  <object name="goody" type="medkit" x="528" y="1680" width="32" height="32">
+  <object name="goody" type="medkit" x="656" y="3408" width="32" height="32">
    <properties>
     <property name="amount" value="2"/>
-   </properties>
-  </object>
-  <object name="enemy" type="alien" x="528" y="1744" width="32" height="32">
-   <properties>
-    <property name="aggro" value="4"/>
-    <property name="ap" value="2"/>
-    <property name="dmg" value="1"/>
-    <property name="hp" value="9"/>
-    <property name="look" value="1"/>
    </properties>
   </object>
  </objectgroup>

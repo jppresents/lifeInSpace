@@ -14,6 +14,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class SpaceMain extends ApplicationAdapter {
+  public static int MOVE_SPEED = 5;
   public static final int TILE_SIZE = 64;
   public static boolean touchMode = false;
   public static boolean returnToMenu;
@@ -55,8 +56,11 @@ public class SpaceMain extends ApplicationAdapter {
   public SpaceMain() {
   }
 
-  public SpaceMain(boolean touchMode) {
+  public SpaceMain(boolean touchMode, boolean fastMode) {
     SpaceMain.touchMode = touchMode;
+    if (fastMode) {
+      MOVE_SPEED = 25;
+    }
   }
 
   @Override
