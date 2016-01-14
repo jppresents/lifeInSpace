@@ -127,8 +127,8 @@ public class World implements Disposable {
       }
       int x = startX;
       int y = startY;
-      int oldX = 0;
-      int oldY = 0;
+      int oldX;
+      int oldY;
 
       int step = 0;
 

@@ -413,7 +413,7 @@
     <property name="key" value="world06"/>
    </properties>
   </object>
-  <object name="goody" type="keycard" x="3088" y="400" width="32" height="32"/>
+  <object name="goody" type="keycard" x="784" y="1488" width="32" height="32"/>
   <object name="start" x="2640" y="592" width="32" height="32">
    <properties>
     <property name="ap" value="6"/>
@@ -426,10 +426,472 @@
     <property name="key" value="world05_intro"/>
    </properties>
   </object>
-  <object name="goody" type="keycard" x="1040" y="2960" width="32" height="32"/>
+  <object name="goody" type="keycard" x="912" y="2960" width="32" height="32"/>
   <object name="goody" type="weaponkit" x="976" y="2960" width="32" height="32">
    <properties>
     <property name="amount" value="5"/>
+   </properties>
+  </object>
+  <object name="enemy" type="alien" x="1424" y="848" width="32" height="32">
+   <properties>
+    <property name="aggro" value="12"/>
+    <property name="ap" value="8"/>
+    <property name="dmg" value="5"/>
+    <property name="hp" value="140"/>
+    <property name="look" value="5"/>
+   </properties>
+  </object>
+  <object name="enemy" type="alien" x="1744" y="1104" width="32" height="32">
+   <properties>
+    <property name="aggro" value="12"/>
+    <property name="ap" value="8"/>
+    <property name="dmg" value="5"/>
+    <property name="hp" value="140"/>
+    <property name="look" value="5"/>
+   </properties>
+  </object>
+  <object name="enemy" type="alien" x="656" y="720" width="32" height="32">
+   <properties>
+    <property name="aggro" value="12"/>
+    <property name="ap" value="8"/>
+    <property name="dmg" value="5"/>
+    <property name="hp" value="140"/>
+    <property name="look" value="5"/>
+   </properties>
+  </object>
+  <object name="enemy" type="alien" x="784" y="464" width="32" height="32">
+   <properties>
+    <property name="aggro" value="12"/>
+    <property name="ap" value="8"/>
+    <property name="dmg" value="5"/>
+    <property name="hp" value="140"/>
+    <property name="look" value="5"/>
+   </properties>
+  </object>
+  <object name="enemy" type="alien" x="784" y="1232" width="32" height="32">
+   <properties>
+    <property name="aggro" value="12"/>
+    <property name="ap" value="8"/>
+    <property name="dmg" value="5"/>
+    <property name="hp" value="140"/>
+    <property name="look" value="5"/>
+   </properties>
+  </object>
+  <object name="enemy" type="alien" x="1296" y="1232" width="32" height="32">
+   <properties>
+    <property name="aggro" value="12"/>
+    <property name="ap" value="8"/>
+    <property name="dmg" value="5"/>
+    <property name="hp" value="140"/>
+    <property name="look" value="5"/>
+   </properties>
+  </object>
+  <object name="goody" type="medkit" x="784" y="1680" width="32" height="32">
+   <properties>
+    <property name="amount" value="4"/>
+   </properties>
+  </object>
+  <object name="goody" type="medkit" x="848" y="1680" width="32" height="32">
+   <properties>
+    <property name="amount" value="4"/>
+   </properties>
+  </object>
+  <object name="goody" type="medkit" x="912" y="1680" width="32" height="32">
+   <properties>
+    <property name="amount" value="4"/>
+   </properties>
+  </object>
+  <object name="goody" type="medkit" x="784" y="1616" width="32" height="32">
+   <properties>
+    <property name="amount" value="4"/>
+   </properties>
+  </object>
+  <object name="goody" type="medkit" x="848" y="1616" width="32" height="32">
+   <properties>
+    <property name="amount" value="4"/>
+   </properties>
+  </object>
+  <object name="goody" type="medkit" x="912" y="1616" width="32" height="32">
+   <properties>
+    <property name="amount" value="4"/>
+   </properties>
+  </object>
+  <object name="goody" type="medkit" x="784" y="3024" width="32" height="32">
+   <properties>
+    <property name="amount" value="4"/>
+   </properties>
+  </object>
+  <object name="goody" type="medkit" x="784" y="2960" width="32" height="32">
+   <properties>
+    <property name="amount" value="4"/>
+   </properties>
+  </object>
+  <object name="goody" type="medkit" x="784" y="2896" width="32" height="32">
+   <properties>
+    <property name="amount" value="4"/>
+   </properties>
+  </object>
+  <object name="goody" type="medkit" x="848" y="3024" width="32" height="32">
+   <properties>
+    <property name="amount" value="4"/>
+   </properties>
+  </object>
+  <object name="goody" type="medkit" x="848" y="2960" width="32" height="32">
+   <properties>
+    <property name="amount" value="4"/>
+   </properties>
+  </object>
+  <object name="goody" type="medkit" x="848" y="2896" width="32" height="32">
+   <properties>
+    <property name="amount" value="4"/>
+   </properties>
+  </object>
+  <object name="enemy" type="alien" x="784" y="1808" width="32" height="32">
+   <properties>
+    <property name="aggro" value="12"/>
+    <property name="ap" value="8"/>
+    <property name="dmg" value="5"/>
+    <property name="hp" value="140"/>
+    <property name="look" value="5"/>
+   </properties>
+  </object>
+  <object name="enemy" type="alien" x="784" y="2000" width="32" height="32">
+   <properties>
+    <property name="aggro" value="12"/>
+    <property name="ap" value="8"/>
+    <property name="dmg" value="5"/>
+    <property name="hp" value="140"/>
+    <property name="look" value="5"/>
+   </properties>
+  </object>
+  <object name="enemy" type="alien" x="976" y="2512" width="32" height="32">
+   <properties>
+    <property name="aggro" value="12"/>
+    <property name="ap" value="4"/>
+    <property name="dmg" value="3"/>
+    <property name="gun" value="4"/>
+    <property name="hp" value="120"/>
+    <property name="look" value="-1"/>
+   </properties>
+  </object>
+  <object name="enemy" type="alien" x="784" y="2256" width="32" height="32">
+   <properties>
+    <property name="aggro" value="12"/>
+    <property name="ap" value="4"/>
+    <property name="dmg" value="3"/>
+    <property name="gun" value="4"/>
+    <property name="hp" value="120"/>
+    <property name="look" value="-1"/>
+   </properties>
+  </object>
+  <object name="enemy" type="alien" x="1296" y="2256" width="32" height="32">
+   <properties>
+    <property name="aggro" value="12"/>
+    <property name="ap" value="4"/>
+    <property name="dmg" value="3"/>
+    <property name="gun" value="4"/>
+    <property name="hp" value="120"/>
+    <property name="look" value="-1"/>
+   </properties>
+  </object>
+  <object name="enemy" type="alien" x="976" y="2896" width="32" height="32">
+   <properties>
+    <property name="aggro" value="12"/>
+    <property name="ap" value="4"/>
+    <property name="dmg" value="3"/>
+    <property name="gun" value="4"/>
+    <property name="hp" value="120"/>
+    <property name="look" value="-1"/>
+   </properties>
+  </object>
+  <object name="enemy" type="alien" x="976" y="3024" width="32" height="32">
+   <properties>
+    <property name="aggro" value="12"/>
+    <property name="ap" value="8"/>
+    <property name="dmg" value="5"/>
+    <property name="hp" value="140"/>
+    <property name="look" value="5"/>
+   </properties>
+  </object>
+  <object name="enemy" type="alien" x="1552" y="1232" width="32" height="32">
+   <properties>
+    <property name="aggro" value="12"/>
+    <property name="ap" value="8"/>
+    <property name="dmg" value="6"/>
+    <property name="hp" value="200"/>
+    <property name="look" value="6"/>
+   </properties>
+  </object>
+  <object name="enemy" type="alien" x="2064" y="1232" width="32" height="32">
+   <properties>
+    <property name="aggro" value="12"/>
+    <property name="ap" value="8"/>
+    <property name="dmg" value="6"/>
+    <property name="hp" value="200"/>
+    <property name="look" value="6"/>
+   </properties>
+  </object>
+  <object name="enemy" type="alien" x="1552" y="2000" width="32" height="32">
+   <properties>
+    <property name="aggro" value="12"/>
+    <property name="ap" value="8"/>
+    <property name="dmg" value="6"/>
+    <property name="hp" value="200"/>
+    <property name="look" value="6"/>
+   </properties>
+  </object>
+  <object name="enemy" type="alien" x="2064" y="2000" width="32" height="32">
+   <properties>
+    <property name="aggro" value="10"/>
+    <property name="ap" value="8"/>
+    <property name="dmg" value="6"/>
+    <property name="hp" value="200"/>
+    <property name="look" value="6"/>
+   </properties>
+  </object>
+  <object name="goody" type="keycard" x="1552" y="3024" width="32" height="32"/>
+  <object name="enemy" type="alien" x="2064" y="3024" width="32" height="32">
+   <properties>
+    <property name="aggro" value="16"/>
+    <property name="ap" value="2"/>
+    <property name="dmg" value="20"/>
+    <property name="hp" value="500"/>
+    <property name="look" value="7"/>
+   </properties>
+  </object>
+  <object name="goody" type="medkit" x="976" y="1168" width="32" height="32">
+   <properties>
+    <property name="amount" value="4"/>
+   </properties>
+  </object>
+  <object name="goody" type="medkit" x="976" y="1104" width="32" height="32">
+   <properties>
+    <property name="amount" value="4"/>
+   </properties>
+  </object>
+  <object name="goody" type="medkit" x="1744" y="3024" width="32" height="32">
+   <properties>
+    <property name="amount" value="4"/>
+   </properties>
+  </object>
+  <object name="goody" type="medkit" x="1680" y="2960" width="32" height="32">
+   <properties>
+    <property name="amount" value="4"/>
+   </properties>
+  </object>
+  <object name="goody" type="medkit" x="1616" y="3024" width="32" height="32">
+   <properties>
+    <property name="amount" value="4"/>
+   </properties>
+  </object>
+  <object name="goody" type="medkit" x="1616" y="2960" width="32" height="32">
+   <properties>
+    <property name="amount" value="4"/>
+   </properties>
+  </object>
+  <object name="goody" type="medkit" x="1680" y="3024" width="32" height="32">
+   <properties>
+    <property name="amount" value="4"/>
+   </properties>
+  </object>
+  <object name="goody" type="medkit" x="1744" y="2960" width="32" height="32">
+   <properties>
+    <property name="amount" value="4"/>
+   </properties>
+  </object>
+  <object name="goody" type="medkit" x="976" y="2128" width="32" height="32">
+   <properties>
+    <property name="amount" value="4"/>
+   </properties>
+  </object>
+  <object name="goody" type="medkit" x="976" y="2064" width="32" height="32">
+   <properties>
+    <property name="amount" value="4"/>
+   </properties>
+  </object>
+  <object name="goody" type="keycard" x="1616" y="1552" width="32" height="32"/>
+  <object name="goody" type="medkit" x="1552" y="1488" width="32" height="32">
+   <properties>
+    <property name="amount" value="4"/>
+   </properties>
+  </object>
+  <object name="goody" type="medkit" x="1616" y="1488" width="32" height="32">
+   <properties>
+    <property name="amount" value="4"/>
+   </properties>
+  </object>
+  <object name="goody" type="medkit" x="1680" y="1488" width="32" height="32">
+   <properties>
+    <property name="amount" value="4"/>
+   </properties>
+  </object>
+  <object name="goody" type="medkit" x="1744" y="1488" width="32" height="32">
+   <properties>
+    <property name="amount" value="4"/>
+   </properties>
+  </object>
+  <object name="goody" type="medkit" x="1808" y="1488" width="32" height="32">
+   <properties>
+    <property name="amount" value="4"/>
+   </properties>
+  </object>
+  <object name="goody" type="medkit" x="1552" y="1552" width="32" height="32">
+   <properties>
+    <property name="amount" value="4"/>
+   </properties>
+  </object>
+  <object name="goody" type="hpkit" x="1296" y="1936" width="32" height="32">
+   <properties>
+    <property name="amount" value="2"/>
+   </properties>
+  </object>
+  <object name="goody" type="hpkit" x="1296" y="2000" width="32" height="32">
+   <properties>
+    <property name="amount" value="2"/>
+   </properties>
+  </object>
+  <object name="goody" type="hpkit" x="1296" y="2960" width="32" height="32">
+   <properties>
+    <property name="amount" value="2"/>
+   </properties>
+  </object>
+  <object name="goody" type="hpkit" x="1296" y="3024" width="32" height="32">
+   <properties>
+    <property name="amount" value="2"/>
+   </properties>
+  </object>
+  <object name="goody" type="hpkit" x="2064" y="2512" width="32" height="32">
+   <properties>
+    <property name="amount" value="2"/>
+   </properties>
+  </object>
+  <object name="goody" type="hpkit" x="2064" y="2576" width="32" height="32">
+   <properties>
+    <property name="amount" value="2"/>
+   </properties>
+  </object>
+  <object name="goody" type="weaponkit" x="1552" y="2960" width="32" height="32">
+   <properties>
+    <property name="amount" value="6"/>
+   </properties>
+  </object>
+  <object name="goody" type="medkit" x="2832" y="1232" width="32" height="32">
+   <properties>
+    <property name="amount" value="4"/>
+   </properties>
+  </object>
+  <object name="goody" type="medkit" x="2704" y="1232" width="32" height="32">
+   <properties>
+    <property name="amount" value="4"/>
+   </properties>
+  </object>
+  <object name="goody" type="medkit" x="2768" y="1232" width="32" height="32">
+   <properties>
+    <property name="amount" value="4"/>
+   </properties>
+  </object>
+  <object name="goody" type="medkit" x="2640" y="1232" width="32" height="32">
+   <properties>
+    <property name="amount" value="4"/>
+   </properties>
+  </object>
+  <object name="enemy" type="alien" x="2832" y="2000" width="32" height="32">
+   <properties>
+    <property name="aggro" value="12"/>
+    <property name="ap" value="8"/>
+    <property name="dmg" value="6"/>
+    <property name="hp" value="200"/>
+    <property name="look" value="6"/>
+   </properties>
+  </object>
+  <object name="enemy" type="alien" x="2768" y="2000" width="32" height="32">
+   <properties>
+    <property name="aggro" value="12"/>
+    <property name="ap" value="8"/>
+    <property name="dmg" value="6"/>
+    <property name="hp" value="200"/>
+    <property name="look" value="6"/>
+   </properties>
+  </object>
+  <object name="enemy" type="alien" x="2512" y="2128" width="32" height="32">
+   <properties>
+    <property name="aggro" value="12"/>
+    <property name="ap" value="8"/>
+    <property name="dmg" value="6"/>
+    <property name="hp" value="200"/>
+    <property name="look" value="6"/>
+   </properties>
+  </object>
+  <object name="enemy" type="alien" x="2320" y="1744" width="32" height="32">
+   <properties>
+    <property name="aggro" value="12"/>
+    <property name="ap" value="8"/>
+    <property name="dmg" value="6"/>
+    <property name="hp" value="200"/>
+    <property name="look" value="6"/>
+   </properties>
+  </object>
+  <object name="enemy" type="alien" x="2832" y="3024" width="32" height="32">
+   <properties>
+    <property name="aggro" value="16"/>
+    <property name="ap" value="2"/>
+    <property name="dmg" value="20"/>
+    <property name="hp" value="500"/>
+    <property name="look" value="7"/>
+   </properties>
+  </object>
+  <object name="enemy" type="alien" x="2320" y="2448" width="32" height="32">
+   <properties>
+    <property name="aggro" value="16"/>
+    <property name="ap" value="2"/>
+    <property name="dmg" value="20"/>
+    <property name="hp" value="500"/>
+    <property name="look" value="7"/>
+   </properties>
+  </object>
+  <object name="enemy" type="alien" x="2320" y="3024" width="32" height="32">
+   <properties>
+    <property name="aggro" value="16"/>
+    <property name="ap" value="2"/>
+    <property name="dmg" value="20"/>
+    <property name="hp" value="500"/>
+    <property name="look" value="7"/>
+   </properties>
+  </object>
+  <object name="goody" type="keycard" x="2320" y="1616" width="32" height="32"/>
+  <object name="goody" type="medkit" x="1552" y="2832" width="32" height="32">
+   <properties>
+    <property name="amount" value="4"/>
+   </properties>
+  </object>
+  <object name="goody" type="medkit" x="1552" y="2256" width="32" height="32">
+   <properties>
+    <property name="amount" value="4"/>
+   </properties>
+  </object>
+  <object name="goody" type="medkit" x="1872" y="2704" width="32" height="32">
+   <properties>
+    <property name="amount" value="4"/>
+   </properties>
+  </object>
+  <object name="goody" type="medkit" x="1936" y="2256" width="32" height="32">
+   <properties>
+    <property name="amount" value="4"/>
+   </properties>
+  </object>
+  <object name="goody" type="medkit" x="2000" y="2256" width="32" height="32">
+   <properties>
+    <property name="amount" value="4"/>
+   </properties>
+  </object>
+  <object name="goody" type="medkit" x="2064" y="2256" width="32" height="32">
+   <properties>
+    <property name="amount" value="4"/>
+   </properties>
+  </object>
+  <object name="event" type="text" x="1664" y="2048" width="176" height="160">
+   <properties>
+    <property name="key" value="world05_spikes_guys"/>
    </properties>
   </object>
  </objectgroup>

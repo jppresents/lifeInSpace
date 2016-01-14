@@ -220,8 +220,15 @@ public class Enemy extends AnimatedGameObject {
       spriterPlayer.characterMaps[0] = spriterPlayer.getEntity().getCharacterMap("SpikeHead");
       spriterPlayer.characterMaps[1] = spriterPlayer.getEntity().getCharacterMap("SpikeLeg");
     }
-    if (look >= 5) {
+    if (look == 5) {
       spriterPlayer.characterMaps[0] = spriterPlayer.getEntity().getCharacterMap("EyeHead");
+    }
+    if (look == 6) {
+      spriterPlayer.characterMaps[0] = spriterPlayer.getEntity().getCharacterMap("RedHead");
+    }
+
+    if (look >= 7) {
+      spriterPlayer.characterMaps[0] = spriterPlayer.getEntity().getCharacterMap("ArmorHead");
     }
     if (look == -1) {
       spriterPlayer.characterMaps[0] = spriterPlayer.getEntity().getCharacterMap("Blue");
