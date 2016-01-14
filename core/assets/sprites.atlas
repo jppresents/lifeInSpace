@@ -55,70 +55,77 @@ hpBarFill
   index: -1
 hpBarFillSmall
   rotate: false
-  xy: 290, 220
+  xy: 554, 260
   size: 60, 6
   orig: 60, 6
   offset: 0, 0
   index: -1
 hpBarSmall
   rotate: false
-  xy: 422, 260
+  xy: 102, 28
   size: 60, 6
   orig: 60, 6
   offset: 0, 0
   index: -1
 hpkit
   rotate: false
-  xy: 893, 426
+  xy: 967, 473
   size: 48, 32
   orig: 48, 32
   offset: 0, 0
   index: -1
+jppresents
+  rotate: false
+  xy: 290, 209
+  size: 176, 91
+  orig: 176, 91
+  offset: 0, 0
+  index: -1
 keycard
   rotate: false
-  xy: 364, 232
+  xy: 518, 230
   size: 34, 23
   orig: 34, 23
   offset: 0, 0
   index: -1
 marker
   rotate: false
-  xy: 943, 435
+  xy: 263, 193
   size: 23, 23
   orig: 23, 23
   offset: 0, 0
   index: -1
 markerError
   rotate: false
-  xy: 979, 474
+  xy: 893, 356
   size: 31, 31
   orig: 31, 31
   offset: 0, 0
   index: -1
 markerNext
   rotate: false
-  xy: 786, 315
+  xy: 823, 315
   size: 45, 29
   orig: 45, 29
   offset: 0, 0
   index: -1
 markerSkip
   rotate: false
-  xy: 364, 257
+  xy: 205, 173
   size: 56, 43
   orig: 56, 43
   offset: 0, 0
   index: -1
 markerTarget
   rotate: false
-  xy: 692, 302
+  xy: 893, 389
   size: 42, 42
   orig: 42, 42
   offset: 0, 0
   index: -1
 medkit
   rotate: false
-  xy: 205, 144
+  xy: 468, 221
   size: 48, 32
   orig: 48, 32
   offset: 0, 0
@@ -132,28 +139,28 @@ planet
   index: -1
 planetDeco1
   rotate: false
-  xy: 893, 460
+  xy: 468, 255
   size: 84, 45
   orig: 84, 45
   offset: 0, 0
   index: -1
 planetDeco2
   rotate: false
-  xy: 205, 178
+  xy: 692, 306
   size: 79, 38
   orig: 79, 38
   offset: 0, 0
   index: -1
 selector
   rotate: false
-  xy: 290, 228
+  xy: 893, 433
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 shot
   rotate: false
-  xy: 102, 23
+  xy: 205, 126
   size: 32, 11
   orig: 32, 11
   offset: 0, 0
@@ -169,42 +176,42 @@ textbox
   index: -1
 weaponkit1
   rotate: false
-  xy: 422, 268
+  xy: 554, 268
   size: 48, 32
   orig: 48, 32
   offset: 0, 0
   index: -1
 weaponkit2
   rotate: false
-  xy: 736, 312
+  xy: 773, 312
   size: 48, 32
   orig: 48, 32
   offset: 0, 0
   index: -1
 weaponkit3
   rotate: false
-  xy: 52, 2
+  xy: 205, 139
   size: 48, 32
   orig: 48, 32
   offset: 0, 0
   index: -1
 weaponkit4
   rotate: false
-  xy: 893, 392
+  xy: 52, 2
   size: 48, 32
   orig: 48, 32
   offset: 0, 0
   index: -1
 weaponkit5
   rotate: false
-  xy: 205, 110
+  xy: 967, 439
   size: 48, 32
   orig: 48, 32
   offset: 0, 0
   index: -1
 weaponkit6
   rotate: false
-  xy: 472, 268
+  xy: 604, 268
   size: 48, 32
   orig: 48, 32
   offset: 0, 0

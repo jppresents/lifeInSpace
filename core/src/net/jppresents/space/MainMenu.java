@@ -26,7 +26,7 @@ public class MainMenu implements Disposable, EventListener {
   private Table optionMenuTable;
   private Table levelSelectTable;
   private final TextureRegion planet;
-  private final TextureRegion deco1, deco2, ending;
+  private final TextureRegion deco1, deco2, ending, logo;
   private final Texture stars;
   private boolean renderWinDeco;
 
@@ -49,6 +49,7 @@ public class MainMenu implements Disposable, EventListener {
     deco1 = SpaceMain.assets.getSprites().findRegion("planetDeco1");
     deco2 = SpaceMain.assets.getSprites().findRegion("planetDeco2");
     ending = SpaceMain.assets.getSprites().findRegion("ending");
+    logo = SpaceMain.assets.getSprites().findRegion("jppresents");
 
     stage = new Stage(SpaceMain.stageViewPort);
     stage.addListener(this);
@@ -340,6 +341,8 @@ public class MainMenu implements Disposable, EventListener {
     } else {
       batch.draw(deco1, 750 + planet.getRegionWidth() / 3, planetOffset + 80 + planet.getRegionHeight() / 1.5f);
     }
+
+    batch.draw(logo, 1280 - logo.getRegionWidth() - 10, 10);
 
     if (planetOffset > 0) {
       batch.setColor(1, 1, 1, planetOffset/300f);

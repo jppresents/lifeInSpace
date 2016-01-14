@@ -46,6 +46,8 @@ public class SpaceMain extends ApplicationAdapter {
 
   public static Preferences prefs;
 
+  public static Stats stats = new Stats();
+
   class Pref {
     final static String SOUND = "soundOn";
     final static String MUSIC = "musicOn";

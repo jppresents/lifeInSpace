@@ -181,6 +181,7 @@ public class GameLogic {
             guy.spriterPlayer.setAnimation("front_teleport_away");
             SpaceMain.lights.fadeOut();
             SpaceMain.assets.playSound(Assets.SoundEffect.TELEPORT);
+            report("ending");
             break;
           case TELEPORT:
             nextWorld = event.key;
@@ -191,6 +192,7 @@ public class GameLogic {
             guy.spriterPlayer.setAnimation("front_teleport_away");
             SpaceMain.lights.fadeOut();
             SpaceMain.assets.playSound(Assets.SoundEffect.TELEPORT);
+            report("made_it_to_" + event.key);
             break;
         }
       }
@@ -414,11 +416,13 @@ public class GameLogic {
         guy.decActionPoints(guy.getShotCost());
         guy.setCurrentMovecostsActinPoints(true);
         combat.shoot(guy.getTilePosition(), enemy.getTilePosition(), guy.getDamage(), guy, Combat.ShotType.GUY);
+        SpaceMain.stats.shots++;
         state = State.COMBAT;
         ui.hideSelector();
         guy.activateShootAnimation(enemy.getX(), enemy.getY());
       } else if (!world.isTileBlocking((int) target.x, (int) target.y)) {
         world.calcPath(guy, guy.getTilePosition(), target, 0, enemies);
+        SpaceMain.stats.moves++;
         state = State.PLAYERMOVING;
         ui.hideSelector();
       }
@@ -497,6 +501,13 @@ public class GameLogic {
 
   public boolean canResume() {
     return guy.getHealth() > 0;
+  }
+
+  private void report(String msg) {
+    if (SpaceMain.touchMode) {
+      return;
+    }
+    Report.report(msg);
   }
 
 }
