@@ -31,17 +31,18 @@ public class Enemy extends AnimatedGameObject {
 
   @Override
   protected void hurt() {
+    SpaceMain.stats.hits++;
     if (turret) {
       SpaceMain.assets.playSound(Assets.SoundEffect.TURRET_HIT);
     } else {
       SpaceMain.assets.playSound(Assets.SoundEffect.ALIEN_HURT);
     }
-
     spriterPlayer.setAnimation("front_hurt");
   }
 
   @Override
   protected void die() {
+    SpaceMain.stats.kills++;
     if (turret) {
       SpaceMain.assets.playSound(Assets.SoundEffect.TURRET_DIE);
     } else {

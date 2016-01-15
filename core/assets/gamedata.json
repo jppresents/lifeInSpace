@@ -6,20 +6,37 @@
 		credits:"\nlife in space - and how to get rid of it\n\nmusic by Andreas Hausladen\n\ncode & art by Jan Peter Simonsen\n\npowered by libGdx\n\nsoftware used:\nintellij IDEA, inkscape, spriter pro, tiled, notepad++,\npaint.net, chronolapse, sonar x3, sfxr, audacity",
 		help:"life in space\n\nthis is a top-down round based alien shooter\nthere are multiple mission, after each mission progress is saved.\n\nControls:\nLeft mouse executes an action (move, shoot)\nRight mouse scrolls the visible area\nWhen in combat you can skip the rest of your\nturn by clicking on yourself.\n\nGood luck on mars!",
 		helpTouch:"life in space\n\nthis is a top-down round based alien shooter\nthere are multiple mission, after each mission progress is saved.\n\nControls:\nTouch an area to show the available action (move, shoot)\ntouch the same area again to execute the action\nDrag the screen to scroll the visible area\nWhen in combat you can skip the rest of your\nturn by tapping on yourself.\n\nGood luck on mars!",
-		win:"life in space - and YOU got rid of it\n\nmission control welcomes you back\n\nthanks you for playing!",
+		win:"life in space - and YOU got rid of it\n\nmission control welcomes you back to base\n\nthanks you for playing\nsend a tweet to @JPDEVELOP to get your name into the hall of fame",
 
         world01_intro:"this is mission control\nyou are now on mars\nyour first mission: get rid of all life in this area\nstart exploring to the south\nour scanners detect multiple aliens there",
         world01_firstEnemy:"you should be able to see your first enemy south\nof your location.\nClear it and then continue south",
-        world01_findTheBase:"mission control here\nthere is a base east of your current location\nour data shows that there maybe be valuable supplies for you",
+        world01_findTheBase:"mission control here\nthere is a base east of your current location\nour data shows that there maybe be valuable\nsupplies for you",
         world01_foundTheBase:"our scanner show a new weapon in your direct\nvicinity defeat all enemies and pick it up",
-        world01_weaponFound:"this weapon almost doubles your damage output\nbe advised that you have so far encountered only the weakest of the aliens\nlook for subtle changes to spot bigger threats",
+        world01_weaponFound:"this weapon almost doubles your damage output\nbe advised that you have so far encountered\nonly the weakest of the aliens\nlook for subtle changes to spot bigger threats",
         world01_goWestFirst:"our scanners show an important upgrades west\nof your location.\nSecure the upgrade before continuing to the north",
         world01_actionPoint:"your suit has been upgraded\nyou have now 4 action points in combat\nfor example you can shoot and still move\nor shoot twice per turn",
         world01_hpUp:"your maximum health has increased by two",
         world01_throughFirstBase:"you made it through the first base\nnow you have to reach the extraction point\nit is to the north west",
         world01_upgrade_south:"this is mission control\nour scanners show another upgrade to the south",
         world01_apdouble:"your maximum health has been upgraded again\nfind the teleporter in the north western corner now\nto proceed to the next mission",
-	},
 
-  audio: []
+        world02_intro:"this is mission control\nthe scanners show an upgrade to the north\nthe enemies to the south look very strong\nI strongly suggest you go for the upgrade first",
+        world02_locked:"this is mission control\nyou need a keycard to unlock this door\nif you don't have it already look for it to the east",
+        world02_keycardFound:"this keycard will open a door",
+        world02_newweapon:"mission control here\nyou should be able to handle the enemies\nin the south now",
+        world02_anotherlock:"this is mission control\nif you don't have a keycard there should be one\nwest of your location",
+        world02_eastkeycard:"this is mission control\na keycard has been detected east of your location\nfair warning, the scanners also show turrets\nin that direction",
+
+        world03_intro: "this is mission control\nyour mission is to plunder this base\nafter that go outside and retrieve a keycard\nfinally find the teleporter in the north",
+        world03_warning:"the enemies outside are strong\nonly go there if you have upgraded your weapon",
+
+        world04_intro:"this is mission control\nIn the center of this area there is an alien hub\nyou have to get in there to reach the next\nteleporter",
+        world04_actionPoint:"your suit has been upgraded\nyou have now 6 action points in combat\nyou can shoot up to three times per turn\nor move up to 6 steps",
+
+        world05_intro: "this is mission control\na massive base has been detected\nwe advice to infiltrate from west to east\ngood luck!",
+        world05_spikes_guys:"this is mission control\nthe scanners show massive damage potential on the spiked aliens\nbut they seem to be slow...",
+
+        world06_intro:"this is mission control\nin this area there is nothing to help you\nall our scanners show are enemies\nplease clean the place up and make\nit to the teleporter - good luck",
+      },
+
 }

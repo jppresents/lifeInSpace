@@ -174,6 +174,9 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
     this.currentMovecostsActinPoints = currentMovecostsActinPoints;
   }
 
+  public void moved() {
+  }
+
   public void update(int tick) {
     if (!combat) {
       resetActionPoints();
@@ -193,6 +196,7 @@ public class AnimatedGameObject implements SetPosition, Player.PlayerListener, S
         worldPosition.x = toWorld(target.x);
         worldPosition.y = toWorld(target.y);
         currentPathTarget++;
+        moved();
 
         if (currentMovecostsActinPoints) {
           if (combat) {

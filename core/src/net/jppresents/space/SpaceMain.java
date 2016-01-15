@@ -157,7 +157,7 @@ public class SpaceMain extends ApplicationAdapter {
       mainMenu.render();
       Gdx.input.setInputProcessor(mainMenu.getStage());
       return;
-    };
+    }
 
     if (mainMenuWasActive) {
       Gdx.input.setInputProcessor(input);

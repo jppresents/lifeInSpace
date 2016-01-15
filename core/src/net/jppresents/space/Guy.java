@@ -217,6 +217,10 @@ public class Guy extends AnimatedGameObject {
     return shotCost;
   }
 
+  @Override
+  public void moved() {
+    SpaceMain.stats.steps++;
+  }
 
   public void pickupNewGun(int newGunLevel) {
     this.newGunLevel = newGunLevel;

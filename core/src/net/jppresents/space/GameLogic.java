@@ -170,7 +170,6 @@ public class GameLogic {
         switch(event.type) {
           case TEXT:
             ui.getTextBox().setText(SpaceMain.assets.getText(event.key), false);
-            SpaceMain.assets.playRadioIfAvailable(event.key);
             break;
           case ENDING:
             SpaceMain.prefs.putBoolean(SpaceMain.Pref.WIN, true);
@@ -378,7 +377,6 @@ public class GameLogic {
     if (ui.getTextBox().isActive()) {
       if (ui.getTextBox().isDone()) {
         ui.getTextBox().hide();
-        SpaceMain.assets.fadeOutCurrentRadio();
         dragFrom.set(-1, -1);
         moveCam.set(0, 0);
       } else {
@@ -422,7 +420,6 @@ public class GameLogic {
         guy.activateShootAnimation(enemy.getX(), enemy.getY());
       } else if (!world.isTileBlocking((int) target.x, (int) target.y)) {
         world.calcPath(guy, guy.getTilePosition(), target, 0, enemies);
-        SpaceMain.stats.moves++;
         state = State.PLAYERMOVING;
         ui.hideSelector();
       }
