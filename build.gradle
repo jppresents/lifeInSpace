@@ -48,6 +48,7 @@ task texturePacker << {
 	TexturePacker.process("art/alien", "core/assets", "alien/alien")
 	TexturePacker.process("art/sprites", "core/assets", "sprites")
     TexturePacker.process("art/ground/tiles", "core/assets", "world/world")
+    TexturePacker.process("art/skin", "core/assets", "skin/skin")
 
     copy {
         from 'art/effects/'

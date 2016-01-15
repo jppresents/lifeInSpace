@@ -11,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Json;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +20,8 @@ public class Assets implements Disposable {
   private boolean musicOn;
   private GameMusic currentMusic, targetMusic;
   private Music playingMusic;
-  private static final float TARGET_VOLUMNE = 0.3f;
+  private static final float TARGET_VOLUME_MENU = 0.3f;
+  private static final float TARGET_VOLUME_GAME = 0.15f;
   private float currentVolume;
   private Sound currentRadioSound;
   private long currentRadioSoundId;
@@ -71,11 +71,9 @@ public class Assets implements Disposable {
 
     menuMusic = Gdx.audio.newMusic(Gdx.files.internal("music/menuMusic.ogg"));
     menuMusic.setLooping(true);
-    menuMusic.setVolume(0.3f);
 
     bgMusic = Gdx.audio.newMusic(Gdx.files.internal("music/bgMusic.ogg"));
     bgMusic.setLooping(true);
-    bgMusic.setVolume(0.3f);
 
     skin = new Skin(Gdx.files.internal("skin/skin.json"));
     font = skin.getFont("default-font");
@@ -114,11 +112,8 @@ public class Assets implements Disposable {
   }
 
   private Music getMusic(GameMusic music) {
-    switch(music) {
-      case MENU:
-        return menuMusic;
-      case GAME:
-        return bgMusic;
+    if (music == GameMusic.MENU) {
+      return menuMusic;
     }
     return bgMusic;
   }
@@ -138,7 +133,7 @@ public class Assets implements Disposable {
         playingMusic.play();
       }
       if (currentMusic == targetMusic) {
-        if (currentVolume < TARGET_VOLUMNE) {
+        if (currentVolume < getCurrentTargetVolume(currentMusic)) {
           currentVolume += 0.01;
           playingMusic.setVolume(currentVolume);
         }
@@ -156,6 +151,13 @@ public class Assets implements Disposable {
         }
       }
     }
+  }
+
+  private float getCurrentTargetVolume(GameMusic music) {
+    if (music == GameMusic.MENU) {
+      return TARGET_VOLUME_MENU;
+    }
+    return TARGET_VOLUME_GAME;
   }
 
   private void setSoundOn(boolean soundOn) {
