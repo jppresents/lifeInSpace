@@ -51,6 +51,7 @@ public class SpaceMain extends ApplicationAdapter {
   class Pref {
     final static String SOUND = "soundOn";
     final static String MUSIC = "musicOn";
+    final static String RADIO = "radioOn";
     final static String WIN = "win";
     final static String BEAT_UP_TO = "beat_level_up_to_"; // level name without .tmx is concatenated
   }

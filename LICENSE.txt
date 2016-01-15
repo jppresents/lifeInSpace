@@ -1,7 +1,10 @@
 The SpriterRuntime.jar in core/libs is heavily based on Trixt0r/spriter, see core/libs/LICENSE.txt for details.
 
-The files in core/assets/music are made by Andreas Hausladen, all other assets are made by Jan Peter Simonsen.
-All of the assets (music & graphics & sounds) are licensed under the following terms:
+The files in core/assets/music are made by Andreas Hausladen,
+the files in core/assets/radio are made by Sylvia Simonsen & Jan Peter Simonsen,
+all other assets are made by Jan Peter Simonsen.
+
+All of the assets (music & graphics & sounds & voice) are licensed under the following terms:
 
 This work is licensed under the Creative Commons Attribution 4.0 International License.
 To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/.

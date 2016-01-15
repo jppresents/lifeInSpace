@@ -19,6 +19,7 @@ public class MainMenu implements Disposable, EventListener {
   private final Cell<TextButton> resumeCell;
   private final Cell<TextButton> startCell;
   private final TextButton endingButton;
+  private final TextButton radioButton;
   private Stage stage;
   private boolean active = true;
   private TextBox textBox;
@@ -152,6 +153,20 @@ public class MainMenu implements Disposable, EventListener {
     optionMenuTable.add(soundButton).width(400).spaceBottom(40).height(75);
     optionMenuTable.row();
 
+    radioButton = new TextButton("", skin);
+    radioButton.addListener( new ChangeListener() {
+      @Override
+      public void changed(ChangeEvent event, Actor actor) {
+        SpaceMain.assets.toggleRadio();
+        if (SpaceMain.assets.isRadioOn()) {
+          SpaceMain.assets.playSound(Assets.SoundEffect.PICKUP);
+        }
+        updateButtonLabels();
+      }
+    });
+    optionMenuTable.add(radioButton).width(400).spaceBottom(40).height(75);
+    optionMenuTable.row();
+
     button = new TextButton("Back", skin);
     button.addListener( new ChangeListener() {
       @Override
@@ -240,9 +255,15 @@ public class MainMenu implements Disposable, EventListener {
 
   private void updateButtonLabels() {
     if (SpaceMain.assets.isMusicOn()) {
-      musicButton.setText("Turn Music off");
+      musicButton.setText("Turn music off");
     } else {
-      musicButton.setText("Turn Music on");
+      musicButton.setText("Turn music on");
+    }
+
+    if (SpaceMain.assets.isRadioOn()) {
+      radioButton.setText("Turn radio voice off");
+    } else {
+      radioButton.setText("Turn radio voice on");
     }
 
     if (SpaceMain.assets.isSoundOn()) {

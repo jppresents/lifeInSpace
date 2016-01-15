@@ -3,6 +3,7 @@ package net.jppresents.space;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -17,11 +18,15 @@ import java.util.Map;
 public class Assets implements Disposable {
   private boolean soundOn;
   private boolean musicOn;
+  private boolean radioOn;
   private GameMusic currentMusic, targetMusic;
   private Music playingMusic;
   private static final float TARGET_VOLUME_MENU = 0.3f;
   private static final float TARGET_VOLUME_GAME = 0.15f;
   private float currentVolume;
+  private Sound currentRadioSound;
+  private long currentRadioSoundId;
+  private float fadeCurrentRadio;
 
   public enum SoundEffect {BLASTER, ALIEN_HURT, ALIEN_DIE, GUY_HURT, GUY_HURT2, FIZZLE, POWERUP, HEAL, ERROR, DOOR, PICKUP, ENEMY_BLASTER, TURRET_HIT, TURRET_DIE, TELEPORT}
   public enum GameMusic {MENU, GAME}
@@ -35,10 +40,12 @@ public class Assets implements Disposable {
   private final BitmapFont font;
   private final Skin skin;
   private final TextResources textResources;
+  private final Map<String, Sound> radioSounds = new HashMap<String, Sound>();
 
   public Assets() {
     soundOn = SpaceMain.prefs.getBoolean(SpaceMain.Pref.SOUND, true);
     musicOn = SpaceMain.prefs.getBoolean(SpaceMain.Pref.MUSIC, true);
+    radioOn = SpaceMain.prefs.getBoolean(SpaceMain.Pref.RADIO, true);
 
     sprites = new TextureAtlas("sprites.atlas");
     starTexture = new Texture(Gdx.files.internal("stars.png"));
@@ -58,10 +65,8 @@ public class Assets implements Disposable {
     sounds.put(SoundEffect.DOOR, Gdx.audio.newSound(Gdx.files.internal("sound/door.ogg")));
     sounds.put(SoundEffect.PICKUP, Gdx.audio.newSound(Gdx.files.internal("sound/pickup.ogg")));
     sounds.put(SoundEffect.ENEMY_BLASTER, Gdx.audio.newSound(Gdx.files.internal("sound/enemyBlaster.ogg")));
-
-    //jps todo:
-    sounds.put(SoundEffect.TURRET_HIT, Gdx.audio.newSound(Gdx.files.internal("sound/fizzle.ogg")));
-    sounds.put(SoundEffect.TURRET_DIE, Gdx.audio.newSound(Gdx.files.internal("sound/fizzle.ogg")));
+    sounds.put(SoundEffect.TURRET_HIT, Gdx.audio.newSound(Gdx.files.internal("sound/turretHit.ogg")));
+    sounds.put(SoundEffect.TURRET_DIE, Gdx.audio.newSound(Gdx.files.internal("sound/turretExplode.ogg")));
 
 
     menuMusic = Gdx.audio.newMusic(Gdx.files.internal("music/menuMusic.ogg"));
@@ -82,7 +87,7 @@ public class Assets implements Disposable {
   }
 
   public String getText(String key) {
-   return textResources.getText(key);
+    return textResources.getText(key);
   }
 
   public List<String> getWorlds() {
@@ -96,6 +101,10 @@ public class Assets implements Disposable {
     for (Sound sound: sounds.values()) {
       sound.dispose();
     }
+    for (Sound sound: radioSounds.values()) {
+      sound.dispose();
+    }
+    radioSounds.clear();
   }
 
   public void startMusic(GameMusic music) {
@@ -110,6 +119,13 @@ public class Assets implements Disposable {
   }
 
   public void update() {
+    if (fadeCurrentRadio > 0) {
+      fadeCurrentRadio -= 0.01;
+      if (currentRadioSound != null) {
+        currentRadioSound.setVolume(currentRadioSoundId, fadeCurrentRadio);
+      }
+    }
+
     if (musicOn) {
       if (playingMusic == null) {
         playingMusic = getMusic(targetMusic);
@@ -152,6 +168,14 @@ public class Assets implements Disposable {
     }
   }
 
+  private void setRadioOn(boolean radioOn) {
+    if (this.radioOn != radioOn) {
+      SpaceMain.prefs.putBoolean(SpaceMain.Pref.RADIO, radioOn);
+      SpaceMain.prefs.flush();
+      this.radioOn = radioOn;
+    }
+  }
+
   private void setMusicOn(boolean musicOn) {
     if (this.musicOn != musicOn) {
       SpaceMain.prefs.putBoolean(SpaceMain.Pref.MUSIC, musicOn);
@@ -163,6 +187,39 @@ public class Assets implements Disposable {
         playingMusic.stop();
       }
     }
+  }
+
+  public void fadeOutCurrentRadio() {
+    fadeCurrentRadio = 1.0f;
+  }
+
+
+  public void playRadioIfAvailable(String radioFile) {
+    if (!isRadioOn())
+      return;
+    if (currentRadioSound != null) {
+      currentRadioSound.stop(currentRadioSoundId);
+      fadeCurrentRadio = 0;
+      currentRadioSound = null;
+      currentRadioSoundId = 0;
+    }
+    if (soundOn && textResources.isRadioAvailable(radioFile)) {
+      if (radioSounds.containsKey(radioFile)) {
+        currentRadioSound = radioSounds.get(radioFile);
+        if (currentRadioSound != null) {
+          currentRadioSoundId = currentRadioSound.play();
+        }
+      }else {
+        FileHandle file = Gdx.files.internal("radio/" + radioFile + ".ogg");
+        currentRadioSound = Gdx.audio.newSound(file);
+        currentRadioSoundId = currentRadioSound.play();
+        radioSounds.put(radioFile, currentRadioSound);
+      }
+    }
+  }
+
+  public void toggleRadio() {
+    setRadioOn(!radioOn);
   }
 
   public void toggleSound() {
@@ -179,6 +236,10 @@ public class Assets implements Disposable {
 
   public boolean isMusicOn() {
     return musicOn;
+  }
+
+  public boolean isRadioOn() {
+    return radioOn;
   }
 
   public BitmapFont getFont() {
@@ -199,7 +260,4 @@ public class Assets implements Disposable {
     return starTexture;
   }
 
-  public TextResources getTextResources() {
-    return textResources;
-  }
 }

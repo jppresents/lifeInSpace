@@ -170,6 +170,7 @@ public class GameLogic {
         switch(event.type) {
           case TEXT:
             ui.getTextBox().setText(SpaceMain.assets.getText(event.key), false);
+            SpaceMain.assets.playRadioIfAvailable(event.key);
             break;
           case ENDING:
             SpaceMain.prefs.putBoolean(SpaceMain.Pref.WIN, true);
@@ -377,6 +378,7 @@ public class GameLogic {
     if (ui.getTextBox().isActive()) {
       if (ui.getTextBox().isDone()) {
         ui.getTextBox().hide();
+        SpaceMain.assets.fadeOutCurrentRadio();
         dragFrom.set(-1, -1);
         moveCam.set(0, 0);
       } else {

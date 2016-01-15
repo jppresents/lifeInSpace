@@ -3,6 +3,7 @@ package net.jppresents.space;
 import java.util.*;
 
 public class TextResources {
+  private ArrayList<String> radio;
   private ArrayList<String>  worlds;
   private HashMap<String, String> texts;
 
@@ -16,7 +17,7 @@ public class TextResources {
     return worlds;
   }
 
-  public HashMap<String, String> getTexts() {
-    return texts;
+  public boolean isRadioAvailable(String radioFile) {
+    return radio.contains(radioFile);
   }
 }
