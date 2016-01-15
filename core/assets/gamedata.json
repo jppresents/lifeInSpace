@@ -3,7 +3,7 @@
 
   texts:
 	{
-		credits:"\nlife in space\n\nmusic by Andreas Hausladen\n\ncode & art by Jan Peter Simonsen\n\npowered by libGdx\n\nsoftware used: intellij, inkscape, spriter, tiled,\nnotepad++, paint.net, chronolapse",
+		credits:"\nlife in space - and how to get rid of it\n\nmusic by Andreas Hausladen\n\ncode & art by Jan Peter Simonsen\n\npowered by libGdx\n\nsoftware used:\nintellij IDEA, inkscape, spriter pro, tiled, notepad++,\npaint.net, chronolapse, sonar x3, sfxr, audacity",
 		help:"life in space\n\nthis is a top-down round based alien shooter\nthere are multiple mission, after each mission progress is saved.\n\nControls:\nLeft mouse executes an action (move, shoot)\nRight mouse scrolls the visible area\nWhen in combat you can skip the rest of your\nturn by clicking on yourself.\n\nGood luck on mars!",
 		helpTouch:"life in space\n\nthis is a top-down round based alien shooter\nthere are multiple mission, after each mission progress is saved.\n\nControls:\nTouch an area to show the available action (move, shoot)\ntouch the same area again to execute the action\nDrag the screen to scroll the visible area\nWhen in combat you can skip the rest of your\nturn by tapping on yourself.\n\nGood luck on mars!",
 		win:"life in space - and YOU got rid of it\n\nmission control welcomes you back\n\nthanks you for playing!",
