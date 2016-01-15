@@ -740,11 +740,6 @@
     <property name="amount" value="4"/>
    </properties>
   </object>
-  <object name="goody" type="hpkit" x="1296" y="1936" width="32" height="32">
-   <properties>
-    <property name="amount" value="2"/>
-   </properties>
-  </object>
   <object name="goody" type="hpkit" x="1296" y="2000" width="32" height="32">
    <properties>
     <property name="amount" value="2"/>

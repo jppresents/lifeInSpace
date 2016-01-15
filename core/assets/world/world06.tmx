@@ -413,7 +413,7 @@
     <property name="key" value="win"/>
    </properties>
   </object>
-  <object name="startX" x="272" y="416" width="32" height="32">
+  <object name="start" x="272" y="416" width="32" height="32">
    <properties>
     <property name="ap" value="6"/>
     <property name="gun" value="6"/>
@@ -637,13 +637,6 @@
     <property name="gun" value="3"/>
     <property name="hp" value="150"/>
     <property name="look" value="-1"/>
-   </properties>
-  </object>
-  <object name="start" x="2960" y="3472" width="32" height="32">
-   <properties>
-    <property name="ap" value="6"/>
-    <property name="gun" value="6"/>
-    <property name="hp" value="60"/>
    </properties>
   </object>
  </objectgroup>
