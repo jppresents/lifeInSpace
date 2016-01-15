@@ -98,10 +98,11 @@ public class GameLogic {
 
     if (doorTimer > 0) {
       doorTimer--;
-      if (doorTimer == 0) {
-        handleDoor((int)lastPosX, (int)lastPosY + 1, true);
-        handleDoor((int)lastPosX, (int)lastPosY - 1, true);
-      }
+    }
+    if (doorTimer == 0) {
+      handleDoor((int)lastPosX, (int)lastPosY + 1, true);
+      handleDoor((int)lastPosX, (int)lastPosY - 1, true);
+      doorTimer = 10;
     }
 
     if (guy.getHealth() > 0 && (guy.getTilePosition().x != lastPosX || guy.getTilePosition().y != lastPosY)) {
