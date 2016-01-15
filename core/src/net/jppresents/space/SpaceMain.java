@@ -98,7 +98,6 @@ public class SpaceMain extends ApplicationAdapter {
     assets.startMusic(Assets.GameMusic.MENU);
 
 
-
     mainMenu = new MainMenu();
 
     Gdx.input.setCatchBackKey(true); //android
@@ -145,12 +144,12 @@ public class SpaceMain extends ApplicationAdapter {
   public void render() {
     assets.update();
 
-    if (Gdx.input.isKeyPressed(Input.Keys.BACK) ||Gdx.input.isKeyPressed(Input.Keys.ESCAPE)  || returnToMenu){
-     if (!mainMenu.isActive()) {
-       returnToMenu = false;
-       mainMenu.setCanResume(gameLogic.canResume());
-       mainMenu.setActive(true);
-     }
+    if (Gdx.input.isKeyPressed(Input.Keys.BACK) || Gdx.input.isKeyPressed(Input.Keys.ESCAPE) || returnToMenu || Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+      if (!mainMenu.isActive()) {
+        returnToMenu = false;
+        mainMenu.setCanResume(gameLogic.canResume());
+        mainMenu.setActive(true);
+      }
     }
 
     if (mainMenu.isActive()) {
