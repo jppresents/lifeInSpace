@@ -1,9 +1,9 @@
 package net.jppresents.space;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -27,6 +27,8 @@ public class Assets implements Disposable {
   private Sound currentRadioSound;
   private long currentRadioSoundId;
   private float fadeCurrentRadio;
+  private String currentLoadingSound;
+  private int delayPlayCurrent = -1;
 
   public enum SoundEffect {BLASTER, ALIEN_HURT, ALIEN_DIE, GUY_HURT, GUY_HURT2, FIZZLE, POWERUP, HEAL, ERROR, DOOR, PICKUP, ENEMY_BLASTER, TURRET_HIT, TURRET_DIE, TELEPORT}
   public enum GameMusic {MENU, GAME}
@@ -41,6 +43,8 @@ public class Assets implements Disposable {
   private final Skin skin;
   private final TextResources textResources;
   private final Map<String, Sound> radioSounds = new HashMap<String, Sound>();
+
+  private AssetManager assetManager = new AssetManager();
 
   public Assets() {
     soundOn = SpaceMain.prefs.getBoolean(SpaceMain.Pref.SOUND, true);
@@ -79,10 +83,6 @@ public class Assets implements Disposable {
 
     Json json = new Json();
     textResources = json.fromJson(TextResources.class, Gdx.files.internal("gamedata.json"));
-    //android doesn't like to load later
-    if (SpaceMain.touchMode) {
-      loadAllRadioSounds();
-    }
   }
 
 
@@ -109,6 +109,7 @@ public class Assets implements Disposable {
       sound.dispose();
     }
     radioSounds.clear();
+    assetManager.dispose();
   }
 
   public void startMusic(GameMusic music) {
@@ -123,6 +124,7 @@ public class Assets implements Disposable {
   }
 
   public void update() {
+    updateRadioSound();
     if (fadeCurrentRadio > 0) {
       fadeCurrentRadio -= 0.01;
       if (currentRadioSound != null) {
@@ -197,15 +199,6 @@ public class Assets implements Disposable {
     fadeCurrentRadio = 1.0f;
   }
 
-
-  private void loadAllRadioSounds() {
-    for (String radio: textResources.getRadio()) {
-      FileHandle file = Gdx.files.internal("radio/" + radio + ".ogg");
-      Sound sound = Gdx.audio.newSound(file);
-      radioSounds.put(radio, sound);
-    }
-  }
-
   public void playRadioIfAvailable(String radioFile) {
     if (!isRadioOn())
       return;
@@ -222,12 +215,31 @@ public class Assets implements Disposable {
           currentRadioSoundId = currentRadioSound.play();
         }
       }else {
-        FileHandle file = Gdx.files.internal("radio/" + radioFile + ".ogg");
-        currentRadioSound = Gdx.audio.newSound(file);
-        currentRadioSoundId = currentRadioSound.play();
-        radioSounds.put(radioFile, currentRadioSound);
+        delayPlayCurrent = -1;
+        currentLoadingSound = "radio/" + radioFile + ".ogg";
+        assetManager.load(currentLoadingSound, Sound.class);
       }
     }
+  }
+
+  private void updateRadioSound() {
+    if (delayPlayCurrent > 0) {
+      delayPlayCurrent--;
+      if (delayPlayCurrent == 0) {
+        currentRadioSound = assetManager.get(currentLoadingSound, Sound.class);
+        currentRadioSoundId = currentRadioSound.play();
+        radioSounds.put(currentLoadingSound, currentRadioSound);
+        currentLoadingSound = null;
+        delayPlayCurrent = -1;
+      }
+    }
+    if (currentLoadingSound != null && delayPlayCurrent == -1) {
+      assetManager.update();
+      if (assetManager.isLoaded(currentLoadingSound, Sound.class)) {
+        delayPlayCurrent = 30;
+      }
+    }
+
   }
 
   public void toggleRadio() {
