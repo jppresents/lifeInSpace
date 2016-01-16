@@ -68,7 +68,6 @@ public class Assets implements Disposable {
     sounds.put(SoundEffect.TURRET_HIT, Gdx.audio.newSound(Gdx.files.internal("sound/turretHit.ogg")));
     sounds.put(SoundEffect.TURRET_DIE, Gdx.audio.newSound(Gdx.files.internal("sound/turretExplode.ogg")));
 
-
     menuMusic = Gdx.audio.newMusic(Gdx.files.internal("music/menuMusic.ogg"));
     menuMusic.setLooping(true);
 
@@ -80,7 +79,12 @@ public class Assets implements Disposable {
 
     Json json = new Json();
     textResources = json.fromJson(TextResources.class, Gdx.files.internal("gamedata.json"));
+    //android doesn't like to load later
+    if (SpaceMain.touchMode) {
+      loadAllRadioSounds();
+    }
   }
+
 
   public Skin getSkin() {
     return skin;
@@ -193,6 +197,14 @@ public class Assets implements Disposable {
     fadeCurrentRadio = 1.0f;
   }
 
+
+  private void loadAllRadioSounds() {
+    for (String radio: textResources.getRadio()) {
+      FileHandle file = Gdx.files.internal("radio/" + radio + ".ogg");
+      Sound sound = Gdx.audio.newSound(file);
+      radioSounds.put(radio, sound);
+    }
+  }
 
   public void playRadioIfAvailable(String radioFile) {
     if (!isRadioOn())

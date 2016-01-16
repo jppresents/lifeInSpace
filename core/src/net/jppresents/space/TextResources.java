@@ -20,4 +20,8 @@ public class TextResources {
   public boolean isRadioAvailable(String radioFile) {
     return radio.contains(radioFile);
   }
+
+  public ArrayList<String> getRadio() {
+    return radio;
+  }
 }
