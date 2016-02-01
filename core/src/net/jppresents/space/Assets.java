@@ -24,11 +24,9 @@ public class Assets implements Disposable {
   private static final float TARGET_VOLUME_MENU = 0.3f;
   private static final float TARGET_VOLUME_GAME = 0.15f;
   private float currentVolume;
-  private Sound currentRadioSound;
-  private long currentRadioSoundId;
+  private Music currentRadioSound;
   private float fadeCurrentRadio;
   private String currentLoadingSound;
-  private int delayPlayCurrent = -1;
 
   public enum SoundEffect {BLASTER, ALIEN_HURT, ALIEN_DIE, GUY_HURT, GUY_HURT2, FIZZLE, POWERUP, HEAL, ERROR, DOOR, PICKUP, ENEMY_BLASTER, TURRET_HIT, TURRET_DIE, TELEPORT}
   public enum GameMusic {MENU, GAME}
@@ -42,7 +40,7 @@ public class Assets implements Disposable {
   private final BitmapFont font;
   private final Skin skin;
   private final TextResources textResources;
-  private final Map<String, Sound> radioSounds = new HashMap<String, Sound>();
+  private final Map<String, Music> radioSounds = new HashMap<String, Music>();
 
   private AssetManager assetManager = new AssetManager();
 
@@ -83,6 +81,9 @@ public class Assets implements Disposable {
 
     Json json = new Json();
     textResources = json.fromJson(TextResources.class, Gdx.files.internal("gamedata.json"));
+    for (String radio: textResources.getRadio()) {
+      radioSounds.put(radio, Gdx.audio.newMusic(Gdx.files.internal("radio/" + radio + ".ogg")));
+    }
   }
 
 
@@ -105,7 +106,7 @@ public class Assets implements Disposable {
     for (Sound sound: sounds.values()) {
       sound.dispose();
     }
-    for (Sound sound: radioSounds.values()) {
+    for (Music sound: radioSounds.values()) {
       sound.dispose();
     }
     radioSounds.clear();
@@ -124,11 +125,14 @@ public class Assets implements Disposable {
   }
 
   public void update() {
-    updateRadioSound();
     if (fadeCurrentRadio > 0) {
       fadeCurrentRadio -= 0.01;
       if (currentRadioSound != null) {
-        currentRadioSound.setVolume(currentRadioSoundId, fadeCurrentRadio);
+        if (fadeCurrentRadio <= 0) {
+          currentRadioSound.stop();
+        } else {
+          currentRadioSound.setVolume(fadeCurrentRadio);
+        }
       }
     }
 
@@ -203,43 +207,18 @@ public class Assets implements Disposable {
     if (!isRadioOn())
       return;
     if (currentRadioSound != null) {
-      currentRadioSound.stop(currentRadioSoundId);
+      currentRadioSound.stop();
       fadeCurrentRadio = 0;
       currentRadioSound = null;
-      currentRadioSoundId = 0;
     }
     if (soundOn && textResources.isRadioAvailable(radioFile)) {
       if (radioSounds.containsKey(radioFile)) {
         currentRadioSound = radioSounds.get(radioFile);
         if (currentRadioSound != null) {
-          currentRadioSoundId = currentRadioSound.play();
+          currentRadioSound.play();
         }
-      }else {
-        delayPlayCurrent = -1;
-        currentLoadingSound = "radio/" + radioFile + ".ogg";
-        assetManager.load(currentLoadingSound, Sound.class);
       }
     }
-  }
-
-  private void updateRadioSound() {
-    if (delayPlayCurrent > 0) {
-      delayPlayCurrent--;
-      if (delayPlayCurrent == 0) {
-        currentRadioSound = assetManager.get(currentLoadingSound, Sound.class);
-        currentRadioSoundId = currentRadioSound.play();
-        radioSounds.put(currentLoadingSound, currentRadioSound);
-        currentLoadingSound = null;
-        delayPlayCurrent = -1;
-      }
-    }
-    if (currentLoadingSound != null && delayPlayCurrent == -1) {
-      assetManager.update();
-      if (assetManager.isLoaded(currentLoadingSound, Sound.class)) {
-        delayPlayCurrent = 30;
-      }
-    }
-
   }
 
   public void toggleRadio() {
